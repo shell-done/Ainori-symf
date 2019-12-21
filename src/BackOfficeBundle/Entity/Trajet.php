@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Trajet
  *
  * @ORM\Table(name="trajet", indexes={@ORM\Index(name="trajet_ville_FK", columns={"id_ville"}), @ORM\Index(name="trajet_ville0_FK", columns={"id_ville_ville_arrivee"}), @ORM\Index(name="trajet_possede1_FK", columns={"id_possede"}), @ORM\Index(name="trajet_type_trajet2_FK", columns={"id_type_trajet"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="BackOfficeBundle\Repository\TrajetRepository")
  */
 class Trajet
 {
