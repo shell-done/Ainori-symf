@@ -9,5 +9,15 @@ namespace BackOfficeBundle\Repository;
  * repository methods below.
  */
 class UtilisateurRepository extends \Doctrine\ORM\EntityRepository {
-    
+    public function getLastUtilisateurs($nbOfUtilisateurs) {
+        if($nbOfUtilisateurs < 1)
+            return null;
+
+        $query = $this->createQueryBuilder("u")
+            ->orderBy("u.id", "DESC")
+            ->setMaxResults($nbOfUtilisateurs)
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }
