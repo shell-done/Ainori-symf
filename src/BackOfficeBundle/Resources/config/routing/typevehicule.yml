@@ -1,0 +1,24 @@
+typevehicule_index:
+    path:     /
+    defaults: { _controller: "BackOfficeBundle:TypeVehicule:index" }
+    methods:  GET
+
+typevehicule_show:
+    path:     /{id}/show
+    defaults: { _controller: "BackOfficeBundle:TypeVehicule:show" }
+    methods:  GET
+
+typevehicule_new:
+    path:     /new
+    defaults: { _controller: "BackOfficeBundle:TypeVehicule:new" }
+    methods:  [GET, POST]
+
+typevehicule_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BackOfficeBundle:TypeVehicule:edit" }
+    methods:  [GET, POST]
+
+typevehicule_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BackOfficeBundle:TypeVehicule:delete" }
+    methods:  DELETE

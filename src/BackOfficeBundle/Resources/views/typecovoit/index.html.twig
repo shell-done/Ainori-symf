@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Typecovoits list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for typeCovoit in typeCovoits %}
+            <tr>
+                <td><a href="{{ path('typecovoit_show', { 'id': typeCovoit.id }) }}">{{ typeCovoit.type }}</a></td>
+                <td>{{ typeCovoit.id }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('typecovoit_show', { 'id': typeCovoit.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('typecovoit_edit', { 'id': typeCovoit.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('typecovoit_new') }}">Create a new typeCovoit</a>
+        </li>
+    </ul>
+{% endblock %}

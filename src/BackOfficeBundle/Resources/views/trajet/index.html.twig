@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Trajets list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Datedepart</th>
+                <th>Heuredepart</th>
+                <th>Nbplace</th>
+                <th>Duree</th>
+                <th>Commentaire</th>
+                <th>Nbkm</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for trajet in trajets %}
+            <tr>
+                <td><a href="{{ path('trajet_show', { 'id': trajet.id }) }}">{{ trajet.dateDepart }}</a></td>
+                <td>{% if trajet.heureDepart %}{{ trajet.heureDepart|date('H:i:s') }}{% endif %}</td>
+                <td>{{ trajet.nbPlace }}</td>
+                <td>{{ trajet.duree }}</td>
+                <td>{{ trajet.commentaire }}</td>
+                <td>{{ trajet.nbKm }}</td>
+                <td>{{ trajet.id }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('trajet_show', { 'id': trajet.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('trajet_edit', { 'id': trajet.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('trajet_new') }}">Create a new trajet</a>
+        </li>
+    </ul>
+{% endblock %}

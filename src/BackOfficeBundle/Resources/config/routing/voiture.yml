@@ -1,0 +1,24 @@
+voiture_index:
+    path:     /
+    defaults: { _controller: "BackOfficeBundle:Voiture:index" }
+    methods:  GET
+
+voiture_show:
+    path:     /{id}/show
+    defaults: { _controller: "BackOfficeBundle:Voiture:show" }
+    methods:  GET
+
+voiture_new:
+    path:     /new
+    defaults: { _controller: "BackOfficeBundle:Voiture:new" }
+    methods:  [GET, POST]
+
+voiture_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BackOfficeBundle:Voiture:edit" }
+    methods:  [GET, POST]
+
+voiture_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BackOfficeBundle:Voiture:delete" }
+    methods:  DELETE

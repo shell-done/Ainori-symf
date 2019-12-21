@@ -13,3 +13,39 @@ back_office_co2:
 back_office_covoiturage:
     resource: "@BackOfficeBundle/Resources/config/routing/covoiturage.yml"
     prefix:   /covoiturage
+
+back_office_marque:
+    resource: "@BackOfficeBundle/Resources/config/routing/marque.yml"
+    prefix:   /marque
+
+back_office_possede:
+    resource: "@BackOfficeBundle/Resources/config/routing/possede.yml"
+    prefix:   /possede
+
+back_office_trajet:
+    resource: "@BackOfficeBundle/Resources/config/routing/trajet.yml"
+    prefix:   /trajet
+
+back_office_typecovoit:
+    resource: "@BackOfficeBundle/Resources/config/routing/typecovoit.yml"
+    prefix:   /typecovoit
+
+back_office_typetrajet:
+    resource: "@BackOfficeBundle/Resources/config/routing/typetrajet.yml"
+    prefix:   /typetrajet
+
+back_office_typevehicule:
+    resource: "@BackOfficeBundle/Resources/config/routing/typevehicule.yml"
+    prefix:   /typevehicule
+
+back_office_utilisateur:
+    resource: "@BackOfficeBundle/Resources/config/routing/utilisateur.yml"
+    prefix:   /utilisateur
+
+back_office_ville:
+    resource: "@BackOfficeBundle/Resources/config/routing/ville.yml"
+    prefix:   /ville
+
+back_office_voiture:
+    resource: "@BackOfficeBundle/Resources/config/routing/voiture.yml"
+    prefix:   /voiture

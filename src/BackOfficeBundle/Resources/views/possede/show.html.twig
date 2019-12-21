@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Possede</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Immatriculation</th>
+                <td>{{ possede.immatriculation }}</td>
+            </tr>
+            <tr>
+                <th>Nbplace</th>
+                <td>{{ possede.nbPlace }}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ possede.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('possede_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('possede_edit', { 'id': possede.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

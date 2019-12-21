@@ -1,0 +1,24 @@
+typetrajet_index:
+    path:     /
+    defaults: { _controller: "BackOfficeBundle:TypeTrajet:index" }
+    methods:  GET
+
+typetrajet_show:
+    path:     /{id}/show
+    defaults: { _controller: "BackOfficeBundle:TypeTrajet:show" }
+    methods:  GET
+
+typetrajet_new:
+    path:     /new
+    defaults: { _controller: "BackOfficeBundle:TypeTrajet:new" }
+    methods:  [GET, POST]
+
+typetrajet_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BackOfficeBundle:TypeTrajet:edit" }
+    methods:  [GET, POST]
+
+typetrajet_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BackOfficeBundle:TypeTrajet:delete" }
+    methods:  DELETE

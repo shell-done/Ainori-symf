@@ -1,0 +1,24 @@
+typecovoit_index:
+    path:     /
+    defaults: { _controller: "BackOfficeBundle:TypeCovoit:index" }
+    methods:  GET
+
+typecovoit_show:
+    path:     /{id}/show
+    defaults: { _controller: "BackOfficeBundle:TypeCovoit:show" }
+    methods:  GET
+
+typecovoit_new:
+    path:     /new
+    defaults: { _controller: "BackOfficeBundle:TypeCovoit:new" }
+    methods:  [GET, POST]
+
+typecovoit_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BackOfficeBundle:TypeCovoit:edit" }
+    methods:  [GET, POST]
+
+typecovoit_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BackOfficeBundle:TypeCovoit:delete" }
+    methods:  DELETE

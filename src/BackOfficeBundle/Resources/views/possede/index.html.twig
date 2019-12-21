@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Possedes list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Immatriculation</th>
+                <th>Nbplace</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for possede in possedes %}
+            <tr>
+                <td><a href="{{ path('possede_show', { 'id': possede.id }) }}">{{ possede.immatriculation }}</a></td>
+                <td>{{ possede.nbPlace }}</td>
+                <td>{{ possede.id }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('possede_show', { 'id': possede.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('possede_edit', { 'id': possede.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('possede_new') }}">Create a new possede</a>
+        </li>
+    </ul>
+{% endblock %}
