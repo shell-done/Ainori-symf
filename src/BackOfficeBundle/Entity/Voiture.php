@@ -131,4 +131,13 @@ class Voiture
     {
         return $this->idTypeVehicule;
     }
+
+    /**
+     * Convert the object to string
+     * 
+     * @return string
+     */
+    public function __toString() {
+        return $this->idTypeVehicule . " " . $this->modele . " " . $this->idMarque;
+    }
 }

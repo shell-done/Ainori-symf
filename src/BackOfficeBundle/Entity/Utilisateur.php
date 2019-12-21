@@ -286,4 +286,13 @@ class Utilisateur
     {
         return $this->idVille;
     }
+
+    /**
+     * Convert the object to string
+     * 
+     * @return string
+     */
+    public function __toString() {
+        return $this->prenom . " " . $this->nom;
+    }
 }

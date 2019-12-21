@@ -63,4 +63,13 @@ class TypeTrajet
     {
         return $this->id;
     }
+
+    /**
+     * Convert the object to string
+     * 
+     * @return string
+     */
+    public function __toString() {
+        return $this->typeTrajet;
+    }
 }

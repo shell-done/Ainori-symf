@@ -94,4 +94,13 @@ class Co2
     {
         return $this->id;
     }
+
+    /**
+     * Convert the object to string
+     * 
+     * @return string
+     */
+    public function __toString() {
+        return $this->valCo2;
+    }
 }

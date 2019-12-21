@@ -354,4 +354,13 @@ class Trajet
     {
         return $this->idVille;
     }
+
+    /**
+     * Convert the object to string
+     * 
+     * @return string
+     */
+    public function __toString() {
+        return "De " . $this->idVille . " à " . $this->getIdVilleVilleArrivee;
+    }
 }

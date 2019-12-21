@@ -162,4 +162,13 @@ class Possede
     {
         return $this->idVoiture;
     }
+
+    /**
+     * Convert the object to string
+     * 
+     * @return string
+     */
+    public function __toString() {
+        return $this->$idVoiture . " immatriculée " . $this->immatriculation;
+    }
 }
