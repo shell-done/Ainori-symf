@@ -22,7 +22,7 @@ class CategorieController extends Controller
 
         $categories = $em->getRepository('BackOfficeBundle:Categorie')->findAll();
 
-        return $this->render('categorie/index.html.twig', array(
+        return $this->render('@BackOffice/categorie/index.html.twig', array(
             'categories' => $categories,
         ));
     }
@@ -45,7 +45,7 @@ class CategorieController extends Controller
             return $this->redirectToRoute('categorie_show', array('id' => $categorie->getId()));
         }
 
-        return $this->render('categorie/new.html.twig', array(
+        return $this->render('@BackOffice/categorie/new.html.twig', array(
             'categorie' => $categorie,
             'form' => $form->createView(),
         ));
@@ -59,7 +59,7 @@ class CategorieController extends Controller
     {
         $deleteForm = $this->createDeleteForm($categorie);
 
-        return $this->render('categorie/show.html.twig', array(
+        return $this->render('@BackOffice/categorie/show.html.twig', array(
             'categorie' => $categorie,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -81,7 +81,7 @@ class CategorieController extends Controller
             return $this->redirectToRoute('categorie_edit', array('id' => $categorie->getId()));
         }
 
-        return $this->render('categorie/edit.html.twig', array(
+        return $this->render('@BackOffice/categorie/edit.html.twig', array(
             'categorie' => $categorie,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
