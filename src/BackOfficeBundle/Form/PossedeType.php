@@ -13,7 +13,7 @@ class PossedeType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('immatriculation')->add('nbPlace')->add('idUtilisateur')->add('idVoiture');
+        $builder->add('immatriculation')->add('nbPlace')->add('utilisateur')->add('voiture');
     }/**
      * {@inheritdoc}
      */

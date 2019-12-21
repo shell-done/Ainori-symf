@@ -36,7 +36,7 @@ class Voiture
      *   @ORM\JoinColumn(name="id_marque", referencedColumnName="id")
      * })
      */
-    private $idMarque;
+    private $marque;
 
     /**
      * @var \BackOfficeBundle\Entity\TypeVehicule
@@ -46,7 +46,7 @@ class Voiture
      *   @ORM\JoinColumn(name="id_type_vehicule", referencedColumnName="id")
      * })
      */
-    private $idTypeVehicule;
+    private $typeVehicule;
 
 
 
@@ -85,51 +85,51 @@ class Voiture
     }
 
     /**
-     * Set idMarque
+     * Set marque
      *
-     * @param \BackOfficeBundle\Entity\Marque $idMarque
+     * @param \BackOfficeBundle\Entity\Marque $marque
      *
      * @return Voiture
      */
-    public function setIdMarque(\BackOfficeBundle\Entity\Marque $idMarque = null)
+    public function setMarque(\BackOfficeBundle\Entity\Marque $marque = null)
     {
-        $this->idMarque = $idMarque;
+        $this->marque = $marque;
 
         return $this;
     }
 
     /**
-     * Get idMarque
+     * Get marque
      *
      * @return \BackOfficeBundle\Entity\Marque
      */
-    public function getIdMarque()
+    public function getMarque()
     {
-        return $this->idMarque;
+        return $this->marque;
     }
 
     /**
-     * Set idTypeVehicule
+     * Set typeVehicule
      *
-     * @param \BackOfficeBundle\Entity\TypeVehicule $idTypeVehicule
+     * @param \BackOfficeBundle\Entity\TypeVehicule $typeVehicule
      *
      * @return Voiture
      */
-    public function setIdTypeVehicule(\BackOfficeBundle\Entity\TypeVehicule $idTypeVehicule = null)
+    public function setTypeVehicule(\BackOfficeBundle\Entity\TypeVehicule $typeVehicule = null)
     {
-        $this->idTypeVehicule = $idTypeVehicule;
+        $this->typeVehicule = $typeVehicule;
 
         return $this;
     }
 
     /**
-     * Get idTypeVehicule
+     * Get typeVehicule
      *
      * @return \BackOfficeBundle\Entity\TypeVehicule
      */
-    public function getIdTypeVehicule()
+    public function getTypeVehicule()
     {
-        return $this->idTypeVehicule;
+        return $this->typeVehicule;
     }
 
     /**
@@ -138,6 +138,6 @@ class Voiture
      * @return string
      */
     public function __toString() {
-        return $this->idTypeVehicule . " " . $this->modele . " " . $this->idMarque;
+        return $this->typeVehicule . " " . $this->modele . " " . $this->marque;
     }
 }

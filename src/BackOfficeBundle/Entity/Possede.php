@@ -43,7 +43,7 @@ class Possede
      *   @ORM\JoinColumn(name="id_utilisateur", referencedColumnName="id")
      * })
      */
-    private $idUtilisateur;
+    private $utilisateur;
 
     /**
      * @var \BackOfficeBundle\Entity\Voiture
@@ -53,7 +53,7 @@ class Possede
      *   @ORM\JoinColumn(name="id_voiture", referencedColumnName="id")
      * })
      */
-    private $idVoiture;
+    private $voiture;
 
 
 
@@ -116,51 +116,51 @@ class Possede
     }
 
     /**
-     * Set idUtilisateur
+     * Set utilisateur
      *
-     * @param \BackOfficeBundle\Entity\Utilisateur $idUtilisateur
+     * @param \BackOfficeBundle\Entity\Utilisateur $utilisateur
      *
      * @return Possede
      */
-    public function setIdUtilisateur(\BackOfficeBundle\Entity\Utilisateur $idUtilisateur = null)
+    public function setUtilisateur(\BackOfficeBundle\Entity\Utilisateur $utilisateur = null)
     {
-        $this->idUtilisateur = $idUtilisateur;
+        $this->utilisateur = $utilisateur;
 
         return $this;
     }
 
     /**
-     * Get idUtilisateur
+     * Get utilisateur
      *
      * @return \BackOfficeBundle\Entity\Utilisateur
      */
-    public function getIdUtilisateur()
+    public function getUtilisateur()
     {
-        return $this->idUtilisateur;
+        return $this->utilisateur;
     }
 
     /**
-     * Set idVoiture
+     * Set voiture
      *
-     * @param \BackOfficeBundle\Entity\Voiture $idVoiture
+     * @param \BackOfficeBundle\Entity\Voiture $voiture
      *
      * @return Possede
      */
-    public function setIdVoiture(\BackOfficeBundle\Entity\Voiture $idVoiture = null)
+    public function setVoiture(\BackOfficeBundle\Entity\Voiture $voiture = null)
     {
-        $this->idVoiture = $idVoiture;
+        $this->voiture = $voiture;
 
         return $this;
     }
 
     /**
-     * Get idVoiture
+     * Get voiture
      *
      * @return \BackOfficeBundle\Entity\Voiture
      */
-    public function getIdVoiture()
+    public function getVoiture()
     {
-        return $this->idVoiture;
+        return $this->voiture;
     }
 
     /**
@@ -169,6 +169,6 @@ class Possede
      * @return string
      */
     public function __toString() {
-        return $this->$idVoiture . " immatriculée " . $this->immatriculation;
+        return $this->$voiture . " immatriculée " . $this->immatriculation;
     }
 }

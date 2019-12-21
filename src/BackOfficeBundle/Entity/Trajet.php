@@ -71,7 +71,7 @@ class Trajet
      *   @ORM\JoinColumn(name="id_possede", referencedColumnName="id")
      * })
      */
-    private $idPossede;
+    private $possede;
 
     /**
      * @var \BackOfficeBundle\Entity\TypeTrajet
@@ -81,7 +81,7 @@ class Trajet
      *   @ORM\JoinColumn(name="id_type_trajet", referencedColumnName="id")
      * })
      */
-    private $idTypeTrajet;
+    private $typeTrajet;
 
     /**
      * @var \BackOfficeBundle\Entity\Ville
@@ -91,7 +91,7 @@ class Trajet
      *   @ORM\JoinColumn(name="id_ville_ville_arrivee", referencedColumnName="id")
      * })
      */
-    private $idVilleVilleArrivee;
+    private $villeArrivee;
 
     /**
      * @var \BackOfficeBundle\Entity\Ville
@@ -101,7 +101,7 @@ class Trajet
      *   @ORM\JoinColumn(name="id_ville", referencedColumnName="id")
      * })
      */
-    private $idVille;
+    private $villeDepart;
 
 
 
@@ -260,99 +260,99 @@ class Trajet
     }
 
     /**
-     * Set idPossede
+     * Set possede
      *
-     * @param \BackOfficeBundle\Entity\Possede $idPossede
+     * @param \BackOfficeBundle\Entity\Possede $possede
      *
      * @return Trajet
      */
-    public function setIdPossede(\BackOfficeBundle\Entity\Possede $idPossede = null)
+    public function setPossede(\BackOfficeBundle\Entity\Possede $possede = null)
     {
-        $this->idPossede = $idPossede;
+        $this->possede = $possede;
 
         return $this;
     }
 
     /**
-     * Get idPossede
+     * Get possede
      *
      * @return \BackOfficeBundle\Entity\Possede
      */
-    public function getIdPossede()
+    public function getPossede()
     {
-        return $this->idPossede;
+        return $this->possede;
     }
 
     /**
-     * Set idTypeTrajet
+     * Set typeTrajet
      *
-     * @param \BackOfficeBundle\Entity\TypeTrajet $idTypeTrajet
+     * @param \BackOfficeBundle\Entity\TypeTrajet $typeTrajet
      *
      * @return Trajet
      */
-    public function setIdTypeTrajet(\BackOfficeBundle\Entity\TypeTrajet $idTypeTrajet = null)
+    public function setTypeTrajet(\BackOfficeBundle\Entity\TypeTrajet $typeTrajet = null)
     {
-        $this->idTypeTrajet = $idTypeTrajet;
+        $this->typeTrajet = $typeTrajet;
 
         return $this;
     }
 
     /**
-     * Get idTypeTrajet
+     * Get typeTrajet
      *
      * @return \BackOfficeBundle\Entity\TypeTrajet
      */
-    public function getIdTypeTrajet()
+    public function getTypeTrajet()
     {
-        return $this->idTypeTrajet;
+        return $this->typeTrajet;
     }
 
     /**
-     * Set idVilleVilleArrivee
+     * Set villeArrivee
      *
-     * @param \BackOfficeBundle\Entity\Ville $idVilleVilleArrivee
+     * @param \BackOfficeBundle\Entity\Ville $villeArrivee
      *
      * @return Trajet
      */
-    public function setIdVilleVilleArrivee(\BackOfficeBundle\Entity\Ville $idVilleVilleArrivee = null)
+    public function setVilleArrivee(\BackOfficeBundle\Entity\Ville $villeArrivee = null)
     {
-        $this->idVilleVilleArrivee = $idVilleVilleArrivee;
+        $this->villeArrivee = $villeArrivee;
 
         return $this;
     }
 
     /**
-     * Get idVilleVilleArrivee
+     * Get villeArrivee
      *
      * @return \BackOfficeBundle\Entity\Ville
      */
-    public function getIdVilleVilleArrivee()
+    public function getVilleArrivee()
     {
-        return $this->idVilleVilleArrivee;
+        return $this->villeArrivee;
     }
 
     /**
-     * Set idVille
+     * Set villeDepart
      *
-     * @param \BackOfficeBundle\Entity\Ville $idVille
+     * @param \BackOfficeBundle\Entity\Ville $villeDepart
      *
      * @return Trajet
      */
-    public function setIdVille(\BackOfficeBundle\Entity\Ville $idVille = null)
+    public function setVilleDepart(\BackOfficeBundle\Entity\Ville $villeDepart = null)
     {
-        $this->idVille = $idVille;
+        $this->villeDepart = $villeDepart;
 
         return $this;
     }
 
     /**
-     * Get idVille
+     * Get villeDepart
      *
      * @return \BackOfficeBundle\Entity\Ville
      */
-    public function getIdVille()
+    public function getVilleDepart()
     {
-        return $this->idVille;
+        return $this->villeDepart;
     }
 
     /**
@@ -361,6 +361,6 @@ class Trajet
      * @return string
      */
     public function __toString() {
-        return "De " . $this->idVille . " à " . $this->getIdVilleVilleArrivee;
+        return "De " . $this->villeDepart . " à " . $this->villeArrivee;
     }
 }

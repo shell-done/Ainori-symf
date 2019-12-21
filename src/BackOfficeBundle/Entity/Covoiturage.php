@@ -43,7 +43,7 @@ class Covoiturage
      *   @ORM\JoinColumn(name="id_co2", referencedColumnName="id")
      * })
      */
-    private $idCo2;
+    private $co2;
 
     /**
      * @var \BackOfficeBundle\Entity\Trajet
@@ -53,7 +53,7 @@ class Covoiturage
      *   @ORM\JoinColumn(name="id_trajet", referencedColumnName="id")
      * })
      */
-    private $idTrajet;
+    private $trajet;
 
     /**
      * @var \BackOfficeBundle\Entity\TypeCovoit
@@ -63,7 +63,7 @@ class Covoiturage
      *   @ORM\JoinColumn(name="id_type_covoit", referencedColumnName="id")
      * })
      */
-    private $idTypeCovoit;
+    private $typeCovoit;
 
     /**
      * @var \BackOfficeBundle\Entity\Utilisateur
@@ -73,7 +73,7 @@ class Covoiturage
      *   @ORM\JoinColumn(name="id_utilisateur", referencedColumnName="id")
      * })
      */
-    private $idUtilisateur;
+    private $utilisateur;
 
 
 
@@ -136,98 +136,98 @@ class Covoiturage
     }
 
     /**
-     * Set idCo2
+     * Set co2
      *
-     * @param \BackOfficeBundle\Entity\Co2 $idCo2
+     * @param \BackOfficeBundle\Entity\Co2 $co2
      *
      * @return Covoiturage
      */
-    public function setIdCo2(\BackOfficeBundle\Entity\Co2 $idCo2 = null)
+    public function setCo2(\BackOfficeBundle\Entity\Co2 $co2 = null)
     {
-        $this->idCo2 = $idCo2;
+        $this->co2 = $co2;
 
         return $this;
     }
 
     /**
-     * Get idCo2
+     * Get co2
      *
      * @return \BackOfficeBundle\Entity\Co2
      */
-    public function getIdCo2()
+    public function getCo2()
     {
-        return $this->idCo2;
+        return $this->co2;
     }
 
     /**
-     * Set idTrajet
+     * Set trajet
      *
-     * @param \BackOfficeBundle\Entity\Trajet $idTrajet
+     * @param \BackOfficeBundle\Entity\Trajet $trajet
      *
      * @return Covoiturage
      */
-    public function setIdTrajet(\BackOfficeBundle\Entity\Trajet $idTrajet = null)
+    public function setTrajet(\BackOfficeBundle\Entity\Trajet $trajet = null)
     {
-        $this->idTrajet = $idTrajet;
+        $this->trajet = $trajet;
 
         return $this;
     }
 
     /**
-     * Get idTrajet
+     * Get trajet
      *
      * @return \BackOfficeBundle\Entity\Trajet
      */
-    public function getIdTrajet()
+    public function getTrajet()
     {
-        return $this->idTrajet;
+        return $this->trajet;
     }
 
     /**
-     * Set idTypeCovoit
+     * Set typeCovoit
      *
-     * @param \BackOfficeBundle\Entity\TypeCovoit $idTypeCovoit
+     * @param \BackOfficeBundle\Entity\TypeCovoit $typeCovoit
      *
      * @return Covoiturage
      */
-    public function setIdTypeCovoit(\BackOfficeBundle\Entity\TypeCovoit $idTypeCovoit = null)
+    public function setTypeCovoit(\BackOfficeBundle\Entity\TypeCovoit $typeCovoit = null)
     {
-        $this->idTypeCovoit = $idTypeCovoit;
+        $this->typeCovoit = $typeCovoit;
 
         return $this;
     }
 
     /**
-     * Get idTypeCovoit
+     * Get typeCovoit
      *
      * @return \BackOfficeBundle\Entity\TypeCovoit
      */
-    public function getIdTypeCovoit()
+    public function getTypeCovoit()
     {
-        return $this->idTypeCovoit;
+        return $this->typeCovoit;
     }
 
     /**
-     * Set idUtilisateur
+     * Set utilisateur
      *
-     * @param \BackOfficeBundle\Entity\Utilisateur $idUtilisateur
+     * @param \BackOfficeBundle\Entity\Utilisateur $utilisateur
      *
      * @return Covoiturage
      */
-    public function setIdUtilisateur(\BackOfficeBundle\Entity\Utilisateur $idUtilisateur = null)
+    public function setUtilisateur(\BackOfficeBundle\Entity\Utilisateur $utilisateur = null)
     {
-        $this->idUtilisateur = $idUtilisateur;
+        $this->utilisateur = $utilisateur;
 
         return $this;
     }
 
     /**
-     * Get idUtilisateur
+     * Get utilisateur
      *
      * @return \BackOfficeBundle\Entity\Utilisateur
      */
-    public function getIdUtilisateur()
+    public function getUtilisateur()
     {
-        return $this->idUtilisateur;
+        return $this->utilisateur;
     }
 }

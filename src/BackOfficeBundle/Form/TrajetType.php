@@ -13,7 +13,7 @@ class TrajetType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('dateDepart')->add('heureDepart')->add('nbPlace')->add('duree')->add('commentaire')->add('nbKm')->add('idPossede')->add('idTypeTrajet')->add('idVilleVilleArrivee')->add('idVille');
+        $builder->add('dateDepart')->add('heureDepart')->add('nbPlace')->add('duree')->add('commentaire')->add('nbKm')->add('possede')->add('typeTrajet')->add('villeArrivee')->add('villeDepart');
     }/**
      * {@inheritdoc}
      */

@@ -71,7 +71,7 @@ class Utilisateur
      *   @ORM\JoinColumn(name="id_categorie", referencedColumnName="id")
      * })
      */
-    private $idCategorie;
+    private $categorie;
 
     /**
      * @var \BackOfficeBundle\Entity\Ville
@@ -81,7 +81,7 @@ class Utilisateur
      *   @ORM\JoinColumn(name="id_ville", referencedColumnName="id")
      * })
      */
-    private $idVille;
+    private $ville;
 
 
 
@@ -240,51 +240,51 @@ class Utilisateur
     }
 
     /**
-     * Set idCategorie
+     * Set categorie
      *
-     * @param \BackOfficeBundle\Entity\Categorie $idCategorie
+     * @param \BackOfficeBundle\Entity\Categorie $categorie
      *
      * @return Utilisateur
      */
-    public function setIdCategorie(\BackOfficeBundle\Entity\Categorie $idCategorie = null)
+    public function setCategorie(\BackOfficeBundle\Entity\Categorie $categorie = null)
     {
-        $this->idCategorie = $idCategorie;
+        $this->categorie = $categorie;
 
         return $this;
     }
 
     /**
-     * Get idCategorie
+     * Get categorie
      *
      * @return \BackOfficeBundle\Entity\Categorie
      */
-    public function getIdCategorie()
+    public function getCategorie()
     {
-        return $this->idCategorie;
+        return $this->categorie;
     }
 
     /**
-     * Set idVille
+     * Set ville
      *
-     * @param \BackOfficeBundle\Entity\Ville $idVille
+     * @param \BackOfficeBundle\Entity\Ville $ville
      *
      * @return Utilisateur
      */
-    public function setIdVille(\BackOfficeBundle\Entity\Ville $idVille = null)
+    public function setVille(\BackOfficeBundle\Entity\Ville $ville = null)
     {
-        $this->idVille = $idVille;
+        $this->ville = $ville;
 
         return $this;
     }
 
     /**
-     * Get idVille
+     * Get ville
      *
      * @return \BackOfficeBundle\Entity\Ville
      */
-    public function getIdVille()
+    public function getVille()
     {
-        return $this->idVille;
+        return $this->ville;
     }
 
     /**

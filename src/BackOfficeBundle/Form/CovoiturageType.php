@@ -13,7 +13,7 @@ class CovoiturageType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('created')->add('updated')->add('idCo2')->add('idTrajet')->add('idTypeCovoit')->add('idUtilisateur');
+        $builder->add('created')->add('updated')->add('co2')->add('trajet')->add('typeCovoit')->add('utilisateur');
     }/**
      * {@inheritdoc}
      */
