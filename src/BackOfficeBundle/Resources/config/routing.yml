@@ -1,7 +1,11 @@
+back_office_homepage:
+    path:     /
+    defaults: { _controller: BackOfficeBundle:Default:index }
+
 back_office_categorie:
     resource: "@BackOfficeBundle/Resources/config/routing/categorie.yml"
     prefix:   /categorie
 
-back_office_homepage:
-    path:     /
-    defaults: { _controller: BackOfficeBundle:Default:index }
+back_office_co2:
+    resource: "@BackOfficeBundle/Resources/config/routing/co2.yml"
+    prefix:   /co2

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Co2</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Valco2</th>
+                <td>{{ co2.valCo2 }}</td>
+            </tr>
+            <tr>
+                <th>Actif</th>
+                <td>{% if co2.actif %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ co2.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('co2_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('co2_edit', { 'id': co2.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

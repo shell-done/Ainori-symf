@@ -1,0 +1,24 @@
+co2_index:
+    path:     /
+    defaults: { _controller: "BackOfficeBundle:Co2:index" }
+    methods:  GET
+
+co2_show:
+    path:     /{id}/show
+    defaults: { _controller: "BackOfficeBundle:Co2:show" }
+    methods:  GET
+
+co2_new:
+    path:     /new
+    defaults: { _controller: "BackOfficeBundle:Co2:new" }
+    methods:  [GET, POST]
+
+co2_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BackOfficeBundle:Co2:edit" }
+    methods:  [GET, POST]
+
+co2_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BackOfficeBundle:Co2:delete" }
+    methods:  DELETE
