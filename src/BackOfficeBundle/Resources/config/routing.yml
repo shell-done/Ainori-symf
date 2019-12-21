@@ -9,3 +9,7 @@ back_office_categorie:
 back_office_co2:
     resource: "@BackOfficeBundle/Resources/config/routing/co2.yml"
     prefix:   /co2
+
+back_office_covoiturage:
+    resource: "@BackOfficeBundle/Resources/config/routing/covoiturage.yml"
+    prefix:   /covoiturage

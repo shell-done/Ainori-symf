@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Covoiturages list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for covoiturage in covoiturages %}
+            <tr>
+                <td><a href="{{ path('covoiturage_show', { 'id': covoiturage.id }) }}">{{ covoiturage.created }}</a></td>
+                <td>{% if covoiturage.updated %}{{ covoiturage.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ covoiturage.id }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('covoiturage_show', { 'id': covoiturage.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('covoiturage_edit', { 'id': covoiturage.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('covoiturage_new') }}">Create a new covoiturage</a>
+        </li>
+    </ul>
+{% endblock %}
