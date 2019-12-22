@@ -15,7 +15,7 @@
         <tbody>
         {% for covoiturage in covoiturages %}
             <tr>
-                <td><a href="{{ path('covoiturage_show', { 'id': covoiturage.id }) }}">{{ covoiturage.created }}</a></td>
+                <td><a href="{{ path('covoiturage_show', { 'id': covoiturage.id }) }}">{{ covoiturage.created|date('Y-m-d H:i:s') }}</a></td>
                 <td>{% if covoiturage.updated %}{{ covoiturage.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{{ covoiturage.id }}</td>
                 <td>

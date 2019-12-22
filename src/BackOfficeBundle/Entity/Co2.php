@@ -101,6 +101,6 @@ class Co2
      * @return string
      */
     public function __toString() {
-        return $this->valCo2;
+        return strval($this->valCo2);
     }
 }

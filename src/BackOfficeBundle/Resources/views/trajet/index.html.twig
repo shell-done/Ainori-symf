@@ -19,7 +19,7 @@
         <tbody>
         {% for trajet in trajets %}
             <tr>
-                <td><a href="{{ path('trajet_show', { 'id': trajet.id }) }}">{{ trajet.dateDepart }}</a></td>
+                <td><a href="{{ path('trajet_show', { 'id': trajet.id }) }}">{{ trajet.dateDepart|date('Y-m-d') }}</a></td>
                 <td>{% if trajet.heureDepart %}{{ trajet.heureDepart|date('H:i:s') }}{% endif %}</td>
                 <td>{{ trajet.nbPlace }}</td>
                 <td>{{ trajet.duree }}</td>
