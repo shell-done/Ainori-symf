@@ -9,5 +9,15 @@ namespace BackOfficeBundle\Repository;
  * repository methods below.
  */
 class TrajetRepository extends \Doctrine\ORM\EntityRepository {
-    
+    public function getLastTrajets($nbOfTrajets) {
+        if($nbOfTrajets < 1)
+            return null;
+
+        $query = $this->createQueryBuilder("t")
+            ->orderBy("t.id", "DESC")
+            ->setMaxResults($nbOfTrajets)
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }
