@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Co2
  *
  * @ORM\Table(name="co2")
- * @ORM\Entity(repositoryClass="BackOfficeBundle\Repository\Co2Repository")
+ * @ORM\Entity
  */
 class Co2
 {

@@ -5,6 +5,7 @@ namespace BackOfficeBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use BackOfficeBundle\Entity\Utilisateur;
 use BackOfficeBundle\Entity\Trajet;
+use BackOfficeBundle\Entity\Covoiturage;
 
 class DefaultController extends Controller
 {
@@ -16,6 +17,9 @@ class DefaultController extends Controller
         $repository = $this->getDoctrine()->getRepository(Trajet::class);
         $trajets = $repository->getLastTrajets(10);
 
-        return $this->render('@BackOffice/Default/index.html.twig', ["users" => $users]);
+        $repository = $this->getDoctrine()->getRepository(Covoiturage::class);
+        $co2 = $repository->getCo2SavedOnRegularTrip();
+
+        return $this->render('@BackOffice/Default/index.html.twig', ["users" => $users, "co2" => $co2]);
     }
 }
