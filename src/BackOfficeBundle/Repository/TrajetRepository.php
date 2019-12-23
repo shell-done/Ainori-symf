@@ -20,4 +20,10 @@ class TrajetRepository extends \Doctrine\ORM\EntityRepository {
 
         return $query->getResult();
     }
+
+    public function countTrajets() {
+        return $this->createQueryBuilder("t")
+            ->select("COUNT(t.id)")
+            ->getQuery()->getSingleScalarResult();
+    }
 }

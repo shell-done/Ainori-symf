@@ -20,4 +20,10 @@ class UtilisateurRepository extends \Doctrine\ORM\EntityRepository {
 
         return $query->getResult();
     }
+
+    public function countUtilisateurs() {
+        return $this->createQueryBuilder("u")
+            ->select("COUNT(u.id)")
+            ->getQuery()->getSingleScalarResult();
+    }
 }

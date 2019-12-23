@@ -12,7 +12,7 @@
                     <div class="sbs">
                         <img src="{{ asset('img/cloud.png') }}" width="90">
                         <div>
-                            123 kg
+                            {{ co2Saved }} kg
                         </div>
                     </div>
                     <div class="description">
@@ -24,7 +24,7 @@
                     <div class="sbs">
                         <img src="{{ asset('img/person.png') }}" width="90">
                         <div>
-                            265
+                            {{ nbUtilisateurs }}
                         </div>
                     </div>
                     <div class="description">
@@ -36,7 +36,7 @@
                     <div class="sbs">
                         <img src="{{ asset('img/marker.png') }}" width="90">
                         <div>
-                            543
+                            {{ nbTrajets }}
                         </div>
                     </div>
                     <div class="description">
@@ -55,24 +55,17 @@
             </div>
             <div class="block-body">
                 <table>
-                    <tr>
-                        <td class="col-left">John Smith</td><td class="col-right">Rennes</td>
-                    </tr>
-                    <tr>
-                        <td class="col-left">John Smith</td><td class="col-right">Rennes</td>
-                    </tr>
-                    <tr>
-                        <td class="col-left">John Smith</td><td class="col-right">Rennes</td>
-                    </tr>
-                    <tr>
-                        <td class="col-left">John Smith</td><td class="col-right">Rennes</td>
-                    </tr>
-                    <tr>
-                        <td class="col-left">John Smith</td><td class="col-right">Rennes</td>
-                    </tr>
-                    <tr>
-                        <td class="col-left">John Smith</td><td class="col-right">Rennes</td>
-                    </tr>
+                    {% if last10Utilisateurs is empty %}
+                        <tr>
+                            <td class="col-center">Aucun utilisateur enregistré</td>
+                        </tr>
+                    {% else %}
+                        {% for u in last10Utilisateurs %}
+                            <tr>
+                                <td class="col-left">{{ u.prenom }} {{ u.nom }}</td><td class="col-right">{{ u.ville.ville }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
                 </table>
             </div>
         </div>
@@ -83,27 +76,17 @@
             </div>
             <div class="block-body">
                 <table>
-                    <tr>
-                        <td class="col-left">Brest -> Rennes</td><td class="col-right">Régulier</td>
-                    </tr>
-                    <tr>
-                        <td class="col-left">Brest -> Rennes</td><td class="col-right">Régulier</td>
-                    </tr>
-                    <tr>
-                        <td class="col-left">Brest -> Rennes</td><td class="col-right">Régulier</td>
-                    </tr>
-                    <tr>
-                        <td class="col-left">Brest -> Rennes</td><td class="col-right">Régulier</td>
-                    </tr>
-                    <tr>
-                        <td class="col-left">Brest -> Rennes</td><td class="col-right">Régulier</td>
-                    </tr>
-                    <tr>
-                        <td class="col-left">Brest -> Rennes</td><td class="col-right">Régulier</td>
-                    </tr>
-                    <tr>
-                        <td class="col-left">Brest -> Rennes</td><td class="col-right">Régulier</td>
-                    </tr>
+                    {% if last10Trajets is empty %}
+                        <tr>
+                            <td class="col-center">Aucun trajet enregistré</td>
+                        </tr>
+                    {% else %}
+                        {% for t in last10Trajets %}
+                            <tr>
+                                <td class="col-left">{{ t.villeDepart.ville }} -> {{ t.villeArrivee.ville }}</td><td class="col-right">{{ t.typeTrajet.typeTrajet }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
                 </table>
             </div>
         </div>

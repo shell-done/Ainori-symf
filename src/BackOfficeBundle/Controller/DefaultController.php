@@ -12,14 +12,24 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $repository = $this->getDoctrine()->getRepository(Utilisateur::class);
-        $users = $repository->getLastUtilisateurs(10);
+        $last10Utilisateurs = $repository->getLastUtilisateurs(10);
+        $nbUtilisateurs = $repository->countUtilisateurs();
+
+        $last10Utilisateurs = [];
 
         $repository = $this->getDoctrine()->getRepository(Trajet::class);
-        $trajets = $repository->getLastTrajets(10);
+        $last10Trajets = $repository->getLastTrajets(10);
+        $nbTrajets = $repository->countTrajets();
 
         $repository = $this->getDoctrine()->getRepository(Covoiturage::class);
-        $co2 = $repository->getCo2SavedOnRegularTrip();
+        $co2Saved = $repository->getCo2SavedThisMonth();
 
-        return $this->render('@BackOffice/Default/index.html.twig', ["users" => $users, "co2" => $co2]);
+        return $this->render('@BackOffice/Default/index.html.twig', [
+            "last10Utilisateurs" => $last10Utilisateurs,
+            "nbUtilisateurs" => $nbUtilisateurs,
+            "last10Trajets" => $last10Trajets,
+            "nbTrajets" => $nbTrajets,
+            "co2Saved" => $co2Saved
+            ]);
     }
 }
