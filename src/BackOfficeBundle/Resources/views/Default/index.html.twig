@@ -1,9 +1,111 @@
-Default root of the BackOfficeBundle
-<br>
-<ul>
-    {% for user in users %}
-        <li>{{ user.nom }}, {{ user.prenom }}</li>
-    {% endfor %}
-</ul>
+{% extends '@BackOffice/base.html.twig' %}
 
-CO2 : {{ co2 }}
+{% block body %}
+    <h1>Accueil</h1>
+    <div class="block">
+        <div class="block-header">
+            <span class="block-title">Statistiques</span>
+        </div>
+        <div class="block-body">
+            <div class="flex">
+                <div class="flex-card">
+                    <div class="sbs">
+                        <img src="{{ asset('img/cloud.png') }}" width="90">
+                        <div>
+                            123 kg
+                        </div>
+                    </div>
+                    <div class="description">
+                        de Co2 économisés ce mois
+                    </div>
+                </div>
+
+                <div class="flex-card">
+                    <div class="sbs">
+                        <img src="{{ asset('img/person.png') }}" width="90">
+                        <div>
+                            265
+                        </div>
+                    </div>
+                    <div class="description">
+                        utilisateurs<br>inscrits
+                    </div>
+                </div>
+
+                <div class="flex-card">
+                    <div class="sbs">
+                        <img src="{{ asset('img/marker.png') }}" width="90">
+                        <div>
+                            543
+                        </div>
+                    </div>
+                    <div class="description">
+                        trajets<br>proposés
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6 block">
+            <div class="block-header">
+                <span class="block-title">Derniers utilisateurs inscrits</span>
+            </div>
+            <div class="block-body">
+                <table>
+                    <tr>
+                        <td class="col-left">John Smith</td><td class="col-right">Rennes</td>
+                    </tr>
+                    <tr>
+                        <td class="col-left">John Smith</td><td class="col-right">Rennes</td>
+                    </tr>
+                    <tr>
+                        <td class="col-left">John Smith</td><td class="col-right">Rennes</td>
+                    </tr>
+                    <tr>
+                        <td class="col-left">John Smith</td><td class="col-right">Rennes</td>
+                    </tr>
+                    <tr>
+                        <td class="col-left">John Smith</td><td class="col-right">Rennes</td>
+                    </tr>
+                    <tr>
+                        <td class="col-left">John Smith</td><td class="col-right">Rennes</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-6 block">
+            <div class="block-header">
+                <span class="block-title">Derniers trajets proposés</span>
+            </div>
+            <div class="block-body">
+                <table>
+                    <tr>
+                        <td class="col-left">Brest -> Rennes</td><td class="col-right">Régulier</td>
+                    </tr>
+                    <tr>
+                        <td class="col-left">Brest -> Rennes</td><td class="col-right">Régulier</td>
+                    </tr>
+                    <tr>
+                        <td class="col-left">Brest -> Rennes</td><td class="col-right">Régulier</td>
+                    </tr>
+                    <tr>
+                        <td class="col-left">Brest -> Rennes</td><td class="col-right">Régulier</td>
+                    </tr>
+                    <tr>
+                        <td class="col-left">Brest -> Rennes</td><td class="col-right">Régulier</td>
+                    </tr>
+                    <tr>
+                        <td class="col-left">Brest -> Rennes</td><td class="col-right">Régulier</td>
+                    </tr>
+                    <tr>
+                        <td class="col-left">Brest -> Rennes</td><td class="col-right">Régulier</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
