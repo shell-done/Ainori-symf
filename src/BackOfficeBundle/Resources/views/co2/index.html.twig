@@ -1,41 +1,35 @@
 {% extends '@BackOffice/base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/list.css') }}" />
+{% endblock %}
+
 {% block body %}
-    <h1>Co2s list</h1>
+    <div class="list-header">
+        <h1>Co2s list</h1>
+        <a href="{{ path('co2_new') }}">Create a new co2</a>
+    </div>
 
     <table>
         <thead>
             <tr>
-                <th>Valco2</th>
-                <th>Actif</th>
-                <th>Id</th>
-                <th>Actions</th>
+                <th style="width: 10%">Id</th>
+                <th style="width: 50%">Valco2</th>
+                <th style="width: 30%">Actif</th>
+                <th style="width: 10%; text-align: right">Action</th>
             </tr>
         </thead>
         <tbody>
         {% for co2 in co2s %}
-            <tr>
-                <td><a href="{{ path('co2_show', { 'id': co2.id }) }}">{{ co2.valCo2 }}</a></td>
-                <td>{% if co2.actif %}Yes{% else %}No{% endif %}</td>
+            <tr onclick="window.location.href = '{{ path('co2_show', { 'id': co2.id }) }}'">
                 <td>{{ co2.id }}</td>
+                <td>{{ co2.valCo2 }}</a></td>
+                <td>{% if co2.actif %}Yes{% else %}No{% endif %}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('co2_show', { 'id': co2.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('co2_edit', { 'id': co2.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    <a href="{{ path('co2_edit', { 'id': co2.id }) }}">Modifier</a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('co2_new') }}">Create a new co2</a>
-        </li>
-    </ul>
 {% endblock %}

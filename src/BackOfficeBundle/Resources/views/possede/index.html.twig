@@ -1,41 +1,36 @@
 {% extends '@BackOffice/base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/list.css') }}" />
+{% endblock %}
+
 {% block body %}
-    <h1>Possedes list</h1>
+    <div class="list-header">
+        <h1>Possedes list</h1>
+        <a href="{{ path('possede_new') }}">Create a new possede</a>
+    </div>
 
     <table>
         <thead>
             <tr>
-                <th>Immatriculation</th>
-                <th>Nbplace</th>
-                <th>Id</th>
-                <th>Actions</th>
+                <th style="width: 10%">Id</th>
+                <th style="width: 40%">Immatriculation</th>
+                <th style="width: 40%">Nbplace</th>
+                <th style="width: 10%; text-align: right">Action</th>
             </tr>
         </thead>
         <tbody>
         {% for possede in possedes %}
-            <tr>
-                <td><a href="{{ path('possede_show', { 'id': possede.id }) }}">{{ possede.immatriculation }}</a></td>
-                <td>{{ possede.nbPlace }}</td>
+            <tr onclick="window.location.href = '{{ path('possede_show', { 'id': possede.id }) }}'">
                 <td>{{ possede.id }}</td>
+                <td>{{ possede.immatriculation }}</td>
+                <td>{{ possede.nbPlace }}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('possede_show', { 'id': possede.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('possede_edit', { 'id': possede.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    <a href="{{ path('possede_edit', { 'id': possede.id }) }}">Modifier</a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('possede_new') }}">Create a new possede</a>
-        </li>
-    </ul>
 {% endblock %}

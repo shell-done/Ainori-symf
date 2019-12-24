@@ -1,39 +1,33 @@
 {% extends '@BackOffice/base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/list.css') }}" />
+{% endblock %}
+
 {% block body %}
-    <h1>Marques list</h1>
+    <div class="list-header">
+        <h1>Marques list</h1>
+        <a href="{{ path('marque_new') }}">Create a new marque</a>
+    </div>
 
     <table>
         <thead>
             <tr>
-                <th>Marque</th>
-                <th>Id</th>
-                <th>Actions</th>
+                <th style="width: 10%">Id</th>
+                <th style="width: 80%">Marque</th>
+                <th style="width: 10%; text-align: right">Action</th>
             </tr>
         </thead>
         <tbody>
         {% for marque in marques %}
-            <tr>
-                <td><a href="{{ path('marque_show', { 'id': marque.id }) }}">{{ marque.marque }}</a></td>
+            <tr onclick="window.location.href = '{{ path('marque_show', { 'id': marque.id }) }}'">
                 <td>{{ marque.id }}</td>
+                <td>{{ marque.marque }}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('marque_show', { 'id': marque.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('marque_edit', { 'id': marque.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    <a href="{{ path('marque_edit', { 'id': marque.id }) }}">Modifier</a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('marque_new') }}">Create a new marque</a>
-        </li>
-    </ul>
 {% endblock %}

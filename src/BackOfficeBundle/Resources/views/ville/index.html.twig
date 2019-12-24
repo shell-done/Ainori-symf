@@ -1,45 +1,39 @@
 {% extends '@BackOffice/base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/list.css') }}" />
+{% endblock %}
+
 {% block body %}
-    <h1>Villes list</h1>
+    <div class="list-header">
+        <h1>Villes list</h1>
+        <a href="{{ path('ville_new') }}">Create a new ville</a>
+    </div>
 
     <table>
         <thead>
             <tr>
-                <th>Codeinsee</th>
-                <th>Ville</th>
-                <th>Codepostal</th>
-                <th>Dep</th>
-                <th>Id</th>
-                <th>Actions</th>
+                <th style="width: 10%">Id</th>
+                <th style="width: 25%">Ville</th>
+                <th style="width: 20%">Codepostal</th>
+                <th style="width: 20%">Codeinsee</th>
+                <th style="width: 15%">Dep</th>
+                <th style="width: 10%; text-align: right">Action</th>
             </tr>
         </thead>
         <tbody>
         {% for ville in villes %}
-            <tr>
-                <td><a href="{{ path('ville_show', { 'id': ville.id }) }}">{{ ville.codeInsee }}</a></td>
+            <tr onclick="window.location.href = '{{ path('ville_show', { 'id': ville.id }) }}'">
+                <td>{{ ville.id }}</td>
                 <td>{{ ville.ville }}</td>
                 <td>{{ ville.codePostal }}</td>
+                <td>{{ ville.codeInsee }}</td>
                 <td>{{ ville.dep }}</td>
-                <td>{{ ville.id }}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('ville_show', { 'id': ville.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('ville_edit', { 'id': ville.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    <a href="{{ path('ville_edit', { 'id': ville.id }) }}">Modifier</a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('ville_new') }}">Create a new ville</a>
-        </li>
-    </ul>
 {% endblock %}

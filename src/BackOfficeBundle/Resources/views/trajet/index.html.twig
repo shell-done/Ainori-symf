@@ -1,49 +1,39 @@
 {% extends '@BackOffice/base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/list.css') }}" />
+{% endblock %}
+
 {% block body %}
-    <h1>Trajets list</h1>
+    <div class="list-header">
+        <h1>Trajets list</h1>
+        <a href="{{ path('trajet_new') }}">Create a new trajet</a>
+    </div>
 
     <table>
         <thead>
             <tr>
-                <th>Datedepart</th>
-                <th>Heuredepart</th>
-                <th>Nbplace</th>
-                <th>Duree</th>
-                <th>Commentaire</th>
-                <th>Nbkm</th>
-                <th>Id</th>
-                <th>Actions</th>
+                <th style="width: 10%">Id</th>
+                <th style="width: 20%">Datedepart</th>
+                <th style="width: 20%">Heuredepart</th>
+                <th style="width: 20%">Nbplace</th>
+                <th style="width: 20%">Duree</th>
+                <th style="width: 10%; text-align: right">Action</th>
             </tr>
         </thead>
         <tbody>
         {% for trajet in trajets %}
-            <tr>
-                <td><a href="{{ path('trajet_show', { 'id': trajet.id }) }}">{{ trajet.dateDepart|date('Y-m-d') }}</a></td>
+            <tr onclick="window.location.href = '{{ path('trajet_show', { 'id': trajet.id }) }}'">
+                <td>{{ trajet.id }}</td>
+                <td>{{ trajet.dateDepart|date('Y-m-d') }}</td>
                 <td>{% if trajet.heureDepart %}{{ trajet.heureDepart|date('H:i:s') }}{% endif %}</td>
                 <td>{{ trajet.nbPlace }}</td>
                 <td>{{ trajet.duree }}</td>
-                <td>{{ trajet.commentaire }}</td>
-                <td>{{ trajet.nbKm }}</td>
-                <td>{{ trajet.id }}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('trajet_show', { 'id': trajet.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('trajet_edit', { 'id': trajet.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    <a href="{{ path('trajet_edit', { 'id': trajet.id }) }}">Modifier</a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('trajet_new') }}">Create a new trajet</a>
-        </li>
-    </ul>
 {% endblock %}
