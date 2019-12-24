@@ -15,8 +15,6 @@ class DefaultController extends Controller
         $last10Utilisateurs = $repository->getLastUtilisateurs(10);
         $nbUtilisateurs = $repository->countUtilisateurs();
 
-        $last10Utilisateurs = [];
-
         $repository = $this->getDoctrine()->getRepository(Trajet::class);
         $last10Trajets = $repository->getLastTrajets(10);
         $nbTrajets = $repository->countTrajets();

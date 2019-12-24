@@ -3,6 +3,12 @@ html, body {
     font-family: 'Segoe UI';
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 header {
     display: flex;
     justify-content: space-between;
@@ -59,6 +65,8 @@ nav .container, nav .row {
 
 #main {
     margin-top: 50px;
+    margin-bottom: 50px;
+    flex: 1;
 }
 
 footer {
