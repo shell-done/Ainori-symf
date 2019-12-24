@@ -78,11 +78,11 @@ footer {
 h1 {
     color: #CE3C43;
     font-weight: lighter;
-    margin-bottom: 30px;
 }
 
 .block {
     display: block;
+    margin-top: 30px;
     margin-bottom: 75px;
 }
 
@@ -103,68 +103,9 @@ h1 {
     background: #FFFFFF;
 }
 
-.block-body .flex {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 35px;
-    margin-bottom: 35px;
-}
-
-.block-body .flex .flex-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 28%;
-}
-
-.sbs {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 20px;
-    justify-content: space-around;
-}
-
-.sbs img {
-    margin-right: 30px;
-}
-
-.sbs div {
-    color: #A73137;
-    font-size: 50px;
-}
-
-.description {
-    font-size: 33px;
-    text-align: center;
-    color: #202020;
-}
-
-.block-body table {
-    width: 100%;
-}
-
-.col-left {
-    width: 70%;
-}
-
-.col-center {
-    width: 100%;
-    text-align: center;
-    padding: 10px;
-    color: #707070;
-}
-
-.col-right {
-    width: 30%;
-    text-align: right;
-}
-
-td {
-    font-size: 20px;
-    padding: 5px 15px 5px 15px;
-}
-
-tr:nth-child(even) {
-    background-color: #E9E9E9;
+button {
+    display: block;
+    background: #CE3C43;
+    color: #F6F6F6;
+    padding: 5px 10px 5px 10px;
 }
