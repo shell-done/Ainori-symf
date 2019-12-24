@@ -23,7 +23,7 @@ thead {
     color: #F6F6F6;
     background: #CE3C43;
     border: 2px solid #CE3C43;
-    font-size: 28px;
+    font-size: 30px;
 }
 
 tbody {
@@ -46,6 +46,10 @@ th, td {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+td {
+    cursor: pointer;
 }
 
 tr:nth-child(even) {
