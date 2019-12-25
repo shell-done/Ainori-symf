@@ -1,0 +1,38 @@
+body .container {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.banner {
+    display: block;
+    margin: 20px auto;
+}
+
+form {
+    padding: 20px 30px 20px 30px;
+}
+
+form label, form input {
+    display: inline-block;
+    width: 100%;
+}
+
+form label {
+    font-size: 25px;
+}
+
+form input {
+    margin-bottom: 25px;
+    font-size: 20px;
+}
+
+.form-error {
+    font-size: 20px;
+    color: #CE3C43;
+}
+
+.form-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
