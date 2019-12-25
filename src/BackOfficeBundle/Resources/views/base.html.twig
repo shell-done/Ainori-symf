@@ -12,8 +12,8 @@
     </head>
     <body>
         <header class="container">
-            <img src="{{ asset('img/banner_whitebg.png') }}" class="banner">
-            <img src="{{ asset('img/logout.png') }}" class="logout">
+            <img src="{{ asset('img/banner_whitebg.png') }}" class="banner" onclick="window.location.href = '{{ path('back_office_homepage') }}'">
+            <img src="{{ asset('img/logout.png') }}" class="logout" onclick="window.location.href = '{{ path('logout') }}'">
         </header>
         <nav>
             <div class="container">
