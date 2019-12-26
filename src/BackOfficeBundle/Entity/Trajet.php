@@ -103,7 +103,11 @@ class Trajet
      */
     private $villeDepart;
 
-
+    public function __construct() {
+        $now = new \DateTime();
+        $this->dateDepart = new \DateTime($now->format("Y-m-d"));
+        $this->heureDepart = new \DateTime($now->format("H:i"));
+    }
 
     /**
      * Set dateDepart

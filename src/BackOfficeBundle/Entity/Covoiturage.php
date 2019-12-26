@@ -75,7 +75,11 @@ class Covoiturage
      */
     private $utilisateur;
 
-
+    public function __construct() {
+        $now = new \DateTime();
+        $this->created = new \DateTime($now->format("Y-m-d H:i"));
+        $this->updated = new \DateTime($now->format("Y-m-d H:i"));
+    }
 
     /**
      * Set created
