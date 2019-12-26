@@ -1,6 +1,10 @@
 app:
     resource: '@AppBundle/Resources/config/routing.yml'
 
+web_service:
+    resource: "@WebServiceBundle/Resources/config/routing.yml"
+    prefix:   /api
+
 back_office:
     resource: "@BackOfficeBundle/Resources/config/routing.yml"
     prefix:   /
