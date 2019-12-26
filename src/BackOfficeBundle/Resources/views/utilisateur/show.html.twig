@@ -1,52 +1,80 @@
 {% extends '@BackOffice/base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/new.css') }}" />
+{% endblock %}
+
 {% block body %}
     <h1>Utilisateur</h1>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Mail</th>
-                <td>{{ utilisateur.mail }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ utilisateur.nom }}</td>
-            </tr>
-            <tr>
-                <th>Prenom</th>
-                <td>{{ utilisateur.prenom }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ utilisateur.password }}</td>
-            </tr>
-            <tr>
-                <th>Telephone</th>
-                <td>{{ utilisateur.telephone }}</td>
-            </tr>
-            <tr>
-                <th>Adresse</th>
-                <td>{{ utilisateur.adresse }}</td>
-            </tr>
-            <tr>
-                <th>Id</th>
-                <td>{{ utilisateur.id }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-7">
+            <div class="block">
+                <div class="block-header">
+                    <span class="block-title">Détails</span>
+                </div>
+                <div class="block-body">
+                    <table class="entity show">
+                        <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <td>{{ utilisateur.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Nom</th>
+                                <td>{{ utilisateur.nom }}</td>
+                            </tr>
+                            <tr>
+                                <th>Prenom</th>
+                                <td>{{ utilisateur.prenom }}</td>
+                            </tr>
+                            <tr>
+                                <th>Mail</th>
+                                <td>{{ utilisateur.mail }}</td>
+                            </tr>
+                            <tr>
+                                <th>Password</th>
+                                <td>{{ utilisateur.password }}</td>
+                            </tr>
+                            <tr>
+                                <th>Telephone</th>
+                                <td>{{ utilisateur.telephone }}</td>
+                            </tr>
+                            <tr>
+                                <th>Adresse</th>
+                                <td>{{ utilisateur.adresse }}</td>
+                            </tr>
+                            <tr>
+                                <th>Ville</th>
+                                <td><a href="{{ path('ville_show', { 'id': utilisateur.ville.id }) }}">{{ utilisateur.ville }}</a></td>
+                            </tr>
+                            <tr>
+                                <th>Catégorie</th>
+                                <td><a href="{{ path('categorie_show', { 'id': utilisateur.categorie.id }) }}">{{ utilisateur.categorie }}</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('utilisateur_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('utilisateur_edit', { 'id': utilisateur.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+        <div class="col-5">
+            <div class="block">
+                <div class="block-header">
+                    <span class="block-title">Action</span>
+                </div>
+                <div class="block-body">
+                    <table class="action">
+                        <tr><td>
+                            {{ form_start(delete_form) }}
+                                <input type="submit" value="Supprimer">
+                            {{ form_end(delete_form) }}
+                        </td></tr>
+                        <tr><td><a href="{{ path('utilisateur_edit', { 'id': utilisateur.id }) }}">Modifier</a></td></tr>
+                        <tr><td><a href="{{ path('utilisateur_index') }}">Retour à la liste</a></td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

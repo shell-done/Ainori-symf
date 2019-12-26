@@ -1,32 +1,60 @@
 {% extends '@BackOffice/base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/new.css') }}" />
+{% endblock %}
+
 {% block body %}
     <h1>Voiture</h1>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Modele</th>
-                <td>{{ voiture.modele }}</td>
-            </tr>
-            <tr>
-                <th>Id</th>
-                <td>{{ voiture.id }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-7">
+            <div class="block">
+                <div class="block-header">
+                    <span class="block-title">Détails</span>
+                </div>
+                <div class="block-body">
+                    <table class="entity show">
+                        <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <td>{{ voiture.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Modele</th>
+                                <td>{{ voiture.modele }}</td>
+                            </tr>
+                            <tr>
+                                <th>Marque</th>
+                                <td><a href="{{ path('marque_show', { 'id': voiture.marque.id }) }}">{{ voiture.marque }}</a></td>
+                            </tr>
+                            <tr>
+                                <th>Type vehicule</th>
+                                <td><a href="{{ path('typevehicule_show', { 'id': voiture.typevehicule.id }) }}">{{ voiture.typevehicule }}</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('voiture_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('voiture_edit', { 'id': voiture.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+        <div class="col-5">
+            <div class="block">
+                <div class="block-header">
+                    <span class="block-title">Action</span>
+                </div>
+                <div class="block-body">
+                    <table class="action">
+                        <tr><td>
+                            {{ form_start(delete_form) }}
+                                <input type="submit" value="Supprimer">
+                            {{ form_end(delete_form) }}
+                        </td></tr>
+                        <tr><td><a href="{{ path('voiture_edit', { 'id': voiture.id }) }}">Modifier</a></td></tr>
+                        <tr><td><a href="{{ path('voiture_index') }}">Retour à la liste</a></td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

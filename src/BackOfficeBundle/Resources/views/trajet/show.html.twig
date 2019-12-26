@@ -1,52 +1,88 @@
 {% extends '@BackOffice/base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/new.css') }}" />
+{% endblock %}
+
 {% block body %}
     <h1>Trajet</h1>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Datedepart</th>
-                <td>{% if trajet.dateDepart %}{{ trajet.dateDepart|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Heuredepart</th>
-                <td>{% if trajet.heureDepart %}{{ trajet.heureDepart|date('H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Nbplace</th>
-                <td>{{ trajet.nbPlace }}</td>
-            </tr>
-            <tr>
-                <th>Duree</th>
-                <td>{{ trajet.duree }}</td>
-            </tr>
-            <tr>
-                <th>Commentaire</th>
-                <td>{{ trajet.commentaire }}</td>
-            </tr>
-            <tr>
-                <th>Nbkm</th>
-                <td>{{ trajet.nbKm }}</td>
-            </tr>
-            <tr>
-                <th>Id</th>
-                <td>{{ trajet.id }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-7">
+            <div class="block">
+                <div class="block-header">
+                    <span class="block-title">Détails</span>
+                </div>
+                <div class="block-body">
+                    <table class="entity show">
+                        <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <td>{{ trajet.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Datedepart</th>
+                                <td>{% if trajet.dateDepart %}{{ trajet.dateDepart|date('Y-m-d') }}{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <th>Heuredepart</th>
+                                <td>{% if trajet.heureDepart %}{{ trajet.heureDepart|date('H:i:s') }}{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <th>Nbplace</th>
+                                <td>{{ trajet.nbPlace }}</td>
+                            </tr>
+                            <tr>
+                                <th>Duree</th>
+                                <td>{{ trajet.duree }}</td>
+                            </tr>
+                            <tr>
+                                <th>Commentaire</th>
+                                <td>{{ trajet.commentaire }}</td>
+                            </tr>
+                            <tr>
+                                <th>Nbkm</th>
+                                <td>{{ trajet.nbKm }}</td>
+                            </tr>
+                            <tr>
+                                <th>Possede</th>
+                                <td><a href="{{ path('possede_show', { 'id': trajet.possede.id }) }}">{{ trajet.possede }}</a></td>
+                            </tr>
+                            <tr>
+                                <th>Typetrajet</th>
+                                <td><a href="{{ path('typetrajet_show', { 'id': trajet.typeTrajet.id }) }}">{{ trajet.typeTrajet }}</a></td>
+                            </tr>
+                            <tr>
+                                <th>Villedepart</th>
+                                <td><a href="{{ path('ville_show', { 'id': trajet.villeDepart.id }) }}">{{ trajet.villeDepart }}</a></td>
+                            </tr>
+                            <tr>
+                                <th>Villearrivee</th>
+                                <td><a href="{{ path('ville_show', { 'id': trajet.villeArrivee.id }) }}">{{ trajet.villeArrivee }}</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('trajet_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('trajet_edit', { 'id': trajet.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+        <div class="col-5">
+            <div class="block">
+                <div class="block-header">
+                    <span class="block-title">Action</span>
+                </div>
+                <div class="block-body">
+                    <table class="action">
+                        <tr><td>
+                            {{ form_start(delete_form) }}
+                                <input type="submit" value="Supprimer">
+                            {{ form_end(delete_form) }}
+                        </td></tr>
+                        <tr><td><a href="{{ path('trajet_edit', { 'id': trajet.id }) }}">Modifier</a></td></tr>
+                        <tr><td><a href="{{ path('trajet_index') }}">Retour à la liste</a></td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

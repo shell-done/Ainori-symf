@@ -1,36 +1,64 @@
 {% extends '@BackOffice/base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/new.css') }}" />
+{% endblock %}
+
 {% block body %}
     <h1>Possede</h1>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Immatriculation</th>
-                <td>{{ possede.immatriculation }}</td>
-            </tr>
-            <tr>
-                <th>Nbplace</th>
-                <td>{{ possede.nbPlace }}</td>
-            </tr>
-            <tr>
-                <th>Id</th>
-                <td>{{ possede.id }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-7">
+            <div class="block">
+                <div class="block-header">
+                    <span class="block-title">Détails</span>
+                </div>
+                <div class="block-body">
+                    <table class="entity show">
+                        <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <td>{{ possede.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Immatriculation</th>
+                                <td>{{ possede.immatriculation }}</td>
+                            </tr>
+                            <tr>
+                                <th>Nbplace</th>
+                                <td>{{ possede.nbPlace }}</td>
+                            </tr>
+                            <tr>
+                                <th>Voiture</th>
+                                <td><a href="{{ path('voiture_show', { 'id': possede.voiture.id }) }}">{{ possede.voiture }}</a></td>
+                            </tr>
+                            <tr>
+                                <th>Utilisateur</th>
+                                <td><a href="{{ path('utilisateur_show', { 'id': possede.utilisateur.id }) }}">{{ possede.utilisateur }}</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('possede_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('possede_edit', { 'id': possede.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+        <div class="col-5">
+            <div class="block">
+                <div class="block-header">
+                    <span class="block-title">Action</span>
+                </div>
+                <div class="block-body">
+                    <table class="action">
+                        <tr><td>
+                            {{ form_start(delete_form) }}
+                                <input type="submit" value="Supprimer">
+                            {{ form_end(delete_form) }}
+                        </td></tr>
+                        <tr><td><a href="{{ path('possede_edit', { 'id': possede.id }) }}">Modifier</a></td></tr>
+                        <tr><td><a href="{{ path('possede_index') }}">Retour à la liste</a></td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
