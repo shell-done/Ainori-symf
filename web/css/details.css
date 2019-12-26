@@ -36,7 +36,7 @@ td input[type="date"], td input[type="time"] {
 }
 
 td input[type="datetime-local"] {
-    width: 70%;
+    width: 75%;
 }
 
 td textarea {
