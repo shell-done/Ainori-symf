@@ -1,16 +1,49 @@
 {% extends '@BackOffice/base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/new.css') }}" />
+{% endblock %}
+
 {% block body %}
     <h1>Utilisateur creation</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+    <div class="row">
+        <div class="col-7">
+            <div class="block">
+                <div class="block-header">
+                    <span class="block-title">Détails</span>
+                </div>
+                <div class="block-body">
+                    {{ form_start(form) }}
+                    <table class="entity">
+                        <tr><td>{{ form_label(form.nom) }}</td><td>{{ form_widget(form.nom) }}{{ form_errors(form.nom) }}</td></tr>
+                        <tr><td>{{ form_label(form.prenom) }}</td><td>{{ form_widget(form.prenom) }}{{ form_errors(form.prenom) }}</td></tr>
+                        <tr><td>{{ form_label(form.mail) }}</td><td>{{ form_widget(form.mail) }}{{ form_errors(form.mail) }}</td></tr>
+                        <tr><td>{{ form_label(form.password) }}</td><td>{{ form_widget(form.password) }}{{ form_errors(form.password) }}</td></tr>
+                        <tr><td>{{ form_label(form.telephone) }}</td><td>{{ form_widget(form.telephone) }}{{ form_errors(form.telephone) }}</td></tr>
+                        <tr><td>{{ form_label(form.adresse) }}</td><td>{{ form_widget(form.adresse) }}{{ form_errors(form.adresse) }}</td></tr>
+                        <tr><td>{{ form_label(form.ville) }}</td><td>{{ form_widget(form.ville) }}{{ form_errors(form.ville) }}</td></tr>
+                        <tr><td>{{ form_label(form.categorie) }}</td><td>{{ form_widget(form.categorie) }}{{ form_errors(form.categorie) }}</td></tr>
 
-    <ul>
-        <li>
-            <a href="{{ path('utilisateur_index') }}">Back to the list</a>
-        </li>
-    </ul>
+                        <tr>
+                            <td></td><td><input type="submit" value="Créer"/></<td>
+                        </tr>
+                    </table>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="block">
+                <div class="block-header">
+                    <span class="block-title">Action</span>
+                </div>
+                <div class="block-body">
+                    <table class="action">
+                        <tr><td><a href="{{ path('utilisateur_index') }}">Retour à la liste</a></td><tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

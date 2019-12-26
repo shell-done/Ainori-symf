@@ -1,16 +1,51 @@
 {% extends '@BackOffice/base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/new.css') }}" />
+{% endblock %}
+
 {% block body %}
     <h1>Trajet creation</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+    <div class="row">
+        <div class="col-7">
+            <div class="block">
+                <div class="block-header">
+                    <span class="block-title">Détails</span>
+                </div>
+                <div class="block-body">
+                    {{ form_start(form) }}
+                    <table class="entity">
+                        <tr class="date"><td>{{ form_label(form.dateDepart) }}</td><td>{{ form_widget(form.dateDepart) }}{{ form_errors(form.dateDepart) }}</td></tr>
+                        <tr class="time"><td>{{ form_label(form.heureDepart) }}</td><td>{{ form_widget(form.heureDepart) }}{{ form_errors(form.heureDepart) }}</td></tr>
+                        <tr><td>{{ form_label(form.nbPlace) }}</td><td>{{ form_widget(form.nbPlace) }}{{ form_errors(form.nbPlace) }}</td></tr>
+                        <tr><td>{{ form_label(form.duree) }}</td><td>{{ form_widget(form.duree) }}{{ form_errors(form.duree) }}</td></tr>
+                        <tr><td>{{ form_label(form.commentaire) }}</td><td>{{ form_widget(form.commentaire) }}{{ form_errors(form.commentaire) }}</td></tr>
+                        <tr><td>{{ form_label(form.nbKm) }}</td><td>{{ form_widget(form.nbKm) }}{{ form_errors(form.nbKm) }}</td></tr>
+                        <tr><td>{{ form_label(form.possede) }}</td><td>{{ form_widget(form.possede) }}{{ form_errors(form.possede) }}</td></tr>
+                        <tr><td>{{ form_label(form.typeTrajet) }}</td><td>{{ form_widget(form.typeTrajet) }}{{ form_errors(form.typeTrajet) }}</td></tr>
+                        <tr><td>{{ form_label(form.villeDepart) }}</td><td>{{ form_widget(form.villeDepart) }}{{ form_errors(form.villeDepart) }}</td></tr>
+                        <tr><td>{{ form_label(form.villeArrivee) }}</td><td>{{ form_widget(form.villeArrivee) }}{{ form_errors(form.villeArrivee) }}</td></tr>
 
-    <ul>
-        <li>
-            <a href="{{ path('trajet_index') }}">Back to the list</a>
-        </li>
-    </ul>
+                        <tr>
+                            <td></td><td><input type="submit" value="Créer"/></<td>
+                        </tr>
+                    </table>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="block">
+                <div class="block-header">
+                    <span class="block-title">Action</span>
+                </div>
+                <div class="block-body">
+                    <table class="action">
+                        <tr><td><a href="{{ path('trajet_index') }}">Retour à la liste</a></td><tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

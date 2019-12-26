@@ -1,16 +1,43 @@
 {% extends '@BackOffice/base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/new.css') }}" />
+{% endblock %}
+
 {% block body %}
     <h1>Co2 creation</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+    <div class="row">
+        <div class="col-7">
+            <div class="block">
+                <div class="block-header">
+                    <span class="block-title">Détails</span>
+                </div>
+                <div class="block-body">
+                    {{ form_start(form) }}
+                    <table class="entity">
+                        <tr><td>{{ form_label(form.valCo2) }}</td><td>{{ form_widget(form.valCo2) }}{{ form_errors(form.valCo2) }}</td></tr>
+                        <tr><td>{{ form_label(form.actif) }}</td><td>{{ form_widget(form.actif) }}{{ form_errors(form.actif) }}</td></tr>
 
-    <ul>
-        <li>
-            <a href="{{ path('co2_index') }}">Back to the list</a>
-        </li>
-    </ul>
+                        <tr>
+                            <td></td><td><input type="submit" value="Créer"/></<td>
+                        </tr>
+                    </table>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="block">
+                <div class="block-header">
+                    <span class="block-title">Action</span>
+                </div>
+                <div class="block-body">
+                    <table class="action">
+                        <tr><td><a href="{{ path('co2_index') }}">Retour à la liste</a></td><tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

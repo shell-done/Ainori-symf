@@ -1,16 +1,45 @@
 {% extends '@BackOffice/base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/new.css') }}" />
+{% endblock %}
+
 {% block body %}
     <h1>Possede creation</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+    <div class="row">
+        <div class="col-7">
+            <div class="block">
+                <div class="block-header">
+                    <span class="block-title">Détails</span>
+                </div>
+                <div class="block-body">
+                    {{ form_start(form) }}
+                    <table class="entity">
+                        <tr><td>{{ form_label(form.immatriculation) }}</td><td>{{ form_widget(form.immatriculation) }}{{ form_errors(form.immatriculation) }}</td></tr>
+                        <tr><td>{{ form_label(form.nbPlace) }}</td><td>{{ form_widget(form.nbPlace) }}{{ form_errors(form.nbPlace) }}</td></tr>
+                        <tr><td>{{ form_label(form.voiture) }}</td><td>{{ form_widget(form.voiture) }}{{ form_errors(form.voiture) }}</td></tr>
+                        <tr><td>{{ form_label(form.utilisateur) }}</td><td>{{ form_widget(form.utilisateur) }}{{ form_errors(form.utilisateur) }}</td></tr>
 
-    <ul>
-        <li>
-            <a href="{{ path('possede_index') }}">Back to the list</a>
-        </li>
-    </ul>
+                        <tr>
+                            <td></td><td><input type="submit" value="Créer"/></<td>
+                        </tr>
+                    </table>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="block">
+                <div class="block-header">
+                    <span class="block-title">Action</span>
+                </div>
+                <div class="block-body">
+                    <table class="action">
+                        <tr><td><a href="{{ path('possede_index') }}">Retour à la liste</a></td><tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

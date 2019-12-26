@@ -1,16 +1,47 @@
 {% extends '@BackOffice/base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/new.css') }}" />
+{% endblock %}
+
 {% block body %}
     <h1>Covoiturage creation</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+    <div class="row">
+        <div class="col-7">
+            <div class="block">
+                <div class="block-header">
+                    <span class="block-title">Détails</span>
+                </div>
+                <div class="block-body">
+                    {{ form_start(form) }}
+                    <table class="entity">
+                        <tr><td>{{ form_label(form.created) }}</td><td>{{ form_widget(form.created) }}{{ form_errors(form.created) }}</td></tr>
+                        <tr><td>{{ form_label(form.updated) }}</td><td>{{ form_widget(form.updated) }}{{ form_errors(form.updated) }}</td></tr>
+                        <tr><td>{{ form_label(form.co2) }}</td><td>{{ form_widget(form.co2) }}{{ form_errors(form.co2) }}</td></tr>
+                        <tr><td>{{ form_label(form.trajet) }}</td><td>{{ form_widget(form.trajet) }}{{ form_errors(form.trajet) }}</td></tr>
+                        <tr><td>{{ form_label(form.typeCovoit) }}</td><td>{{ form_widget(form.typeCovoit) }}{{ form_errors(form.typeCovoit) }}</td></tr>
+                        <tr><td>{{ form_label(form.utilisateur) }}</td><td>{{ form_widget(form.utilisateur) }}{{ form_errors(form.utilisateur) }}</td></tr>
 
-    <ul>
-        <li>
-            <a href="{{ path('covoiturage_index') }}">Back to the list</a>
-        </li>
-    </ul>
+                        <tr>
+                            <td></td><td><input type="submit" value="Créer"/></<td>
+                        </tr>
+                    </table>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="block">
+                <div class="block-header">
+                    <span class="block-title">Action</span>
+                </div>
+                <div class="block-body">
+                    <table class="action">
+                        <tr><td><a href="{{ path('covoiturage_index') }}">Retour à la liste</a></td><tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
