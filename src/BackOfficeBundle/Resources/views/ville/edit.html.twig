@@ -1,21 +1,50 @@
 {% extends '@BackOffice/base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/new.css') }}" />
+{% endblock %}
+
 {% block body %}
     <h1>Ville edit</h1>
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+    <div class="row">
+        <div class="col-7">
+            <div class="block">
+                <div class="block-header">
+                    <span class="block-title">Détails</span>
+                </div>
+                <div class="block-body">
+                    {{ form_start(edit_form) }}
+                    <table class="entity">
+                        <tr><td>{{ form_label(edit_form.ville) }}</td><td>{{ form_widget(edit_form.ville) }}{{ form_errors(edit_form.ville) }}</td></tr>
+                        <tr><td>{{ form_label(edit_form.codePostal) }}</td><td>{{ form_widget(edit_form.codePostal) }}{{ form_errors(edit_form.codePostal) }}</td></tr>
+                        <tr><td>{{ form_label(edit_form.codeInsee) }}</td><td>{{ form_widget(edit_form.codeInsee) }}{{ form_errors(edit_form.codeInsee) }}</td></tr>
+                        <tr><td>{{ form_label(edit_form.dep) }}</td><td>{{ form_widget(edit_form.dep) }}{{ form_errors(edit_form.dep) }}</td></tr>
 
-    <ul>
-        <li>
-            <a href="{{ path('ville_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+                        <tr>
+                            <td></td><td><input type="submit" value="Modifier"/></<td>
+                        </tr>
+                    </table>
+                    {{ form_end(edit_form) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="block">
+                <div class="block-header">
+                    <span class="block-title">Action</span>
+                </div>
+                <div class="block-body">
+                    <table class="action">
+                        <tr><td>
+                            {{ form_start(delete_form) }}
+                                <input type="submit" value="Supprimer">
+                            {{ form_end(delete_form) }}
+                        </td></tr>
+                        <tr><td><a href="{{ path('ville_index') }}">Retour à la liste</a></td><tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

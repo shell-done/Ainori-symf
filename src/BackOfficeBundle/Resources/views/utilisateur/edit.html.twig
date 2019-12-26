@@ -1,21 +1,54 @@
 {% extends '@BackOffice/base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/new.css') }}" />
+{% endblock %}
+
 {% block body %}
-    <h1>Utilisateur edit</h1>
+    <h1>Utilisateur creation</h1>
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+    <div class="row">
+        <div class="col-7">
+            <div class="block">
+                <div class="block-header">
+                    <span class="block-title">Détails</span>
+                </div>
+                <div class="block-body">
+                    {{ form_start(edit_form) }}
+                    <table class="entity">
+                        <tr><td>{{ form_label(edit_form.nom) }}</td><td>{{ form_widget(edit_form.nom) }}{{ form_errors(edit_form.nom) }}</td></tr>
+                        <tr><td>{{ form_label(edit_form.prenom) }}</td><td>{{ form_widget(edit_form.prenom) }}{{ form_errors(edit_form.prenom) }}</td></tr>
+                        <tr><td>{{ form_label(edit_form.mail) }}</td><td>{{ form_widget(edit_form.mail) }}{{ form_errors(edit_form.mail) }}</td></tr>
+                        <tr><td>{{ form_label(edit_form.password) }}</td><td>{{ form_widget(edit_form.password) }}{{ form_errors(edit_form.password) }}</td></tr>
+                        <tr><td>{{ form_label(edit_form.telephone) }}</td><td>{{ form_widget(edit_form.telephone) }}{{ form_errors(edit_form.telephone) }}</td></tr>
+                        <tr><td>{{ form_label(edit_form.adresse) }}</td><td>{{ form_widget(edit_form.adresse) }}{{ form_errors(edit_form.adresse) }}</td></tr>
+                        <tr><td>{{ form_label(edit_form.ville) }}</td><td>{{ form_widget(edit_form.ville) }}{{ form_errors(edit_form.ville) }}</td></tr>
+                        <tr><td>{{ form_label(edit_form.categorie) }}</td><td>{{ form_widget(edit_form.categorie) }}{{ form_errors(edit_form.categorie) }}</td></tr>
 
-    <ul>
-        <li>
-            <a href="{{ path('utilisateur_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+                        <tr>
+                            <td></td><td><input type="submit" value="Modifier"/></<td>
+                        </tr>
+                    </table>
+                    {{ form_end(edit_form) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="block">
+                <div class="block-header">
+                    <span class="block-title">Action</span>
+                </div>
+                <div class="block-body">
+                    <table class="action">
+                        <tr><td>
+                            {{ form_start(delete_form) }}
+                                <input type="submit" value="Supprimer">
+                            {{ form_end(delete_form) }}
+                        </td></tr>
+                        <tr><td><a href="{{ path('utilisateur_index') }}">Retour à la liste</a></td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
