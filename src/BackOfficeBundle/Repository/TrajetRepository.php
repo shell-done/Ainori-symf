@@ -26,4 +26,13 @@ class TrajetRepository extends \Doctrine\ORM\EntityRepository {
             ->select("COUNT(t.id)")
             ->getQuery()->getSingleScalarResult();
     }
+
+    public function findByIdRest($id) {
+        $em = $this->createQueryBuilder("t")
+            ->where("t.id = :id")
+            ->setParameter("id", $id)
+            ->getQuery();
+
+        return $em->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+    }
 }

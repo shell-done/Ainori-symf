@@ -1,3 +1,10 @@
 web_service_homepage:
     path: /
     defaults: { _controller: WebServiceBundle:Default:index }
+
+web_service_get_trajet:
+    path: /trajet/{id}
+    defaults: { _controller: WebServiceBundle:Trajet:getTrajet }
+    methods:  GET
+    requirements:
+        id: '\d+'
