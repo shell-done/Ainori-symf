@@ -85,7 +85,7 @@ class UtilisateurController extends Controller
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('utilisateur_edit', array('id' => $utilisateur->getId()));
+            return $this->redirectToRoute('utilisateur_show', array('id' => $utilisateur->getId()));
         }
 
         return $this->render('@BackOffice/utilisateur/edit.html.twig', array(

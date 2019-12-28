@@ -78,7 +78,7 @@ class TypeVehiculeController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('typevehicule_edit', array('id' => $typeVehicule->getId()));
+            return $this->redirectToRoute('typevehicule_show', array('id' => $typeVehicule->getId()));
         }
 
         return $this->render('@BackOffice/typevehicule/edit.html.twig', array(

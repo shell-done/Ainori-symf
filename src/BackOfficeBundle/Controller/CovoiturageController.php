@@ -78,7 +78,7 @@ class CovoiturageController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('covoiturage_edit', array('id' => $covoiturage->getId()));
+            return $this->redirectToRoute('covoiturage_show', array('id' => $covoiturage->getId()));
         }
 
         return $this->render('@BackOffice/covoiturage/edit.html.twig', array(

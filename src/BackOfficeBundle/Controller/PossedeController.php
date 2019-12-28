@@ -78,7 +78,7 @@ class PossedeController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('possede_edit', array('id' => $possede->getId()));
+            return $this->redirectToRoute('possede_show', array('id' => $possede->getId()));
         }
 
         return $this->render('@BackOffice/possede/edit.html.twig', array(

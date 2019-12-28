@@ -78,7 +78,7 @@ class Co2Controller extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('co2_edit', array('id' => $co2->getId()));
+            return $this->redirectToRoute('co2_show', array('id' => $co2->getId()));
         }
 
         return $this->render('@BackOffice/co2/edit.html.twig', array(

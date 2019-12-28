@@ -78,7 +78,7 @@ class VilleController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('ville_edit', array('id' => $ville->getId()));
+            return $this->redirectToRoute('ville_show', array('id' => $ville->getId()));
         }
 
         return $this->render('@BackOffice/ville/edit.html.twig', array(

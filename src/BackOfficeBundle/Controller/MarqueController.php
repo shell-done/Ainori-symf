@@ -78,7 +78,7 @@ class MarqueController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('marque_edit', array('id' => $marque->getId()));
+            return $this->redirectToRoute('marque_show', array('id' => $marque->getId()));
         }
 
         return $this->render('@BackOffice/marque/edit.html.twig', array(

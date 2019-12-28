@@ -78,7 +78,7 @@ class TypeCovoitController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('typecovoit_edit', array('id' => $typeCovoit->getId()));
+            return $this->redirectToRoute('typecovoit_show', array('id' => $typeCovoit->getId()));
         }
 
         return $this->render('@BackOffice/typecovoit/edit.html.twig', array(

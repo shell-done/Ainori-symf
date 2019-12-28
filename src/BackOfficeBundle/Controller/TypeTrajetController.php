@@ -78,7 +78,7 @@ class TypeTrajetController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('typetrajet_edit', array('id' => $typeTrajet->getId()));
+            return $this->redirectToRoute('typetrajet_show', array('id' => $typeTrajet->getId()));
         }
 
         return $this->render('@BackOffice/typetrajet/edit.html.twig', array(
