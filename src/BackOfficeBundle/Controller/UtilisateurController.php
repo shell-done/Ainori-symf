@@ -5,6 +5,7 @@ namespace BackOfficeBundle\Controller;
 use BackOfficeBundle\Entity\Utilisateur;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Utilisateur controller.
@@ -31,13 +32,16 @@ class UtilisateurController extends Controller
      * Creates a new utilisateur entity.
      *
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, UserPasswordEncoderInterface $encoder)
     {
         $utilisateur = new Utilisateur();
         $form = $this->createForm('BackOfficeBundle\Form\UtilisateurType', $utilisateur);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $password = $encoder->encodePassword($utilisateur, $utilisateur->getPlainPassword());
+            $utilisateur->setPassword($password);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($utilisateur);
             $em->flush();
@@ -69,13 +73,16 @@ class UtilisateurController extends Controller
      * Displays a form to edit an existing utilisateur entity.
      *
      */
-    public function editAction(Request $request, Utilisateur $utilisateur)
+    public function editAction(Request $request, Utilisateur $utilisateur, UserPasswordEncoderInterface $encoder)
     {
         $deleteForm = $this->createDeleteForm($utilisateur);
         $editForm = $this->createForm('BackOfficeBundle\Form\UtilisateurType', $utilisateur);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $password = $encoder->encodePassword($utilisateur, $utilisateur->getPlainPassword());
+            $utilisateur->setPassword($password);
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('utilisateur_edit', array('id' => $utilisateur->getId()));

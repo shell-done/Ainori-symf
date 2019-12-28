@@ -3,6 +3,8 @@
 namespace BackOfficeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Utilisateur
@@ -10,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="utilisateur", indexes={@ORM\Index(name="utilisateur_ville_FK", columns={"id_ville"}), @ORM\Index(name="utilisateur_categorie0_FK", columns={"id_categorie"})})
  * @ORM\Entity(repositoryClass="BackOfficeBundle\Repository\UtilisateurRepository")
  */
-class Utilisateur
+class Utilisateur implements UserInterface
 {
     /**
      * @var string
@@ -35,10 +37,23 @@ class Utilisateur
 
     /**
      * @var string
+     * 
+     * @Assert\NotBlank
+     * @Assert\Length(max=4096)
+     */
+    private $plainPassword;
+
+    /**
+     * @var string
      *
      * @ORM\Column(name="password", type="string", length=150, nullable=false)
      */
     private $password;
+
+    /**
+     * @var array
+     */
+    private $roles;
 
     /**
      * @var string
@@ -83,7 +98,10 @@ class Utilisateur
      */
     private $ville;
 
-
+    
+    public function __construct() {
+        $this->roles = ['ROLE_USER'];
+    }
 
     /**
      * Set mail
@@ -106,6 +124,10 @@ class Utilisateur
      */
     public function getMail()
     {
+        return $this->mail;
+    }
+
+    public function getUsername() {
         return $this->mail;
     }
 
@@ -158,6 +180,30 @@ class Utilisateur
     }
 
     /**
+     * Set plainPassword
+     *
+     * @param string $plainPassword
+     *
+     * @return Utilisateur
+     */
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
+    /**
+     * Get plainPassword
+     *
+     * @return string
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
      * Set password
      *
      * @param string $password
@@ -179,6 +225,16 @@ class Utilisateur
     public function getPassword()
     {
         return $this->password;
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function getRoles()
+    {
+        return $this->roles;
     }
 
     /**
@@ -285,6 +341,10 @@ class Utilisateur
     public function getVille()
     {
         return $this->ville;
+    }
+
+    public function eraseCredentials()
+    {
     }
 
     /**
