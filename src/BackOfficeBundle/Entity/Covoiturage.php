@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="covoiturage", indexes={@ORM\Index(name="covoiturage_utilisateur_FK", columns={"id_utilisateur"}), @ORM\Index(name="covoiturage_co20_FK", columns={"id_co2"}), @ORM\Index(name="covoiturage_type_covoit1_FK", columns={"id_type_covoit"}), @ORM\Index(name="covoiturage_trajet2_FK", columns={"id_trajet"})})
  * @ORM\Entity(repositoryClass="BackOfficeBundle\Repository\CovoiturageRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Covoiturage
 {
@@ -81,10 +82,17 @@ class Covoiturage
      */
     private $utilisateur;
 
-    public function __construct() {
-        $now = new \DateTime();
-        $this->created = new \DateTime($now->format("Y-m-d H:i"));
-        $this->updated = new \DateTime($now->format("Y-m-d H:i"));
+    /**
+     *
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updatedTimestamps() {
+        $this->updated = new \DateTime();
+
+        if($this->created == null) {
+            $this->created = new \DateTime();
+        }
     }
 
     /**
