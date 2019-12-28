@@ -58,6 +58,12 @@ td input[type="checkbox"] {
     text-align: right;
 }
 
+.entity td ul {
+    text-align: left;
+    margin-bottom: 5px;
+    white-space: normal;
+}
+
 input[type="submit"] {
     float: right;
     margin-top: 10px;
