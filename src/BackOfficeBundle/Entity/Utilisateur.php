@@ -5,18 +5,26 @@ namespace BackOfficeBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Utilisateur
  *
  * @ORM\Table(name="utilisateur", indexes={@ORM\Index(name="utilisateur_ville_FK", columns={"id_ville"}), @ORM\Index(name="utilisateur_categorie0_FK", columns={"id_categorie"})})
  * @ORM\Entity(repositoryClass="BackOfficeBundle\Repository\UtilisateurRepository")
+ * @UniqueEntity(fields="mail", message="Adresse mail déjà utilisée")
  */
 class Utilisateur implements UserInterface
 {
     /**
      * @var string
-     *
+     * 
+     * @Assert\NotBlank(message = "Ce champ ne peut pas être vide")
+     * @Assert\Email
+     * @Assert\Length(
+     *  max = 50,
+     *  maxMessage = "Ce champ est trop long, il doit faire 50 caractères ou moins"
+     * )
      * @ORM\Column(name="mail", type="string", length=50, nullable=false)
      */
     private $mail;
@@ -24,6 +32,13 @@ class Utilisateur implements UserInterface
     /**
      * @var string
      *
+     * @Assert\NotBlank(message = "Ce champ ne peut pas être vide")
+     * @Assert\Length(
+     *  min = 2, 
+     *  minMessage = "Ce champ est trop court, il doit faire 2 caractères ou plus",
+     *  max = 50,
+     *  maxMessage = "Ce champ est trop long, il doit faire 50 caractères ou moins"
+     * )
      * @ORM\Column(name="nom", type="string", length=50, nullable=false)
      */
     private $nom;
@@ -31,6 +46,13 @@ class Utilisateur implements UserInterface
     /**
      * @var string
      *
+     * @Assert\NotBlank(message = "Ce champ ne peut pas être vide")
+     * @Assert\Length(
+     *  min = 2, 
+     *  minMessage = "Ce champ est trop court, il doit faire 2 caractères ou plus",
+     *  max = 50,
+     *  maxMessage = "Ce champ est trop long, il doit faire 50 caractères ou moins"
+     * )
      * @ORM\Column(name="prenom", type="string", length=50, nullable=false)
      */
     private $prenom;
@@ -38,8 +60,13 @@ class Utilisateur implements UserInterface
     /**
      * @var string
      * 
-     * @Assert\NotBlank
-     * @Assert\Length(max=4096)
+     * @Assert\NotBlank(message = "Ce champ ne peut pas être vide")
+     * @Assert\Length(
+     *  min = 5, 
+     *  minMessage = "Ce champ est trop court, il doit faire 5 caractères ou plus",
+     *  max = 4096,
+     *  maxMessage = "Ce champ est trop long, il doit faire 4096 caractères ou moins"
+     * )
      */
     private $plainPassword;
 
@@ -58,6 +85,10 @@ class Utilisateur implements UserInterface
     /**
      * @var string
      *
+     * @Assert\Regex(
+     *  pattern = "/^[0-9]{10}$/",
+     *  message = "Ce champ doit être composé d'exactement 10 chiffres"
+     * )
      * @ORM\Column(name="telephone", type="string", length=10, nullable=true)
      */
     private $telephone;
@@ -65,6 +96,10 @@ class Utilisateur implements UserInterface
     /**
      * @var string
      *
+     * @Assert\Length(
+     *  max = 10,
+     *  maxMessage = "Ce champ est trop long, il doit faire 10 caractères ou moins"
+     * )
      * @ORM\Column(name="adresse", type="string", length=10, nullable=true)
      */
     private $adresse;
@@ -81,6 +116,7 @@ class Utilisateur implements UserInterface
     /**
      * @var \BackOfficeBundle\Entity\Categorie
      *
+     * @Assert\NotBlank
      * @ORM\ManyToOne(targetEntity="BackOfficeBundle\Entity\Categorie")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_categorie", referencedColumnName="id")
@@ -91,6 +127,7 @@ class Utilisateur implements UserInterface
     /**
      * @var \BackOfficeBundle\Entity\Ville
      *
+     * @Assert\NotBlank
      * @ORM\ManyToOne(targetEntity="BackOfficeBundle\Entity\Ville")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_ville", referencedColumnName="id")

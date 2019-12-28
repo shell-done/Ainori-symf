@@ -3,6 +3,8 @@
 namespace BackOfficeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Voiture
@@ -15,6 +17,13 @@ class Voiture
     /**
      * @var string
      *
+     * @Assert\NotBlank(message = "Ce champ ne peut pas être vide")
+     * @Assert\Length(
+     *  min = 2, 
+     *  minMessage = "Ce champ est trop court, il doit faire 2 caractères ou plus",
+     *  max = 50,
+     *  maxMessage = "Ce champ est trop long, il doit faire 50 caractères ou moins"
+     * )
      * @ORM\Column(name="modele", type="string", length=50, nullable=false)
      */
     private $modele;
@@ -31,6 +40,7 @@ class Voiture
     /**
      * @var \BackOfficeBundle\Entity\Marque
      *
+     * @Assert\NotBlank
      * @ORM\ManyToOne(targetEntity="BackOfficeBundle\Entity\Marque")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_marque", referencedColumnName="id")
@@ -41,6 +51,7 @@ class Voiture
     /**
      * @var \BackOfficeBundle\Entity\TypeVehicule
      *
+     * @Assert\NotBlank
      * @ORM\ManyToOne(targetEntity="BackOfficeBundle\Entity\TypeVehicule")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_type_vehicule", referencedColumnName="id")

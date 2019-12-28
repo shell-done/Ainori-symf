@@ -13,7 +13,16 @@ class VilleType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('codeInsee')->add('ville')->add('codePostal')->add('dep');
+        $builder->add('codeInsee', null, [
+                    "attr" => ["title" => "Ce champ doit être composé d'exactement 5 chiffres"]
+                ])
+                ->add('ville')
+                ->add('codePostal', null, [
+                    "attr" => ["title" => "Ce champ doit être composé d'exactement 5 chiffres"]
+                ])
+                ->add('dep', null, [
+                    "attr" => ["title" => "Ce champ doit être composé de 1 à 5 chiffres"]
+                ]);
     }/**
      * {@inheritdoc}
      */

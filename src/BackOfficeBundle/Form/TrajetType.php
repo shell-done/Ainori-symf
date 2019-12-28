@@ -15,9 +15,19 @@ class TrajetType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('dateDepart', DateType::class, ["widget" => "single_text"])
-                ->add('heureDepart', TimeType::class, ["widget" => "single_text"])
-                ->add('nbPlace')
+        $now = new \DateTime();
+
+        $builder->add('dateDepart', DateType::class, [
+                    "widget" => "single_text", 
+                    "attr" => ["min" => $now->format("Y-m-d")]
+                ])
+                ->add('heureDepart', TimeType::class, [
+                    "widget" => "single_text",
+                    "attr" => ["min" => $now->format("H:i")]
+                ])
+                ->add('nbPlace', null, [
+                    "attr" => ["min" => "1"]
+                ])
                 ->add('duree')
                 ->add('commentaire')
                 ->add('nbKm')

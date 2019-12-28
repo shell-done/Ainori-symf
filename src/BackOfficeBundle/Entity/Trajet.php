@@ -3,6 +3,8 @@
 namespace BackOfficeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Trajet
@@ -14,7 +16,9 @@ class Trajet
 {
     /**
      * @var \DateTime
-     *
+     * 
+     * @Assert\NotBlank(message = "Ce champ ne peut pas être vide")
+     * @Assert\GreaterThan("now")
      * @ORM\Column(name="date_depart", type="date", nullable=false)
      */
     private $dateDepart;
@@ -22,6 +26,8 @@ class Trajet
     /**
      * @var \DateTime
      *
+     * @Assert\NotBlank(message = "Ce champ ne peut pas être vide")
+     * @Assert\GreaterThan("now")
      * @ORM\Column(name="heure_depart", type="time", nullable=false)
      */
     private $heureDepart;
@@ -29,6 +35,11 @@ class Trajet
     /**
      * @var integer
      *
+     * @Assert\NotBlank(message = "Ce champ ne peut pas être vide")
+     * @Assert\GreaterThanOrEqual(
+     *  value = 1,
+     *  message = "Le nombre de place doit être strictement positif"
+     * )
      * @ORM\Column(name="nb_place", type="integer", nullable=false)
      */
     private $nbPlace;
@@ -50,6 +61,11 @@ class Trajet
     /**
      * @var float
      *
+     * @Assert\NotBlank(message = "Ce champ ne peut pas être vide")
+     * @Assert\GreaterThan(
+     *  value = 0,
+     *  message = "Le nombre de place doit être strictement positif"
+     * )
      * @ORM\Column(name="nb_km", type="float", precision=10, scale=0, nullable=false)
      */
     private $nbKm;
@@ -66,6 +82,7 @@ class Trajet
     /**
      * @var \BackOfficeBundle\Entity\Possede
      *
+     * @Assert\NotBlank
      * @ORM\ManyToOne(targetEntity="BackOfficeBundle\Entity\Possede")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_possede", referencedColumnName="id")
@@ -76,6 +93,7 @@ class Trajet
     /**
      * @var \BackOfficeBundle\Entity\TypeTrajet
      *
+     * @Assert\NotBlank
      * @ORM\ManyToOne(targetEntity="BackOfficeBundle\Entity\TypeTrajet")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_type_trajet", referencedColumnName="id")
@@ -86,6 +104,7 @@ class Trajet
     /**
      * @var \BackOfficeBundle\Entity\Ville
      *
+     * @Assert\NotBlank
      * @ORM\ManyToOne(targetEntity="BackOfficeBundle\Entity\Ville")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_ville_ville_arrivee", referencedColumnName="id")
@@ -96,6 +115,7 @@ class Trajet
     /**
      * @var \BackOfficeBundle\Entity\Ville
      *
+     * @Assert\NotBlank
      * @ORM\ManyToOne(targetEntity="BackOfficeBundle\Entity\Ville")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_ville", referencedColumnName="id")

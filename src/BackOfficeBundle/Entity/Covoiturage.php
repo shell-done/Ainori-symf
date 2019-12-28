@@ -3,6 +3,8 @@
 namespace BackOfficeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Covoiturage
@@ -38,6 +40,7 @@ class Covoiturage
     /**
      * @var \BackOfficeBundle\Entity\Co2
      *
+     * @Assert\NotBlank
      * @ORM\ManyToOne(targetEntity="BackOfficeBundle\Entity\Co2")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_co2", referencedColumnName="id")
@@ -48,6 +51,7 @@ class Covoiturage
     /**
      * @var \BackOfficeBundle\Entity\Trajet
      *
+     * @Assert\NotBlank
      * @ORM\ManyToOne(targetEntity="BackOfficeBundle\Entity\Trajet")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_trajet", referencedColumnName="id")
@@ -58,6 +62,7 @@ class Covoiturage
     /**
      * @var \BackOfficeBundle\Entity\TypeCovoit
      *
+     * @Assert\NotBlank
      * @ORM\ManyToOne(targetEntity="BackOfficeBundle\Entity\TypeCovoit")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_type_covoit", referencedColumnName="id")
@@ -68,6 +73,7 @@ class Covoiturage
     /**
      * @var \BackOfficeBundle\Entity\Utilisateur
      *
+     * @Assert\NotBlank
      * @ORM\ManyToOne(targetEntity="BackOfficeBundle\Entity\Utilisateur")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_utilisateur", referencedColumnName="id")
