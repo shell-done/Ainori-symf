@@ -30,7 +30,13 @@
                             </tr>
                             <tr>
                                 <th>Co2</th>
-                                <td><a href="{{ path('co2_show', { 'id': covoiturage.co2.id }) }}">{{ covoiturage.co2 }}</a></td>
+                                <td>
+                                    {% if covoiturage.co2 %}
+                                        <a href="{{ path('co2_show', { 'id': covoiturage.co2.id }) }}">{{ covoiturage.co2 }}</a>
+                                    {% else %}
+                                        Aucun
+                                    {% endif %}
+                                </td>
                             </tr>
                             <tr>
                                 <th>Trajet</th>

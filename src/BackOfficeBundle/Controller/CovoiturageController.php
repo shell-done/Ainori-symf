@@ -5,6 +5,7 @@ namespace BackOfficeBundle\Controller;
 use BackOfficeBundle\Entity\Covoiturage;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\FormError;
 
 /**
  * Covoiturage controller.
@@ -38,11 +39,45 @@ class CovoiturageController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($covoiturage);
-            $em->flush();
+            $hasComplexError = false;
 
-            return $this->redirectToRoute('covoiturage_show', array('id' => $covoiturage->getId()));
+            $repository = $this->getDoctrine()->getRepository(Covoiturage::class);
+            $covoiturages = $repository->getCovoiturageOfTrajet($covoiturage->getTrajet());
+            
+            if(count($covoiturages) >= $covoiturage->getTrajet()->getNbPlace() + 1) {
+                $form->get("trajet")->addError(new FormError("Toutes les places pour ce trajet sont déjà prises"));
+                $hasComplexError = true;
+            }
+
+            $driverCount = 0;
+            foreach($covoiturages as $c) {
+                if($c->getTypeCovoit()->getType() == "Conducteur") {
+                    $driverCount++;
+                }
+            }
+            
+            if($covoiturage->getTypeCovoit()->getType() == "Conducteur" && $driverCount > 0) {
+                $form->get("typeCovoit")->addError(new FormError("Un conducteur a déjà été assigné à ce trajet"));
+                $hasComplexError = true;
+            }
+
+            if($covoiturage->getTypeCovoit()->getType() == "Passager" && is_null($covoiturage->getCo2())) {
+                $form->get("co2")->addError(new FormError("Un passager doit être associé à une économie de Co2"));
+                $hasComplexError = true;
+            }
+
+            if($covoiturage->getTypeCovoit()->getType() == "Conducteur" && !is_null($covoiturage->getCo2())) {
+                $form->get("co2")->addError(new FormError("Un conducteur ne peut pas être associé à une économie de Co2"));
+                $hasComplexError = true;
+            }
+
+            if(!$hasComplexError) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($covoiturage);
+                $em->flush();
+
+                return $this->redirectToRoute('covoiturage_show', array('id' => $covoiturage->getId()));
+            }
         }
 
         return $this->render('@BackOffice/covoiturage/new.html.twig', array(

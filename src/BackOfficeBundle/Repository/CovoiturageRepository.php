@@ -32,4 +32,14 @@ class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
 
         return 0;
     }
+
+    public function getCovoiturageOfTrajet($trajet) {
+        $query = $this->createQueryBuilder("covoit")
+            ->innerJoin("covoit.trajet", "trajet")
+            ->where("trajet = :trajet")
+            ->setParameter("trajet", $trajet)
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }
