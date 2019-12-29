@@ -49,8 +49,8 @@ class TrajetController extends Controller
             $now = new \DateTime();
             $trajetDatetime = new \DateTime($trajet->getDateDepart()->format("Y-m-d") . " " . $trajet->getHeureDepart()->format("H:i"));
             if($now > $trajetDatetime) {
-                $form->get("dateDepart")->addError(new FormError("Le départ (date/heure) ne peut pas être dans le passé"));
-                $form->get("heureDepart")->addError(new FormError("Le départ (date/heure) ne peut pas être dans le passé"));
+                $form->get("dateDepart")->addError(new FormError("Le départ d'un futur trajet ne peut pas être dans le passé"));
+                $form->get("heureDepart")->addError(new FormError("Le départ d'un futur trajet ne peut pas être dans le passé"));
                 $hasComplexError = true;
             }
 
@@ -94,9 +94,17 @@ class TrajetController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $hasComplexError = false;
 
-            return $this->redirectToRoute('trajet_show', array('id' => $trajet->getId()));
+            if($trajet->getNbPlace() >= $trajet->getPossede()->getNbPlace()) {
+                $form->get("nbPlace")->addError(new FormError("Le nombre de places passager doit être inférieure au nombre de place du véhicule"));
+                $hasComplexError = true;
+            }
+
+            if(!$hasComplexError) {
+                $this->getDoctrine()->getManager()->flush();
+                return $this->redirectToRoute('trajet_show', array('id' => $trajet->getId()));
+            }
         }
 
         return $this->render('@BackOffice/trajet/edit.html.twig', array(
