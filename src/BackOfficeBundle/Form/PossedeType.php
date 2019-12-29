@@ -15,6 +15,7 @@ class PossedeType extends AbstractType
     {
         $builder->add('immatriculation')
                 ->add('nbPlace', null, [
+                    "label" => "Nombre de places totales",
                     "attr" => ["min" => "1"]
                 ])
                 ->add('utilisateur')

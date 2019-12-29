@@ -5,6 +5,7 @@ namespace BackOfficeBundle\Controller;
 use BackOfficeBundle\Entity\Trajet;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\FormError;
 
 /**
  * Trajet controller.
@@ -38,11 +39,28 @@ class TrajetController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($trajet);
-            $em->flush();
+            $hasComplexError = false;
 
-            return $this->redirectToRoute('trajet_show', array('id' => $trajet->getId()));
+            if($trajet->getNbPlace() >= $trajet->getPossede()->getNbPlace()) {
+                $form->get("nbPlace")->addError(new FormError("Le nombre de places passager doit être inférieure au nombre de place du véhicule"));
+                $hasComplexError = true;
+            }
+
+            $now = new \DateTime();
+            $trajetDatetime = new \DateTime($trajet->getDateDepart()->format("Y-m-d") . " " . $trajet->getHeureDepart()->format("H:i"));
+            if($now > $trajetDatetime) {
+                $form->get("dateDepart")->addError(new FormError("Le départ (date/heure) ne peut pas être dans le passé"));
+                $form->get("heureDepart")->addError(new FormError("Le départ (date/heure) ne peut pas être dans le passé"));
+                $hasComplexError = true;
+            }
+
+            if(!$hasComplexError) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($trajet);
+                $em->flush();
+                
+                return $this->redirectToRoute('trajet_show', array('id' => $trajet->getId()));
+            }
         }
 
         return $this->render('@BackOffice/trajet/new.html.twig', array(

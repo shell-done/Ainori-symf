@@ -23,9 +23,9 @@ class TrajetType extends AbstractType
                 ])
                 ->add('heureDepart', TimeType::class, [
                     "widget" => "single_text",
-                    "attr" => ["min" => $now->format("H:i")]
                 ])
                 ->add('nbPlace', null, [
+                    "label" => "Nombre de places passager",
                     "attr" => ["min" => "1"]
                 ])
                 ->add('duree')

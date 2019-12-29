@@ -18,7 +18,6 @@ class Trajet
      * @var \DateTime
      * 
      * @Assert\NotBlank(message = "Ce champ ne peut pas être vide")
-     * @Assert\GreaterThan("now")
      * @ORM\Column(name="date_depart", type="date", nullable=false)
      */
     private $dateDepart;
@@ -27,7 +26,6 @@ class Trajet
      * @var \DateTime
      *
      * @Assert\NotBlank(message = "Ce champ ne peut pas être vide")
-     * @Assert\GreaterThan("now")
      * @ORM\Column(name="heure_depart", type="time", nullable=false)
      */
     private $heureDepart;
