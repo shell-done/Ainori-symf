@@ -97,10 +97,10 @@ class Utilisateur implements UserInterface
      * @var string
      *
      * @Assert\Length(
-     *  max = 10,
-     *  maxMessage = "Ce champ est trop long, il doit faire 10 caractères ou moins"
+     *  max = 100,
+     *  maxMessage = "Ce champ est trop long, il doit faire 100 caractères ou moins"
      * )
-     * @ORM\Column(name="adresse", type="string", length=10, nullable=true)
+     * @ORM\Column(name="adresse", type="string", length=100, nullable=true)
      */
     private $adresse;
 
