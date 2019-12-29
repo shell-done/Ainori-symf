@@ -41,7 +41,6 @@ class Covoiturage
     /**
      * @var \BackOfficeBundle\Entity\Co2
      *
-     * @Assert\NotBlank
      * @ORM\ManyToOne(targetEntity="BackOfficeBundle\Entity\Co2")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_co2", referencedColumnName="id")
