@@ -149,6 +149,6 @@ class Voiture
      * @return string
      */
     public function __toString() {
-        return $this->typeVehicule . " " . $this->modele . " " . $this->marque;
+        return $this->marque . " " . $this->modele;
     }
 }

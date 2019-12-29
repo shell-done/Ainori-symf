@@ -186,6 +186,6 @@ class Possede
      * @return string
      */
     public function __toString() {
-        return $this->voiture . " immatriculée " . $this->immatriculation;
+        return $this->voiture . " (" . $this->immatriculation .")";
     }
 }

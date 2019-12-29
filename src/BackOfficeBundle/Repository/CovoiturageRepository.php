@@ -19,7 +19,7 @@ class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
             ->innerJoin("covoit.co2", "co2")
             ->innerJoin("covoit.trajet", "trajet")
             ->innerJoin("trajet.typeTrajet", "type")
-            ->where("type.typeTrajet = 'PON'")
+            ->where("type.typeTrajet = 'Ponctuel'")
             ->andWhere("trajet.dateDepart BETWEEN :start AND :end")
             ->setParameter("start", $now->format("Y-m-1"))
             ->setParameter("end", $now->format("Y-m-t"))
