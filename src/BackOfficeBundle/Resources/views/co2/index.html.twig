@@ -23,7 +23,7 @@
         {% for co2 in co2s %}
             <tr onclick="window.location.href = '{{ path('co2_show', { 'id': co2.id }) }}'">
                 <td>{{ co2.id }}</td>
-                <td>{{ co2.valCo2 }}</a></td>
+                <td>{{ co2.valCo2 }} kg de Co2</a></td>
                 <td>{% if co2.actif %}Yes{% else %}No{% endif %}</td>
                 <td>
                     <a href="{{ path('co2_edit', { 'id': co2.id }) }}">Modifier</a>

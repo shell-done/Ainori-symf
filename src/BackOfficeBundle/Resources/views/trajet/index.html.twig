@@ -25,10 +25,10 @@
         {% for trajet in trajets %}
             <tr onclick="window.location.href = '{{ path('trajet_show', { 'id': trajet.id }) }}'">
                 <td>{{ trajet.id }}</td>
-                <td>{{ trajet.dateDepart|date('Y-m-d') }}</td>
-                <td>{% if trajet.heureDepart %}{{ trajet.heureDepart|date('H:i:s') }}{% endif %}</td>
+                <td>{{ trajet.dateDepart|date('d/m/Y') }}</td>
+                <td>{% if trajet.heureDepart %}{{ trajet.heureDepart|date('H:i') }}{% endif %}</td>
                 <td>{{ trajet.nbPlace }}</td>
-                <td>{{ trajet.duree }}</td>
+                <td>{{ trajet.duree }} h</td>
                 <td>
                     <a href="{{ path('trajet_edit', { 'id': trajet.id }) }}">Modifier</a>
                 </td>

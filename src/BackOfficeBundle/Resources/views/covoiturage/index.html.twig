@@ -23,8 +23,8 @@
         {% for covoiturage in covoiturages %}
             <tr onclick="window.location.href = '{{ path('covoiturage_show', { 'id': covoiturage.id }) }}'">
                 <td>{{ covoiturage.id }}</td>
-                <td>{{ covoiturage.created|date('Y-m-d H:i:s') }}</td>
-                <td>{% if covoiturage.updated %}{{ covoiturage.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ covoiturage.created|date('d/m/Y H:i:s') }}</td>
+                <td>{% if covoiturage.updated %}{{ covoiturage.updated|date('d/m/Y H:i:s') }}{% endif %}</td>
                 <td>
                     <a href="{{ path('covoiturage_edit', { 'id': covoiturage.id }) }}">Modifier</a>
                 </td>

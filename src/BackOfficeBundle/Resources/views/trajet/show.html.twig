@@ -22,11 +22,11 @@
                             </tr>
                             <tr>
                                 <th>Datedepart</th>
-                                <td>{% if trajet.dateDepart %}{{ trajet.dateDepart|date('Y-m-d') }}{% endif %}</td>
+                                <td>{% if trajet.dateDepart %}{{ trajet.dateDepart|date('d/m/Y') }}{% endif %}</td>
                             </tr>
                             <tr>
                                 <th>Heuredepart</th>
-                                <td>{% if trajet.heureDepart %}{{ trajet.heureDepart|date('H:i:s') }}{% endif %}</td>
+                                <td>{% if trajet.heureDepart %}{{ trajet.heureDepart|date('H:i') }}{% endif %}</td>
                             </tr>
                             <tr>
                                 <th>Nbplace</th>
@@ -34,7 +34,7 @@
                             </tr>
                             <tr>
                                 <th>Duree</th>
-                                <td>{{ trajet.duree }}</td>
+                                <td>{{ trajet.duree }} h</td>
                             </tr>
                             <tr>
                                 <th>Commentaire</th>
@@ -42,7 +42,7 @@
                             </tr>
                             <tr>
                                 <th>Nbkm</th>
-                                <td>{{ trajet.nbKm }}</td>
+                                <td>{{ trajet.nbKm }} km</td>
                             </tr>
                             <tr>
                                 <th>Possede</th>
