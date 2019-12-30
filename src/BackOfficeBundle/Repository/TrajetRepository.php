@@ -2,6 +2,8 @@
 
 namespace BackOfficeBundle\Repository;
 
+use BackOfficeBundle\Entity\TypeTrajet;
+
 /**
  * TrajetRepository
  *
@@ -9,16 +11,17 @@ namespace BackOfficeBundle\Repository;
  * repository methods below.
  */
 class TrajetRepository extends \Doctrine\ORM\EntityRepository {
+    
     public function getLastTrajets($nbOfTrajets) {
         if($nbOfTrajets < 1)
             return null;
 
-        $query = $this->createQueryBuilder("t")
+        $em = $this->createQueryBuilder("t")
             ->orderBy("t.id", "DESC")
             ->setMaxResults($nbOfTrajets)
             ->getQuery();
 
-        return $query->getResult();
+        return $em->getResult();
     }
 
     public function countTrajets() {
@@ -27,7 +30,7 @@ class TrajetRepository extends \Doctrine\ORM\EntityRepository {
             ->getQuery()->getSingleScalarResult();
     }
 
-    public function findByIdRest($id) {
+    public function findTrajet($id) {
         $em = $this->createQueryBuilder("t")
             ->where("t.id = :id")
             ->setParameter("id", $id)
@@ -35,4 +38,23 @@ class TrajetRepository extends \Doctrine\ORM\EntityRepository {
 
         return $em->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
+
+    public function findTrajets($trajet) {
+        $em = $this->createQueryBuilder("t")
+            ->innerJoin("BackOfficeBundle:TypeTrajet", "type")
+            ->where("t.dateDepart = :dateDepart")
+            ->andWhere("t.heureDepart = :heureDepart")
+            ->andWhere("t.villeDepart = :villeDepart")
+            ->andWhere("t.villeArrivee = :villeArrivee")
+            ->andWhere("t.typeTrajet = :typeTrajet")
+            ->setParameter("dateDepart", $trajet->getDateDepart())
+            ->setParameter("heureDepart", $trajet->getHeureDepart())
+            ->setParameter("villeDepart", $trajet->getVilleDepart())
+            ->setParameter("villeArrivee", $trajet->getVilleArrivee())
+            ->setParameter("typeTrajet", $trajet->getTypeTrajet())
+            ->getQuery();
+
+        return $em->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+    }
+
 }

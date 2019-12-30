@@ -8,3 +8,8 @@ web_service_get_trajet:
     methods:  GET
     requirements:
         id: '\d+'
+
+web_service_get_trajets:
+    path: /trajets
+    defaults: { _controller: WebServiceBundle:Trajet:getTrajets }
+    methods:  GET
