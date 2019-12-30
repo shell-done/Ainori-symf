@@ -21,19 +21,19 @@
                                 <td>{{ trajet.id }}</td>
                             </tr>
                             <tr>
-                                <th>Datedepart</th>
+                                <th>Date de départ</th>
                                 <td>{% if trajet.dateDepart %}{{ trajet.dateDepart|date('d/m/Y') }}{% endif %}</td>
                             </tr>
                             <tr>
-                                <th>Heuredepart</th>
+                                <th>Heure de départ</th>
                                 <td>{% if trajet.heureDepart %}{{ trajet.heureDepart|date('H:i') }}{% endif %}</td>
                             </tr>
                             <tr>
-                                <th>Nbplace</th>
+                                <th>Places passager</th>
                                 <td>{{ trajet.nbPlace }}</td>
                             </tr>
                             <tr>
-                                <th>Duree</th>
+                                <th>Durée</th>
                                 <td>{{ trajet.duree }} h</td>
                             </tr>
                             <tr>
@@ -41,23 +41,23 @@
                                 <td>{{ trajet.commentaire }}</td>
                             </tr>
                             <tr>
-                                <th>Nbkm</th>
+                                <th>Distance</th>
                                 <td>{{ trajet.nbKm }} km</td>
                             </tr>
                             <tr>
-                                <th>Possede</th>
+                                <th>Possède</th>
                                 <td><a href="{{ path('possede_show', { 'id': trajet.possede.id }) }}">{{ trajet.possede }}</a></td>
                             </tr>
                             <tr>
-                                <th>Typetrajet</th>
+                                <th>Type de trajet</th>
                                 <td><a href="{{ path('typetrajet_show', { 'id': trajet.typeTrajet.id }) }}">{{ trajet.typeTrajet }}</a></td>
                             </tr>
                             <tr>
-                                <th>Villedepart</th>
+                                <th>Ville de départ</th>
                                 <td><a href="{{ path('ville_show', { 'id': trajet.villeDepart.id }) }}">{{ trajet.villeDepart }}</a></td>
                             </tr>
                             <tr>
-                                <th>Villearrivee</th>
+                                <th>Ville d'arrivée</th>
                                 <td><a href="{{ path('ville_show', { 'id': trajet.villeArrivee.id }) }}">{{ trajet.villeArrivee }}</a></td>
                             </tr>
                         </tbody>

@@ -13,7 +13,7 @@ class TypeTrajetType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('typeTrajet');
+        $builder->add('typeTrajet', null, ["label" => "Type de trajet"]);
     }/**
      * {@inheritdoc}
      */

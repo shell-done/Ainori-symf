@@ -14,8 +14,9 @@
         <thead>
             <tr>
                 <th style="width: 10%">Id</th>
-                <th style="width: 40%">Created</th>
-                <th style="width: 40%">Updated</th>
+                <th style="width: 35%">Trajet</th>
+                <th style="width: 25%">Utilisateur</th>
+                <th style="width: 20%">Type de covoit.</th>
                 <th style="width: 10%; text-align: right">Action</th>
             </tr>
         </thead>
@@ -23,8 +24,9 @@
         {% for covoiturage in covoiturages %}
             <tr onclick="window.location.href = '{{ path('covoiturage_show', { 'id': covoiturage.id }) }}'">
                 <td>{{ covoiturage.id }}</td>
-                <td>{{ covoiturage.created|date('d/m/Y H:i:s') }}</td>
-                <td>{% if covoiturage.updated %}{{ covoiturage.updated|date('d/m/Y H:i:s') }}{% endif %}</td>
+                <td>{{ covoiturage.trajet }}</td>
+                <td>{{ covoiturage.utilisateur }}</td>
+                <td>{{ covoiturage.typeCovoit }}</td>
                 <td>
                     <a href="{{ path('covoiturage_edit', { 'id': covoiturage.id }) }}">Modifier</a>
                 </td>

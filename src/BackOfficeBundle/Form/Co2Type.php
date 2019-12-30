@@ -13,7 +13,8 @@ class Co2Type extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('valCo2')->add('actif');
+        $builder->add('valCo2', null, ["label" => "Co2 économisé (en kg)"])
+                ->add('actif');
     }/**
      * {@inheritdoc}
      */

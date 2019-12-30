@@ -14,8 +14,9 @@
         <thead>
             <tr>
                 <th style="width: 10%">Id</th>
-                <th style="width: 40%">Immatriculation</th>
-                <th style="width: 40%">Nbplace</th>
+                <th style="width: 30%">Voiture</th>
+                <th style="width: 30%">Immatriculation</th>
+                <th style="width: 20%">Nb de places</th>
                 <th style="width: 10%; text-align: right">Action</th>
             </tr>
         </thead>
@@ -23,6 +24,7 @@
         {% for possede in possedes %}
             <tr onclick="window.location.href = '{{ path('possede_show', { 'id': possede.id }) }}'">
                 <td>{{ possede.id }}</td>
+                <td>{{ possede.voiture }}</td>
                 <td>{{ possede.immatriculation }}</td>
                 <td>{{ possede.nbPlace }}</td>
                 <td>

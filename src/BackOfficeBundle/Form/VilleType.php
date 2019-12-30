@@ -14,6 +14,7 @@ class VilleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('codeInsee', null, [
+                    "label" => "Code INSEE",
                     "attr" => ["title" => "Ce champ doit être composé d'exactement 5 chiffres"]
                 ])
                 ->add('ville')
@@ -21,6 +22,7 @@ class VilleType extends AbstractType
                     "attr" => ["title" => "Ce champ doit être composé d'exactement 5 chiffres"]
                 ])
                 ->add('dep', null, [
+                    "label" => "Département",
                     "attr" => ["title" => "Ce champ doit être composé de 1 à 5 chiffres"]
                 ]);
     }/**

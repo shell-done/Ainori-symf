@@ -21,7 +21,7 @@
                                 <td>{{ voiture.id }}</td>
                             </tr>
                             <tr>
-                                <th>Modele</th>
+                                <th>Modèle</th>
                                 <td>{{ voiture.modele }}</td>
                             </tr>
                             <tr>
@@ -29,7 +29,7 @@
                                 <td><a href="{{ path('marque_show', { 'id': voiture.marque.id }) }}">{{ voiture.marque }}</a></td>
                             </tr>
                             <tr>
-                                <th>Type vehicule</th>
+                                <th>Type de véhicule</th>
                                 <td><a href="{{ path('typevehicule_show', { 'id': voiture.typevehicule.id }) }}">{{ voiture.typevehicule }}</a></td>
                             </tr>
                         </tbody>

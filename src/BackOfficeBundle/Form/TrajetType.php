@@ -18,23 +18,25 @@ class TrajetType extends AbstractType
         $now = new \DateTime();
 
         $builder->add('dateDepart', DateType::class, [
+                    "label" => "Date de départ",
                     "widget" => "single_text", 
                     "attr" => ["min" => $now->format("Y-m-d")]
                 ])
                 ->add('heureDepart', TimeType::class, [
+                    "label" => "Heure de départ",
                     "widget" => "single_text",
                 ])
                 ->add('nbPlace', null, [
                     "label" => "Nombre de places passager",
                     "attr" => ["min" => "1"]
                 ])
-                ->add('duree')
+                ->add('duree', null, ["label" => "Durée (en heures)"])
                 ->add('commentaire')
-                ->add('nbKm')
-                ->add('possede')
-                ->add('typeTrajet')
-                ->add('villeArrivee')
-                ->add('villeDepart');
+                ->add('nbKm', null, ["label" => "Distances (en km)"])
+                ->add('possede', null, ["label" => "Possède"])
+                ->add('typeTrajet', null, ["label" => "Type de trajet"])
+                ->add('villeArrivee', null, ["label" => "Ville d'arrivée"])
+                ->add('villeDepart', null, ["label" => "Ville de départ"]);
     }/**
      * {@inheritdoc}
      */

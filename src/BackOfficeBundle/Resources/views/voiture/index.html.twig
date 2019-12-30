@@ -14,7 +14,9 @@
         <thead>
             <tr>
                 <th style="width: 10%">Id</th>
-                <th style="width: 80%">Modele</th>
+                <th style="width: 20%">Marque</th>
+                <th style="width: 30%">Modèle</th>
+                <th style="width: 30%">Type</th>
                 <th style="width: 10%; text-align: right">Action</th>
             </tr>
         </thead>
@@ -22,7 +24,9 @@
         {% for voiture in voitures %}
             <tr onclick="window.location.href = '{{ path('voiture_show', { 'id': voiture.id }) }}'">
                 <td>{{ voiture.id }}</td>
+                <td>{{ voiture.marque }}</td>
                 <td>{{ voiture.modele }}</td>
+                <td>{{ voiture.typeVehicule }}</td>
                 <td>
                     <a href="{{ path('voiture_edit', { 'id': voiture.id }) }}">Modifier</a>
                 </td>

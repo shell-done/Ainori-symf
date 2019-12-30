@@ -13,9 +13,9 @@ class CovoiturageType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('co2')
+        $builder->add('co2', null, ["label" => "Co2 économisé"])
                 ->add('trajet')
-                ->add('typeCovoit')
+                ->add('typeCovoit', null, ["label" => "Type de covoit."])
                 ->add('utilisateur');
     }/**
      * {@inheritdoc}

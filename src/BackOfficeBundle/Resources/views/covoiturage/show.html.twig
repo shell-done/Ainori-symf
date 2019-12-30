@@ -21,15 +21,15 @@
                                 <td>{{ covoiturage.id }}</td>
                             </tr>
                             <tr>
-                                <th>Created</th>
+                                <th>Créé (created)</th>
                                 <td>{% if covoiturage.created %}{{ covoiturage.created|date('d/m/Y H:i:s') }}{% endif %}</td>
                             </tr>
                             <tr>
-                                <th>Updated</th>
+                                <th>Mis à jour (updated)</th>
                                 <td>{% if covoiturage.updated %}{{ covoiturage.updated|date('d/m/Y H:i:s') }}{% endif %}</td>
                             </tr>
                             <tr>
-                                <th>Co2</th>
+                                <th>Co2 économisé</th>
                                 <td>
                                     {% if covoiturage.co2 %}
                                         <a href="{{ path('co2_show', { 'id': covoiturage.co2.id }) }}">{{ covoiturage.co2 }}</a>
@@ -43,7 +43,7 @@
                                 <td><a href="{{ path('trajet_show', { 'id': covoiturage.trajet.id }) }}">{{ covoiturage.trajet }}</a></td>
                             </tr>
                             <tr>
-                                <th>Typecovoit</th>
+                                <th>Type de covoit.</th>
                                 <td><a href="{{ path('typecovoit_show', { 'id': covoiturage.typeCovoit.id }) }}">{{ covoiturage.typeCovoit }}</a></td>
                             </tr>
                             <tr>

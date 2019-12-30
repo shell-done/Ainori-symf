@@ -14,7 +14,7 @@
         <thead>
             <tr>
                 <th style="width: 10%">Id</th>
-                <th style="width: 50%">Valco2</th>
+                <th style="width: 50%">Co2 économisé</th>
                 <th style="width: 30%">Actif</th>
                 <th style="width: 10%; text-align: right">Action</th>
             </tr>
@@ -24,7 +24,7 @@
             <tr onclick="window.location.href = '{{ path('co2_show', { 'id': co2.id }) }}'">
                 <td>{{ co2.id }}</td>
                 <td>{{ co2.valCo2 }} kg de Co2</a></td>
-                <td>{% if co2.actif %}Yes{% else %}No{% endif %}</td>
+                <td>{% if co2.actif %}Oui{% else %}Non{% endif %}</td>
                 <td>
                     <a href="{{ path('co2_edit', { 'id': co2.id }) }}">Modifier</a>
                 </td>

@@ -16,13 +16,14 @@ class UtilisateurType extends AbstractType
     {
         $builder->add('mail')
                 ->add('nom')
-                ->add('prenom')
+                ->add('prenom', null, ["label" => "Prénom"])
                 ->add('plainPassword', PasswordType::class, ["label" => "Mot de passe"])
                 ->add('telephone', null, [
+                    "label" => "Téléphone",
                     "attr" => ["title" => "Ce champ doit être composé d'exactement 10 chiffres"]
                     ])
                 ->add('adresse')
-                ->add('categorie')
+                ->add('categorie', null, ["label" => "Catégorie"])
                 ->add('ville');
     }/**
      * {@inheritdoc}

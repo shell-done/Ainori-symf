@@ -13,7 +13,7 @@ class CategorieType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('categorie');
+        $builder->add('categorie', null, ["label" => "Catégorie"]);
     }/**
      * {@inheritdoc}
      */
