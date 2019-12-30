@@ -2,6 +2,14 @@
 
 namespace BackOfficeBundle\Repository;
 
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
+use BackOfficeBundle\Entity\Trajet;
+use BackOfficeBundle\Entity\Utilisateur;
+
 use \Datetime;
 
 /**
@@ -11,6 +19,7 @@ use \Datetime;
  * repository methods below.
  */
 class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
+
     public function getCo2SavedThisMonth() {
         $now = new DateTime(); 
 
@@ -42,4 +51,17 @@ class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
 
         return $query->getResult();
     }
+
+    public function findTrajetsUtilisateur($id) {
+        $em = $this->createQueryBuilder("covoit")
+            ->innerJoin("covoit.trajet", "t")
+            ->innerJoin("BackOfficeBundle:Utilisateur", "u")
+            ->where("u.id = :id")
+            ->andWhere("u = covoit.utilisateur")
+            ->setParameter("id", $id)
+            ->getQuery();
+
+        return $em->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+    }
+
 }

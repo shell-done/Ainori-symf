@@ -9,8 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 use BackOfficeBundle\Entity\Trajet;
 
-class TrajetController extends Controller
-{
+class TrajetController extends Controller {
     public function getTrajetAction(Request $request, $id) { 
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Trajet");
         $trajet = $repository->findTrajet($id);
@@ -39,4 +38,6 @@ class TrajetController extends Controller
 
         return new JsonResponse($trajets);
     }
+    
 }
+   

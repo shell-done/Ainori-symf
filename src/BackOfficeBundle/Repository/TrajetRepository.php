@@ -2,8 +2,6 @@
 
 namespace BackOfficeBundle\Repository;
 
-use BackOfficeBundle\Entity\TypeTrajet;
-
 /**
  * TrajetRepository
  *

@@ -13,3 +13,10 @@ web_service_get_trajets:
     path: /trajets
     defaults: { _controller: WebServiceBundle:Trajet:getTrajets }
     methods:  GET
+
+web_service_get_trajets_utilisateur:
+    path: /utilisateur/{id}/trajets
+    defaults: { _controller: WebServiceBundle:Covoiturage:getTrajetsUtilisateur }
+    methods:  GET
+    requirements:
+        id: '\d+'
