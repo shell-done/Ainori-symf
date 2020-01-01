@@ -37,7 +37,7 @@ class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
         $res = $query->getSingleScalarResult();
 
         if($res)
-            return $res;
+            return round($res);
 
         return 0;
     }
