@@ -5,18 +5,26 @@ web_service_homepage:
 web_service_get_trajet:
     path: /trajet/{id}
     defaults: { _controller: WebServiceBundle:Trajet:getTrajet }
-    methods:  GET
+    methods: GET
     requirements:
         id: '\d+'
 
 web_service_get_trajets:
     path: /trajets
     defaults: { _controller: WebServiceBundle:Trajet:getTrajets }
-    methods:  GET
+    methods: GET
 
 web_service_get_trajets_utilisateur:
     path: /utilisateur/{id}/trajets
     defaults: { _controller: WebServiceBundle:Covoiturage:getTrajetsUtilisateur }
-    methods:  GET
+    methods: GET
     requirements:
         id: '\d+'
+
+web_service_register_to_a_trajet:
+    path: /trajet/{id_trajet}/utilisateur/{id_user}
+    defaults: { _controller: WebServiceBundle:Covoiturage:registerToATrajet }
+    methods: POST
+    requirements:
+        id_user: '\d+'
+        id_trajet: '\d+'

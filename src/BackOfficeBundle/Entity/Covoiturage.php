@@ -52,7 +52,7 @@ class Covoiturage
     /**
      * @var \BackOfficeBundle\Entity\Trajet
      *
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message = "$trajet")
      * @ORM\ManyToOne(targetEntity="BackOfficeBundle\Entity\Trajet")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_trajet", referencedColumnName="id")
@@ -63,7 +63,7 @@ class Covoiturage
     /**
      * @var \BackOfficeBundle\Entity\TypeCovoit
      *
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message = "$typecovoit")
      * @ORM\ManyToOne(targetEntity="BackOfficeBundle\Entity\TypeCovoit")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_type_covoit", referencedColumnName="id")
@@ -74,7 +74,7 @@ class Covoiturage
     /**
      * @var \BackOfficeBundle\Entity\Utilisateur
      *
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message = "$utilisateur")
      * @ORM\ManyToOne(targetEntity="BackOfficeBundle\Entity\Utilisateur")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_utilisateur", referencedColumnName="id")
