@@ -3,7 +3,7 @@ web_service_homepage:
     defaults: { _controller: WebServiceBundle:Default:index }
 
 web_service_get_trajet:
-    path: /trajet/{id}
+    path: /trajet/{id}/info
     defaults: { _controller: WebServiceBundle:Trajet:getTrajet }
     methods: GET
     requirements:
@@ -28,3 +28,10 @@ web_service_register_to_a_trajet:
     requirements:
         id_user: '\d+'
         id_trajet: '\d+'
+
+web_service_get_utilisateur:
+    path: /utilisateur/{id}/info
+    defaults: { _controller: WebServiceBundle:Utilisateur:getUtilisateur }
+    methods: GET
+    requirements:
+        id: '\d+'

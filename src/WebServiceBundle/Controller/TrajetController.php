@@ -9,10 +9,19 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 use BackOfficeBundle\Entity\Trajet;
 
+/**
+ * Trajet controller.
+ *
+ */
 class TrajetController extends Controller {
+
+    /**
+     * Returns a trajet entity indicated by the id
+     *
+     */
     public function getTrajetAction(Request $request, $id) { 
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Trajet");
-        $trajet = $repository->findTrajet($id);
+        $trajet = $repository->getTrajet($id);
 
         if(!$trajet) {
             return new Response('', 404);
@@ -21,6 +30,10 @@ class TrajetController extends Controller {
         return new JsonResponse($trajet);
     }
 
+    /**
+     * Lists all trajet entities
+     *
+     */
     public function getTrajetsAction(Request $request) { 
         $trajet = new Trajet();
         $trajet->setHeureDepart($request->query->get('heureDepart'));
@@ -30,7 +43,7 @@ class TrajetController extends Controller {
         $trajet->setTypeTrajet($request->query->get('typeTrajet'));
 
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Trajet");
-        $trajets = $repository->findTrajets($trajet);
+        $trajets = $repository->getTrajets($trajet);
     
         if(!$trajets) {
             return new Response('', 404);

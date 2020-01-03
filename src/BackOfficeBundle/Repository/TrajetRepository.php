@@ -2,6 +2,8 @@
 
 namespace BackOfficeBundle\Repository;
 
+use BackOfficeBundle\Entity\Ville;
+
 /**
  * TrajetRepository
  *
@@ -28,7 +30,7 @@ class TrajetRepository extends \Doctrine\ORM\EntityRepository {
             ->getQuery()->getSingleScalarResult();
     }
 
-    public function findTrajet($id) {
+    public function getTrajet($id) {
         $em = $this->createQueryBuilder("t")
             ->where("t.id = :id")
             ->setParameter("id", $id)
@@ -37,7 +39,7 @@ class TrajetRepository extends \Doctrine\ORM\EntityRepository {
         return $em->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
 
-    public function findTrajets($trajet) {
+    public function getTrajets($trajet) {
         $em = $this->createQueryBuilder("t")
             ->innerJoin("BackOfficeBundle:TypeTrajet", "type")
             ->where("t.dateDepart = :dateDepart")
@@ -45,6 +47,7 @@ class TrajetRepository extends \Doctrine\ORM\EntityRepository {
             ->andWhere("t.villeDepart = :villeDepart")
             ->andWhere("t.villeArrivee = :villeArrivee")
             ->andWhere("t.typeTrajet = :typeTrajet")
+            //->andWhere("t.typeTrajet = type")
             ->setParameter("dateDepart", $trajet->getDateDepart())
             ->setParameter("heureDepart", $trajet->getHeureDepart())
             ->setParameter("villeDepart", $trajet->getVilleDepart())

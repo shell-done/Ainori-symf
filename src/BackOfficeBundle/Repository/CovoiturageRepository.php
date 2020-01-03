@@ -61,7 +61,7 @@ class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
             ->setParameter("id", $id)
             ->getQuery();
 
-        return $em->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        return $em->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
 
 }

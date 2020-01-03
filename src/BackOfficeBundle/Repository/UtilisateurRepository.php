@@ -13,17 +13,29 @@ class UtilisateurRepository extends \Doctrine\ORM\EntityRepository {
         if($nbOfUtilisateurs < 1)
             return null;
 
-        $query = $this->createQueryBuilder("u")
+        $em = $this->createQueryBuilder("u")
             ->orderBy("u.id", "DESC")
             ->setMaxResults($nbOfUtilisateurs)
             ->getQuery();
 
-        return $query->getResult();
+        return $em->getResult();
     }
 
     public function countUtilisateurs() {
-        return $this->createQueryBuilder("u")
+        $em = $this->createQueryBuilder("u")
             ->select("COUNT(u.id)")
-            ->getQuery()->getSingleScalarResult();
+            ->getQuery();
+        
+        return $em->getSingleScalarResult();
     }
+
+    public function getUtilisateur($id) {
+        $em = $this->createQueryBuilder("u")
+            ->where("u.id = :id")
+            ->setParameter("id", $id)
+            ->getQuery();
+        
+        return $em->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+    }
+    
 }
