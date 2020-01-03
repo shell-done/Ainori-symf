@@ -37,5 +37,15 @@ class UtilisateurRepository extends \Doctrine\ORM\EntityRepository {
         
         return $em->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
+
+    public function deleteUtilisateur($id) {
+        $em = $this->createQueryBuilder("u")
+            ->delete()
+            ->where("u.id = :id")
+            ->setParameter("id", $id)
+            ->getQuery();
+        
+        return $em->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+    }
     
 }

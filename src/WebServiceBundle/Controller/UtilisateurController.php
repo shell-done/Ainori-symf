@@ -30,4 +30,15 @@ class UtilisateurController extends Controller {
         return new JsonResponse($utilisateur);
     }
 
+    public function deleteUtilisateurAction(Request $request, $id) {
+        $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Utilisateur");
+        $utilisateur = $repository->deleteUtilisateur($id);
+
+        if(!$utilisateur) {
+            return new Response('', 404);
+        }
+
+        return new Response('', 200);
+    }
+
 }
