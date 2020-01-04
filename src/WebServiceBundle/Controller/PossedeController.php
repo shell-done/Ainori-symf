@@ -33,11 +33,11 @@ class PossedeController extends Controller {
         return new JsonResponse($voiture);
     }
 
-    public function deleteUtilisateurAction(Request $request, $id) {
-        $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Utilisateur");
-        $utilisateur = $repository->deleteUtilisateur($id);
+    public function deleteVoitureUtilisateurAction(Request $request, $id) {
+        $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Possede");
+        $voiture = $repository->deleteVoitureUtilisateur($id);
 
-        if(!$utilisateur) {
+        if(!$voiture) {
             return new Response('', 404);
         }
 

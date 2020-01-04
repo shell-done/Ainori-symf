@@ -2,6 +2,8 @@
 
 namespace BackOfficeBundle\Repository;
 
+use BackOfficeBundle\Entity\Utilisateur;
+
 /**
  * PossedeRepository
  *
@@ -22,13 +24,12 @@ class PossedeRepository extends \Doctrine\ORM\EntityRepository {
 
     public function deleteVoitureUtilisateur($id) {
         $em = $this->createQueryBuilder("p")
-            ->innerJoin("p.utilisateur", "u")
-            ->delete()
-            ->where("u.id = :id")
+            //->delete()
+            ->where("p.id = :id")
             ->setParameter("id", $id)
             ->getQuery();
         
-        return $em->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        return $em->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
     
 }
