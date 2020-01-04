@@ -14,6 +14,13 @@ web_service_get_trajets:
     defaults: { _controller: WebServiceBundle:Trajet:getTrajets }
     methods: GET
 
+web_service_create_trajet:
+    path: /trajet/create
+    defaults: { _controller: WebServiceBundle:Trajet:createTrajet }
+    methods: POST
+
+
+
 web_service_get_trajets_utilisateur:
     path: /utilisateur/{id}/trajets
     defaults: { _controller: WebServiceBundle:Covoiturage:getTrajetsUtilisateur }
