@@ -41,6 +41,13 @@ web_service_create_utilisateur:
     defaults: { _controller: WebServiceBundle:Utilisateur:createUtilisateur }
     methods: POST
 
+web_service_modify_utilisateur:
+    path: /utilisateur/{id}/modify
+    defaults: { _controller: WebServiceBundle:Utilisateur:modifyUtilisateur }
+    methods: PUT
+    requirements:
+        id: '\d+'
+
 web_service_delete_utilisateur:
     path: /utilisateur/{id}/delete
     defaults: { _controller: WebServiceBundle:Utilisateur:deleteUtilisateur }
