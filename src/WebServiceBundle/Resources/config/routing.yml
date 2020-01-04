@@ -19,7 +19,12 @@ web_service_create_trajet:
     defaults: { _controller: WebServiceBundle:Trajet:createTrajet }
     methods: POST
 
-
+web_service_modify_trajet:
+    path: /trajet/{id}/modify
+    defaults: { _controller: WebServiceBundle:Trajet:modifyTrajet }
+    methods: PUT
+    requirements:
+        id: '\d+'
 
 web_service_get_trajets_utilisateur:
     path: /utilisateur/{id}/trajets
