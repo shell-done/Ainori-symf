@@ -20,7 +20,7 @@ class CovoiturageController extends Controller {
 
     public function getTrajetsUtilisateurAction(Request $request, $id) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Covoiturage");
-        $trajets = $repository->findTrajetsUtilisateur($id);
+        $trajets = $repository->getTrajetsUtilisateur($id);
 
         if(!$trajets) {
             return new Response('', 404);
@@ -66,7 +66,7 @@ class CovoiturageController extends Controller {
             $erreur = TRUE;
         }
         
-        $encoders = [ new JsonEncoder()];
+        $encoders = [new JsonEncoder()];
         $normalizers = [new ObjectNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
     

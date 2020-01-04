@@ -11,26 +11,26 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
-use BackOfficeBundle\Entity\Utilisateur;
+use BackOfficeBundle\Entity\Possede;
 
 /**
- * Utilisateur controller.
+ * Possede controller.
  *
  */
-class UtilisateurController extends Controller {
+class PossedeController extends Controller {
     /**
-     * Returns a user entity indicated by the id
+     * Returns a voiture entity indicated by the id of the user
      *
      */
-    public function getUtilisateurAction(Request $request, $id) {
-        $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Utilisateur");
-        $utilisateur = $repository->getUtilisateur($id);
+    public function getVoitureUtilisateurAction(Request $request, $id) {
+        $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Possede");
+        $voiture = $repository->getVoitureUtilisateur($id);
 
-        if(!$utilisateur) {
+        if(!$voiture) {
             return new Response('', 404);
         }
 
-        return new JsonResponse($utilisateur);
+        return new JsonResponse($voiture);
     }
 
     public function deleteUtilisateurAction(Request $request, $id) {

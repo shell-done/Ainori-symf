@@ -36,9 +36,21 @@ web_service_get_utilisateur:
     requirements:
         id: '\d+'
 
+web_service_create_utilisateur:
+    path: /utilisateur/create
+    defaults: { _controller: WebServiceBundle:Utilisateur:createUtilisateur }
+    methods: POST
+
 web_service_delete_utilisateur:
     path: /utilisateur/{id}/delete
     defaults: { _controller: WebServiceBundle:Utilisateur:deleteUtilisateur }
     methods: DELETE
+    requirements:
+        id: '\d+'
+
+web_service_get_voiture_utilisateur:
+    path: /utilisateur/{id}/voiture
+    defaults: { _controller: WebServiceBundle:Possede:getVoitureUtilisateur }
+    methods: GET
     requirements:
         id: '\d+'

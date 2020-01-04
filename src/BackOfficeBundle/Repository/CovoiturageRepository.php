@@ -52,7 +52,7 @@ class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
         return $query->getResult();
     }
 
-    public function findTrajetsUtilisateur($id) {
+    public function getTrajetsUtilisateur($id) {
         $em = $this->createQueryBuilder("covoit")
             ->innerJoin("covoit.trajet", "t")
             ->innerJoin("BackOfficeBundle:Utilisateur", "u")

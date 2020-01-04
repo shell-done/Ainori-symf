@@ -269,6 +269,23 @@ class Utilisateur implements UserInterface
         return null;
     }
 
+    /**
+     * Set roles
+     *
+     * @param array $roles
+     *
+     * @return Roles
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+    }
+
+    /**
+     * Get roles
+     *
+     * @return array
+     */
     public function getRoles()
     {
         return $this->roles;
