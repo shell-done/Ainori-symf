@@ -60,6 +60,13 @@ web_service_create_possede:
     defaults: { _controller: WebServiceBundle:Possede:createPossede }
     methods: POST
 
+web_service_modify_possede:
+    path: /possede/{id}/modify
+    defaults: { _controller: WebServiceBundle:Possede:modifyPossede }
+    methods: PUT
+    requirements:
+        id: '\d+'
+
 web_service_delete_possede:
     path: /possede/{id}/delete
     defaults: { _controller: WebServiceBundle:Possede:deletePossede }

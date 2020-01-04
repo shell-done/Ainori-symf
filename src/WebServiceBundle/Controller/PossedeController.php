@@ -94,4 +94,56 @@ class PossedeController extends Controller {
         return $response;
      }
 
+     public function modifyPossedeAction(Request $request, $id) {
+        $erreur = FALSE;
+
+        $possedeRepo = $this->getDoctrine()->getRepository(Possede::class);
+        $possede = $possedeRepo->findOneById($id);
+        
+        $form = $this->createForm('WebServiceBundle\Form\PossedeType', $possede);
+        
+        $json = $request->getContent();
+        if ($decodedJson = json_decode($json, true)) {
+            $data = $decodedJson;
+        } else {
+            $data = $request->request->all();
+        }
+        $formData = [];
+        foreach ($form->all() as $name => $field) {
+            if (isset($data[$name])) {
+                $formData[$name] = $data[$name];
+            }
+        }
+    
+        $form->submit($formData);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($possede);
+            $em->flush();
+        }
+        else {
+            $erreur = TRUE;
+        }
+        
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+    
+        $response = new Response();
+        
+        if($erreur) {
+            $response->setContent(json_encode((string) $form->getErrors(true, false)));
+            $response->setStatusCode(400);
+        } else {
+            $response->setContent($serializer->serialize($possede, 'json'));
+            $response->setStatusCode(201);
+        }
+
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        
+        return $response;
+     }
+
 }
