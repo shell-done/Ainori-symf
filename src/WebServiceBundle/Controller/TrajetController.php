@@ -54,6 +54,17 @@ class TrajetController extends Controller {
         return new JsonResponse($trajets);
     }
 
+    public function deleteTrajetAction(Request $request, $id) {
+        $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Trajet");
+        $trajet = $repository->deleteTrajet($id);
+
+        if(!$trajet) {
+            return new Response('', 404);
+        }
+
+        return new Response('', 200);
+    }
+
     public function createTrajetAction(Request $request) {
         $erreur = FALSE;
 

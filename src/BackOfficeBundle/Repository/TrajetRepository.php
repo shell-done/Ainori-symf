@@ -59,4 +59,14 @@ class TrajetRepository extends \Doctrine\ORM\EntityRepository {
         return $em->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
 
+    public function deleteTrajet($id) {
+        $em = $this->createQueryBuilder("t")
+            ->delete()
+            ->where("t.id = :id")
+            ->setParameter("id", $id)
+            ->getQuery();
+        
+        return $em->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+    }
+
 }

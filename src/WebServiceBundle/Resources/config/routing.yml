@@ -26,6 +26,13 @@ web_service_modify_trajet:
     requirements:
         id: '\d+'
 
+web_service_delete_trajet:
+    path: /trajet/{id}/delete
+    defaults: { _controller: WebServiceBundle:Trajet:deleteTrajet }
+    methods: DELETE
+    requirements:
+        id: '\d+'
+
 web_service_get_trajets_utilisateur:
     path: /utilisateur/{id}/trajets
     defaults: { _controller: WebServiceBundle:Covoiturage:getTrajetsUtilisateur }
