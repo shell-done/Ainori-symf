@@ -12,7 +12,7 @@ use BackOfficeBundle\Entity\Utilisateur;
  */
 class PossedeRepository extends \Doctrine\ORM\EntityRepository {
 
-    public function getVoitureUtilisateur($id) {
+    public function getPossede($id) {
         $em = $this->createQueryBuilder("p")
             ->innerJoin("p.utilisateur", "u")
             ->where("u.id = :id")
@@ -22,9 +22,9 @@ class PossedeRepository extends \Doctrine\ORM\EntityRepository {
         return $em->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
 
-    public function deleteVoitureUtilisateur($id) {
+    public function deletePossede($id) {
         $em = $this->createQueryBuilder("p")
-            //->delete()
+            ->delete()
             ->where("p.id = :id")
             ->setParameter("id", $id)
             ->getQuery();

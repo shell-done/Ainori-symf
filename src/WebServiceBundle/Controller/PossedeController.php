@@ -22,9 +22,9 @@ class PossedeController extends Controller {
      * Returns a voiture entity indicated by the id of the user
      *
      */
-    public function getVoitureUtilisateurAction(Request $request, $id) {
+    public function getPossedeAction(Request $request, $id) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Possede");
-        $voiture = $repository->getVoitureUtilisateur($id);
+        $voiture = $repository->getPossede($id);
 
         if(!$voiture) {
             return new Response('', 404);
@@ -33,9 +33,9 @@ class PossedeController extends Controller {
         return new JsonResponse($voiture);
     }
 
-    public function deleteVoitureUtilisateurAction(Request $request, $id) {
+    public function deletePossedeAction(Request $request, $id) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Possede");
-        $voiture = $repository->deleteVoitureUtilisateur($id);
+        $voiture = $repository->deletePossede($id);
 
         if(!$voiture) {
             return new Response('', 404);
@@ -44,17 +44,30 @@ class PossedeController extends Controller {
         return new Response('', 200);
     }
 
-    public function createUtilisateurAction(Request $request) {
+    public function createPossedeAction(Request $request) {
         $erreur = FALSE;
 
-        $utilisateur = new Utilisateur();
-        $form = $this->createForm('WebServiceBundle\Form\UtilisateurType', $utilisateur);
+        $possede = new Possede();
+        $form = $this->createForm('WebServiceBundle\Form\PossedeType', $possede);
         
-        $form->submit($request->request->all());
+        $json = $request->getContent();
+        if ($decodedJson = json_decode($json, true)) {
+            $data = $decodedJson;
+        } else {
+            $data = $request->request->all();
+        }
+        $formData = [];
+        foreach ($form->all() as $name => $field) {
+            if (isset($data[$name])) {
+                $formData[$name] = $data[$name];
+            }
+        }
+    
+        $form->submit($formData);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($utilisateur);
+            $em->persist($possede);
             $em->flush();
         }
         else {
@@ -71,7 +84,7 @@ class PossedeController extends Controller {
             $response->setContent(json_encode((string) $form->getErrors(true, false)));
             $response->setStatusCode(400);
         } else {
-            $response->setContent($serializer->serialize($utilisateur, 'json'));
+            $response->setContent($serializer->serialize($possede, 'json'));
             $response->setStatusCode(201);
         }
 

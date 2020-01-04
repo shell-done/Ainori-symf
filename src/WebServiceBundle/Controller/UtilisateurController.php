@@ -50,7 +50,20 @@ class UtilisateurController extends Controller {
         $utilisateur = new Utilisateur();
         $form = $this->createForm('WebServiceBundle\Form\UtilisateurType', $utilisateur);
         
-        $form->submit($request->request->all());
+        $json = $request->getContent();
+        if ($decodedJson = json_decode($json, true)) {
+            $data = $decodedJson;
+        } else {
+            $data = $request->request->all();
+        }
+        $formData = [];
+        foreach ($form->all() as $name => $field) {
+            if (isset($data[$name])) {
+                $formData[$name] = $data[$name];
+            }
+        }
+    
+        $form->submit($formData);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
