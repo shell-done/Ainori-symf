@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use BackOfficeBundle\Entity\Trajet;
+use BackOfficeBundle\Entity\Ville;
+use BackOfficeBundle\Entity\TypeTrajet;
 
 /**
  * Trajet controller.

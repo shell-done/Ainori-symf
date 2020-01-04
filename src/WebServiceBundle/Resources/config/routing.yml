@@ -54,3 +54,11 @@ web_service_get_voiture_utilisateur:
     methods: GET
     requirements:
         id: '\d+'
+
+web_service_delete_voiture_utilisateur:
+    path: /utilisateur/{id_user}/voiture/{id_voiture}/delete
+    defaults: { _controller: WebServiceBundle:Possede:deleteVoitureUtilisateur }
+    methods: GET
+    requirements:
+        id_user: '\d+'
+        id_voiture: '\d+'
