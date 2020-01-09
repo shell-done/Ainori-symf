@@ -10,7 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * Ville
  *
  * @ORM\Table(name="ville")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="BackOfficeBundle\Repository\VilleRepository")
  * @UniqueEntity(fields="codeInsee", message="Code INSEE déjà utilisé")
  */
 class Ville

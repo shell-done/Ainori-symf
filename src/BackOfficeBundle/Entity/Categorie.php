@@ -10,7 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * Categorie
  *
  * @ORM\Table(name="categorie")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="BackOfficeBundle\Repository\CategorieRepository")
  * @UniqueEntity(fields="categorie", message="Nom de catégorie déjà utilisé")
  */
 class Categorie

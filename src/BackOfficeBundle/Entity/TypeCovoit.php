@@ -10,7 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * TypeCovoit
  *
  * @ORM\Table(name="type_covoit")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="BackOfficeBundle\Repository\TypeCovoitRepository")
  * @UniqueEntity(fields="type", message="Ce type est déjà utilisé")
  */
 class TypeCovoit

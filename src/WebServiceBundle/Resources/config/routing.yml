@@ -100,3 +100,28 @@ web_service_delete_possede:
     requirements:
         id_user: '\d+'
         id_voiture: '\d+'
+
+web_service_get_voitures:
+    path: /voitures
+    defaults: { _controller: WebServiceBundle:Voiture:getVoitures }
+    methods: GET
+
+web_service_get_villes:
+    path: /villes
+    defaults: { _controller: WebServiceBundle:Ville:getVilles }
+    methods: GET
+
+web_service_get_categories:
+    path: /categories
+    defaults: { _controller: WebServiceBundle:Categorie:getCategories }
+    methods: GET
+
+web_service_get_type_trajet:
+    path: /typestrajet
+    defaults: { _controller: WebServiceBundle:TypeTrajet:getTypesTrajet }
+    methods: GET
+
+web_service_get_type_covoit:
+    path: /typescovoit
+    defaults: { _controller: WebServiceBundle:TypeCovoit:getTypesCovoit }
+    methods: GET

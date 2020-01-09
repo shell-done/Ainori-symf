@@ -10,7 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * TypeTrajet
  *
  * @ORM\Table(name="type_trajet")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="BackOfficeBundle\Repository\TypeTrajetRepository")
  * @UniqueEntity(fields="typeTrajet", message="Ce type est déjà utilisé")
  */
 class TypeTrajet

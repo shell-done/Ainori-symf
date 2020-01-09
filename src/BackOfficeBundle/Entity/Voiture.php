@@ -10,7 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * Voiture
  *
  * @ORM\Table(name="voiture", indexes={@ORM\Index(name="voiture_marque_FK", columns={"id_marque"}), @ORM\Index(name="voiture_type_vehicule0_FK", columns={"id_type_vehicule"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="BackOfficeBundle\Repository\VoitureRepository")
  */
 class Voiture
 {
