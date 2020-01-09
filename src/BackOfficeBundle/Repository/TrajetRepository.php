@@ -40,33 +40,55 @@ class TrajetRepository extends \Doctrine\ORM\EntityRepository {
     }
 
     public function getTrajets($trajet) {
-        $em = $this->createQueryBuilder("t")
-            ->innerJoin("t.typeTrajet", "typeT")
-            ->innerJoin("t.villeDepart", "villeD")
-            ->innerJoin("t.villeArrivee", "villeA")
-            ->where("t.heureDepart = :heureDepart")
-            ->andWhere("t.dateDepart = :dateDepart")
-            ->andWhere("villeD = :villeDepart")
-            ->andWhere("villeA = :villeArrivee")
-            ->andWhere("typeT = :typeTrajet")
-            ->setParameter("heureDepart", $trajet->getHeureDepart())
-            ->setParameter("dateDepart", $trajet->getDateDepart())
-            ->setParameter("villeDepart", $trajet->getVilleDepart())
-            ->setParameter("villeArrivee", $trajet->getVilleArrivee())
-            ->setParameter("typeTrajet", $trajet->getTypeTrajet())
-            ->getQuery();
+        // Création de la requête
+        $em = $this->createQueryBuilder("t");
+        $em->select(["t", "villeD", "villeA", "typeT"]);
 
-        return $em->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-    }
+        // Ajout des jointures
+        $em->innerJoin("t.villeDepart", "villeD");
+        $em->innerJoin("t.villeArrivee", "villeA");
+        $em->innerJoin("t.typeTrajet", "typeT");
 
-    public function deleteTrajet($id) {
-        $em = $this->createQueryBuilder("t")
-            ->delete()
-            ->where("t.id = :id")
-            ->setParameter("id", $id)
-            ->getQuery();
-        
-        return $em->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        // Ajout des conditions
+        // Permet d'utiliser "andWhere()" dans les prochaines requêtes sans avoir à vérifier s'il y a eu un "where()" avant
+        $em->where("true = true");
+
+        if($trajet->getHeureDepart())
+            $em->andWhere("t.heureDepart BETWEEN :heureDepart_avant AND :heureDepart_apres");
+
+        if($trajet->getDateDepart())
+            $em->andWhere("t.dateDepart = :dateDepart");
+
+        if($trajet->getVilleDepart())
+            $em->andWhere("villeD = :villeDepart");
+
+        if($trajet->getVilleArrivee())
+            $em->andWhere("villeA = :villeArrivee");
+
+        if($trajet->getTypeTrajet())
+            $em->andWhere("typeT = :typeTrajet");
+
+        // Ajout des paramètres
+        if($trajet->getHeureDepart())
+            $em->setParameters([
+                // On récupère les trajets proposés entre 2h avant et 2h après l'heure demandée
+                "heureDepart_avant" => $trajet->getHeureDepart()->sub(new \DateInterval("PT2H")),
+                "heureDepart_apres" => $trajet->getHeureDepart()->add(new \DateInterval("PT2H"))
+            ]);
+
+        if($trajet->getDateDepart())
+            $em->setParameter("dateDepart", $trajet->getDateDepart());
+
+        if($trajet->getVilleDepart())
+            $em->setParameter("villeDepart", $trajet->getVilleDepart());
+
+        if($trajet->getVilleArrivee())
+            $em->setParameter("villeArrivee", $trajet->getVilleArrivee());
+
+        if($trajet->getTypeTrajet())
+            $em->setParameter("typeTrajet", $trajet->getTypeTrajet());
+
+        return $em->getQuery()->getArrayResult();
     }
 
 }

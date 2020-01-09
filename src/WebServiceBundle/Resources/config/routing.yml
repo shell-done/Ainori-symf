@@ -1,9 +1,11 @@
-web_service_homepage:
+# --- DEBUG ---
+web_service_debug:
     path: /
-    defaults: { _controller: WebServiceBundle:Default:index }
+    defaults: { _controller: WebServiceBundle:Default:debug }
 
+# --- TRAJETS ---
 web_service_get_trajet:
-    path: /trajet/{id}/info
+    path: /trajets/{id}
     defaults: { _controller: WebServiceBundle:Trajet:getTrajet }
     methods: GET
     requirements:
@@ -14,24 +16,26 @@ web_service_get_trajets:
     defaults: { _controller: WebServiceBundle:Trajet:getTrajets }
     methods: GET
 
-web_service_create_trajet:
-    path: /trajet/create
-    defaults: { _controller: WebServiceBundle:Trajet:createTrajet }
+web_service_new_trajet:
+    path: /trajets/new
+    defaults: { _controller: WebServiceBundle:Trajet:newTrajet }
     methods: POST
 
-web_service_modify_trajet:
-    path: /trajet/{id}/modify
-    defaults: { _controller: WebServiceBundle:Trajet:modifyTrajet }
-    methods: PUT
+web_service_edit_trajet:
+    path: /trajets/{id}
+    defaults: { _controller: WebServiceBundle:Trajet:editTrajet }
+    methods: POST
     requirements:
         id: '\d+'
 
 web_service_delete_trajet:
-    path: /trajet/{id}/delete
+    path: /trajets/{id}
     defaults: { _controller: WebServiceBundle:Trajet:deleteTrajet }
     methods: DELETE
     requirements:
         id: '\d+'
+
+# ---------------
 
 web_service_get_trajets_utilisateur:
     path: /utilisateur/{id}/trajets

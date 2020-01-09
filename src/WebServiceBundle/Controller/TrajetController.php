@@ -6,6 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 use BackOfficeBundle\Entity\Trajet;
 use BackOfficeBundle\Entity\Ville;
@@ -36,55 +39,39 @@ class TrajetController extends Controller {
      * Lists all trajet entities
      *
      */
-    public function getTrajetsAction(Request $request) { 
+    public function getTrajetsAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+
         $trajet = new Trajet();
-        $trajet->setHeureDepart($request->query->get('heureDepart'));
-        $trajet->setDateDepart($request->query->get('dateDepart'));
-        $trajet->setVilleDepart($request->query->get('villeDepart'));
-        $trajet->setVilleArrivee($request->query->get('villeArrivee'));
-        $trajet->setTypeTrajet($request->query->get('typeTrajet'));
+        $trajet->setHeureDepart($request->query->get('heureDepart') ? new \DateTime($request->query->get('heureDepart')) : null);
+        $trajet->setDateDepart($request->query->get('dateDepart') ? new \DateTime($request->query->get('dateDepart')) : null);
+        $trajet->setVilleDepart($request->query->get('villeDepart') ? $em->getReference("BackOfficeBundle:Ville", $request->query->get('villeDepart')) : null);
+        $trajet->setVilleArrivee($request->query->get('villeArrivee') ? $em->getReference("BackOfficeBundle:Ville", $request->query->get('villeArrivee')) : null);
+        $trajet->setTypeTrajet($request->query->get('typeTrajet') ? $em->getReference("BackOfficeBundle:TypeTrajet", $request->query->get('typeTrajet')) : null);
 
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Trajet");
         $trajets = $repository->getTrajets($trajet);
-    
-        if(!$trajets) {
-            return new Response('', 404);
-        }
 
         return new JsonResponse($trajets);
     }
 
     public function deleteTrajetAction(Request $request, $id) {
-        $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Trajet");
-        $trajet = $repository->deleteTrajet($id);
+        $em = $this->getDoctrine()->getManager();
+        $trajet = $em->getReference('BackOfficeBundle:Trajet', $id);
 
-        if(!$trajet) {
-            return new Response('', 404);
-        }
+        $em->remove($trajet);
+        $em->flush();
 
-        return new Response('', 200);
+        return new Response();
     }
 
-    public function createTrajetAction(Request $request) {
+    public function newTrajetAction(Request $request) {
         $erreur = FALSE;
 
         $trajet = new Trajet();
         $form = $this->createForm('WebServiceBundle\Form\TrajetType', $trajet);
-        
-        $json = $request->getContent();
-        if ($decodedJson = json_decode($json, true)) {
-            $data = $decodedJson;
-        } else {
-            $data = $request->request->all();
-        }
-        $formData = [];
-        foreach ($form->all() as $name => $field) {
-            if (isset($data[$name])) {
-                $formData[$name] = $data[$name];
-            }
-        }
     
-        $form->submit($formData);
+        $form->submit($request->request->all());
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -115,7 +102,7 @@ class TrajetController extends Controller {
         return $response;
     }
     
-    public function modifyTrajetAction(Request $request, $id) {
+    public function editTrajetAction(Request $request, $id) {
         $erreur = FALSE;
 
         $trajetRepo = $this->getDoctrine()->getRepository(Trajet::class);
@@ -123,20 +110,7 @@ class TrajetController extends Controller {
 
         $form = $this->createForm('WebServiceBundle\Form\TrajetType', $trajet);
         
-        $json = $request->getContent();
-        if ($decodedJson = json_decode($json, true)) {
-            $data = $decodedJson;
-        } else {
-            $data = $request->request->all();
-        }
-        $formData = [];
-        foreach ($form->all() as $name => $field) {
-            if (isset($data[$name])) {
-                $formData[$name] = $data[$name];
-            }
-        }
-
-        $form->submit($formData);
+        $form->submit($request->request->all());
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -158,7 +132,7 @@ class TrajetController extends Controller {
             $response->setStatusCode(400);
         } else {
             $response->setContent($serializer->serialize($trajet, 'json'));
-            $response->setStatusCode(201);
+            $response->setStatusCode(200);
         }
 
         $response->headers->set('Content-Type', 'application/json');

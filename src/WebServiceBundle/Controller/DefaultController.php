@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DefaultController extends Controller
 {
-    public function indexAction()
+    public function debugAction()
     {
         return $this->render('@WebService/Default/index.html.twig');
     }
