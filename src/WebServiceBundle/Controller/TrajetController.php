@@ -57,10 +57,18 @@ class TrajetController extends Controller {
 
     public function deleteTrajetAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
-        $trajet = $em->getReference('BackOfficeBundle:Trajet', $id);
+        $trajet = $repository->getTrajet($id);
+
+        if(!$trajet) {
+            return new Response('', 404);
+        }
 
         $em->remove($trajet);
-        $em->flush();
+        try {
+            $em->flush();
+        } catch (\Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException $e) {
+            return new Response('', 409);
+        }
 
         return new Response();
     }
@@ -107,6 +115,10 @@ class TrajetController extends Controller {
 
         $trajetRepo = $this->getDoctrine()->getRepository(Trajet::class);
         $trajet = $trajetRepo->findOneById($id);
+        
+        if(!$trajet) {
+            return new Response('', 404);
+        }
 
         $form = $this->createForm('WebServiceBundle\Form\TrajetType', $trajet);
         

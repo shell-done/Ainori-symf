@@ -100,7 +100,15 @@ class VoitureController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($voiture);
-            $em->flush();
+            
+            try {
+                $em->flush();
+            } catch (\Doctrine\DBAL\DBALException $e) {
+                return $this->render('@BackOffice/Default/dberror.html.twig', [
+                    "title" => "Une erreur est survenue lors de la suppression de l'entité",
+                    "exception" => $e
+                ]);
+            }
         }
 
         return $this->redirectToRoute('voiture_index');
