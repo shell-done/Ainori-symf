@@ -20,26 +20,32 @@ use \Datetime;
  */
 class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
 
-    public function getCo2SavedThisMonth() {
+    public function getCo2EconomyAvgByMonth() {
         $now = new DateTime(); 
 
-        $query = $this->createQueryBuilder("covoit")
-            ->select("sum(co2.valCo2)")
-            ->innerJoin("covoit.co2", "co2")
-            ->innerJoin("covoit.trajet", "trajet")
-            ->innerJoin("trajet.typeTrajet", "type")
-            ->where("type.typeTrajet = 'Ponctuel'")
-            ->andWhere("trajet.dateDepart BETWEEN :start AND :end")
-            ->setParameter("start", $now->format("Y-m-1"))
-            ->setParameter("end", $now->format("Y-m-t"))
-            ->getQuery();
+        $avg = 0;
 
-        $res = $query->getSingleScalarResult();
+        for($i=1; $i<=12; $i++) {
+            $query = $this->createQueryBuilder("covoit")
+                ->select("sum(co2.valCo2)")
+                ->innerJoin("covoit.co2", "co2")
+                ->innerJoin("covoit.trajet", "trajet")
+                ->innerJoin("trajet.typeTrajet", "type")
+                ->where("type.typeTrajet = 'Ponctuel'")
+                ->andWhere("trajet.dateDepart BETWEEN :start AND :end")
+                ->setParameter("start", $now->format("Y-$i-1"))
+                ->setParameter("end", $now->format("Y-$i-t"))
+                ->getQuery();
 
-        if($res)
-            return round($res);
+            $res = $query->getSingleScalarResult();
 
-        return 0;
+            if(!$res)
+                $res = 0;
+
+            $avg += $res;
+        }
+
+        return number_format($avg/12, 1);
     }
 
     public function getCovoiturageOfTrajet($trajet) {
