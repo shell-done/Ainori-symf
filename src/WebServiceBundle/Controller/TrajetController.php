@@ -14,6 +14,8 @@ use BackOfficeBundle\Entity\Trajet;
 use BackOfficeBundle\Entity\Ville;
 use BackOfficeBundle\Entity\TypeTrajet;
 
+use WebServiceBundle\Utils\FormErrorsConverter;
+
 /**
  * Trajet controller.
  *
@@ -43,11 +45,17 @@ class TrajetController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $trajet = new Trajet();
-        $trajet->setHeureDepart($request->query->get('heureDepart') ? new \DateTime($request->query->get('heureDepart')) : null);
-        $trajet->setDateDepart($request->query->get('dateDepart') ? new \DateTime($request->query->get('dateDepart')) : null);
-        $trajet->setVilleDepart($request->query->get('villeDepart') ? $em->getReference("BackOfficeBundle:Ville", $request->query->get('villeDepart')) : null);
-        $trajet->setVilleArrivee($request->query->get('villeArrivee') ? $em->getReference("BackOfficeBundle:Ville", $request->query->get('villeArrivee')) : null);
-        $trajet->setTypeTrajet($request->query->get('typeTrajet') ? $em->getReference("BackOfficeBundle:TypeTrajet", $request->query->get('typeTrajet')) : null);
+        
+        // Si un paramètre n'a pas la bonne forme, une exception est lancée et une erreur 400 Bad request est retournée
+        try {
+            $trajet->setHeureDepart($request->query->get('heureDepart') ? new \DateTime($request->query->get('heureDepart')) : null);
+            $trajet->setDateDepart($request->query->get('dateDepart') ? new \DateTime($request->query->get('dateDepart')) : null);
+            $trajet->setVilleDepart($request->query->get('villeDepart') ? $em->getReference("BackOfficeBundle:Ville", $request->query->get('villeDepart')) : null);
+            $trajet->setVilleArrivee($request->query->get('villeArrivee') ? $em->getReference("BackOfficeBundle:Ville", $request->query->get('villeArrivee')) : null);
+            $trajet->setTypeTrajet($request->query->get('typeTrajet') ? $em->getReference("BackOfficeBundle:TypeTrajet", $request->query->get('typeTrajet')) : null);
+        } catch(\Exception $e) {
+            return new Response('', 400);
+        }
 
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Trajet");
         $trajets = $repository->getTrajets($trajet);
@@ -97,7 +105,9 @@ class TrajetController extends Controller {
         $response = new Response();
         
         if($erreur) {
-            $response->setContent(json_encode((string) $form->getErrors(true, false)));
+            $errors = (new FormErrorsConverter($form))->toStringArray(true);
+            
+            $response->setContent($errors);
             $response->setStatusCode(400);
         } else {
             $response->setContent($serializer->serialize($trajet, 'json'));
@@ -140,7 +150,9 @@ class TrajetController extends Controller {
         $response = new Response();
         
         if($erreur) {
-            $response->setContent(json_encode((string) $form->getErrors(true, false)));
+            $errors = (new FormErrorsConverter($form))->toStringArray(true);
+            
+            $response->setContent($errors);
             $response->setStatusCode(400);
         } else {
             $response->setContent($serializer->serialize($trajet, 'json'));
