@@ -104,9 +104,9 @@ class VilleController extends Controller
             try {
                 $em->flush();
             } catch (\Doctrine\DBAL\DBALException $e) {
-                return $this->render('@BackOffice/Default/dberror.html.twig', [
+                return $this->render('@BackOffice/Default/error.html.twig', [
                     "title" => "Une erreur est survenue lors de la suppression de l'entité",
-                    "exception" => $e
+                    "message" => $e->getMessage()
                 ]);
             }
         }
