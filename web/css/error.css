@@ -1,0 +1,30 @@
+body .error-container {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.error-container .login-banner {
+    display: block;
+    margin: 20px auto;
+}
+
+.error-container h1 {
+    display: inline-block;
+    width: 100%;
+}
+
+.error-container h3 {
+    display: inline-block;
+    width: 100%;
+}
+
+.error-container p {
+    width: 100%;
+    margin-top: 40px;
+    font-size: 20px;
+}
+
+.error-container img {
+    margin: 60px auto 30px auto;
+    width: 250px;
+}

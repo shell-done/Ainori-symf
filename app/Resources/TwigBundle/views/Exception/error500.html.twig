@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/error.css') }}" />
+{% endblock %}
+
+{% block page %}
+    <div class="container error-container">
+        <div class="row">
+            <h1>Oups ! Une erreur est survenue :(</h1>
+            <h3>Erreur {{ status_code }} : {{ status_text }}</h3>
+
+            <p>
+                Une erreur interne au serveur est survenue.<br/>
+                Si le problème persiste, merci de contacter les administrateurs du site.
+            </p>
+
+            <img src="{{ asset('img/error_logo.png') }}">
+        </div>
+    </div>
+{% endblock %}
