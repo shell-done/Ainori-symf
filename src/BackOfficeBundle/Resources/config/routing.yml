@@ -49,3 +49,7 @@ back_office_ville:
 back_office_voiture:
     resource: "@BackOfficeBundle/Resources/config/routing/voiture.yml"
     prefix:   /voiture
+
+back_office_api:
+    resource: "@BackOfficeBundle/Resources/config/routing/api.yml"
+    prefix:   /api
