@@ -1,4 +1,4 @@
-# Définit les routes proposée par AppBundle
+# Défini les routes proposées par AppBundle
 
 login:
     path:     /login

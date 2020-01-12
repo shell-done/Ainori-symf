@@ -1,15 +1,7 @@
 <?php
 
 /**
- * Controller utilisé pour gérer l'authentification pour accéder au back office
- * 
- * Ce controller affiche la page de connexion et gère l'authentification pour accéder 
- * notamment aux pages du back office. Tout accès non authentifiés à une page du back 
- * office redirige sur cette page de connexion.
- * 
- * Pour plus d'informations sur le fonctionnement de l'authentification, se référer à la
- * documentation symfony : https://symfony.com/doc/3.4/security/form_login_setup.html
- * 
+ * Fichier du controller 'Security' utilisé pour l'authentification du back office
  * 
  * @author Alexandre THOMAS <alexandre.thomas@isen-ouest.yncrea.fr>
  * @version 1.0.0
@@ -21,12 +13,22 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+/**
+ * Controller utilisé pour gérer l'authentification pour accéder au back office
+ * 
+ * Ce controller affiche la page de connexion et gère l'authentification pour accéder 
+ * notamment aux pages du back office. Tout accès non authentifiés à une page du back 
+ * office redirige sur cette page de connexion.
+ * 
+ * Pour plus d'informations sur le fonctionnement de l'authentification, se référer à la
+ * documentation symfony : https://symfony.com/doc/3.4/security/form_login_setup.html
+ */
 class SecurityController extends Controller {
 
     /**
-     * Action utilisée pour l'affichage de la page de login et pour la gestion de l'authentification
+     * Affiche la page de login
      * 
-     * @param AuthenticationUtils $authenticationUtils la classe qui gère l'authentification (passée automatiquement par symfony)
+     * @param AuthenticationUtils $authenticationUtils la classe qui gère l'authentification (passée automatiquement par Symfony)
      * 
      * @return \Symfony\Component\HttpFoundation\Response la vue associée à la page login
      */
