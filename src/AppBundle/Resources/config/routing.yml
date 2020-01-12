@@ -1,3 +1,5 @@
+# Définit les routes proposée par AppBundle
+
 login:
     path:     /login
     defaults: { _controller: AppBundle:Security:login }
