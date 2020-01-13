@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * Fichier de l'entité 'Ville'
+ * 
+ * Ce fichier a été généré par Symfony, pour plus d'informations :
+ * https://symfony.com/doc/current/bundles/SensioGeneratorBundle/commands/generate_doctrine_crud.html
+ * 
+ * @author Alexandre THOMAS <alexandre.thomas@isen-ouest.yncrea.fr>
+ * @version 1.0.0
+ * @package BackOfficeBundle
+ */
+
 namespace BackOfficeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -7,7 +18,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * Ville
+ * Ville représente une ville française
+ * 
+ * Deux villes ne peuvent pas avoir le même code INSEE
  *
  * @ORM\Table(name="ville")
  * @ORM\Entity(repositoryClass="BackOfficeBundle\Repository\VilleRepository")
@@ -16,6 +29,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Ville
 {
     /**
+     * Code INSEE de la ville, doit être composé d'exactement 5 chiffres
      * @var string
      *
      * @Assert\NotBlank(message = "Ce champ ne peut pas être vide")
@@ -28,10 +42,13 @@ class Ville
     private $codeInsee;
 
     /**
+     * Nom de la ville, doit contenir entre 2 et 50 caractères
      * @var string
      *
      * @Assert\NotBlank(message = "Ce champ ne peut pas être vide")
      * @Assert\Length(
+     *  min = 2, 
+     *  minMessage = "Ce champ est trop court, il doit faire 2 caractères ou plus",
      *  max = 50,
      *  maxMessage = "Ce champ est trop long, il doit faire 50 caractères ou moins"
      * )
@@ -40,6 +57,7 @@ class Ville
     private $ville;
 
     /**
+     * Code postal de la ville, doit être composé d'exactement 5 chiffres
      * @var string
      *
      * @Assert\NotBlank(message = "Ce champ ne peut pas être vide")
@@ -52,6 +70,7 @@ class Ville
     private $codePostal;
 
     /**
+     * Numéro du département de la ville, doit être composé de 1 à 5 chiffres
      * @var string
      *
      * @Assert\NotBlank(message = "Ce champ ne peut pas être vide")
@@ -64,6 +83,7 @@ class Ville
     private $dep;
 
     /**
+     * Identifiant de la ville
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -75,7 +95,7 @@ class Ville
 
 
     /**
-     * Set codeInsee
+     * Set l'attribut codeInsee
      *
      * @param string $codeInsee
      *
@@ -89,7 +109,7 @@ class Ville
     }
 
     /**
-     * Get codeInsee
+     * Get l'attribut codeInsee
      *
      * @return string
      */
@@ -99,7 +119,7 @@ class Ville
     }
 
     /**
-     * Set ville
+     * Set l'attribut ville
      *
      * @param string $ville
      *
@@ -113,7 +133,7 @@ class Ville
     }
 
     /**
-     * Get ville
+     * Get l'attribut ville
      *
      * @return string
      */
@@ -123,7 +143,7 @@ class Ville
     }
 
     /**
-     * Set codePostal
+     * Set l'attribut codePostal
      *
      * @param string $codePostal
      *
@@ -137,7 +157,7 @@ class Ville
     }
 
     /**
-     * Get codePostal
+     * Get l'attribut codePostal
      *
      * @return string
      */
@@ -147,7 +167,7 @@ class Ville
     }
 
     /**
-     * Set dep
+     * Set l'attribut dep
      *
      * @param string $dep
      *
@@ -161,7 +181,7 @@ class Ville
     }
 
     /**
-     * Get dep
+     * Get l'attribut dep
      *
      * @return string
      */
@@ -171,7 +191,7 @@ class Ville
     }
 
     /**
-     * Get id
+     * Get l'attribut id
      *
      * @return integer
      */
@@ -181,7 +201,10 @@ class Ville
     }
 
     /**
-     * Convert the object to string
+     * Converti l'objet en une chaine de caractères
+     * 
+     * La chaine de caractères est composée du nom de la ville
+     * Exemple : 'Brest'
      * 
      * @return string
      */

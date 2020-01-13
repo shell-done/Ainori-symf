@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * Fichier de l'entité 'Covoiturage'
+ * 
+ * Ce fichier a été généré par Symfony, pour plus d'informations :
+ * https://symfony.com/doc/current/bundles/SensioGeneratorBundle/commands/generate_doctrine_crud.html
+ * 
+ * @author Alexandre THOMAS <alexandre.thomas@isen-ouest.yncrea.fr>
+ * @version 1.0.0
+ * @package BackOfficeBundle
+ */
+
 namespace BackOfficeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -7,7 +18,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * Covoiturage
+ * Covoiturage représente la participation d'un utilisateur à un trajet
+ * 
+ * Un covoiturage est unique par rapport à un trajet et un utilisateur.
+ * Un utilisateur ne peut donc pas faire partie d'un trajet plusieurs
+ * fois
  *
  * @ORM\Table(name="covoiturage", indexes={@ORM\Index(name="covoiturage_utilisateur_FK", columns={"id_utilisateur"}), @ORM\Index(name="covoiturage_co20_FK", columns={"id_co2"}), @ORM\Index(name="covoiturage_type_covoit1_FK", columns={"id_type_covoit"}), @ORM\Index(name="covoiturage_trajet2_FK", columns={"id_trajet"})})
  * @ORM\Entity(repositoryClass="BackOfficeBundle\Repository\CovoiturageRepository")
@@ -17,6 +32,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Covoiturage
 {
     /**
+     * Date de création du covoiturage
      * @var \DateTime
      *
      * @ORM\Column(name="created", type="datetime", nullable=false)
@@ -24,6 +40,7 @@ class Covoiturage
     private $created;
 
     /**
+     * Date de la dernière modification du covoiturage
      * @var \DateTime
      *
      * @ORM\Column(name="updated", type="datetime", nullable=false)
@@ -31,6 +48,7 @@ class Covoiturage
     private $updated;
 
     /**
+     * Identifiant du covoiturage
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -40,7 +58,8 @@ class Covoiturage
     private $id;
 
     /**
-     * @var \BackOfficeBundle\Entity\Co2
+     * Économie de Co2 réalisée par ce covoiturage
+     * @var \BackOfficeBundle\Entity\Co2|null
      *
      * @ORM\ManyToOne(targetEntity="BackOfficeBundle\Entity\Co2")
      * @ORM\JoinColumns({
@@ -50,6 +69,7 @@ class Covoiturage
     private $co2;
 
     /**
+     * Trajet réalisé par le covoiturage
      * @var \BackOfficeBundle\Entity\Trajet
      *
      * @Assert\NotBlank
@@ -61,6 +81,7 @@ class Covoiturage
     private $trajet;
 
     /**
+     * Type de covoiturage (conducteur ou passager)
      * @var \BackOfficeBundle\Entity\TypeCovoit
      *
      * @Assert\NotBlank
@@ -72,6 +93,7 @@ class Covoiturage
     private $typeCovoit;
 
     /**
+     * Utilisateur effectuant le trajet
      * @var \BackOfficeBundle\Entity\Utilisateur
      *
      * @Assert\NotBlank
@@ -83,6 +105,10 @@ class Covoiturage
     private $utilisateur;
 
     /**
+     * Met à jour les attributs updated et éventuellement created
+     * 
+     * Met à jour l'attribut updated avec l'instant présent. Si l'attribut created vaut
+     * null, alors celui-ci est aussi définit à l'instant présent
      *
      * @ORM\PrePersist
      * @ORM\PreUpdate
@@ -96,7 +122,7 @@ class Covoiturage
     }
 
     /**
-     * Set created
+     * Set l'attribut created
      *
      * @param \DateTime $created
      *
@@ -110,7 +136,7 @@ class Covoiturage
     }
 
     /**
-     * Get created
+     * Get l'attribut created
      *
      * @return \DateTime
      */
@@ -120,7 +146,7 @@ class Covoiturage
     }
 
     /**
-     * Set updated
+     * Set l'attribut updated
      *
      * @param \DateTime $updated
      *
@@ -134,7 +160,7 @@ class Covoiturage
     }
 
     /**
-     * Get updated
+     * Get l'attribut updated
      *
      * @return \DateTime
      */
@@ -144,7 +170,7 @@ class Covoiturage
     }
 
     /**
-     * Get id
+     * Get l'attribut id
      *
      * @return integer
      */
@@ -154,7 +180,7 @@ class Covoiturage
     }
 
     /**
-     * Set co2
+     * Set l'attribut co2
      *
      * @param \BackOfficeBundle\Entity\Co2 $co2
      *
@@ -168,7 +194,7 @@ class Covoiturage
     }
 
     /**
-     * Get co2
+     * Get l'attribut co2
      *
      * @return \BackOfficeBundle\Entity\Co2
      */
@@ -178,7 +204,7 @@ class Covoiturage
     }
 
     /**
-     * Set trajet
+     * Set l'attribut trajet
      *
      * @param \BackOfficeBundle\Entity\Trajet $trajet
      *
@@ -192,7 +218,7 @@ class Covoiturage
     }
 
     /**
-     * Get trajet
+     * Get l'attribut trajet
      *
      * @return \BackOfficeBundle\Entity\Trajet
      */
@@ -202,7 +228,7 @@ class Covoiturage
     }
 
     /**
-     * Set typeCovoit
+     * Set l'attribut typeCovoit
      *
      * @param \BackOfficeBundle\Entity\TypeCovoit $typeCovoit
      *
@@ -216,7 +242,7 @@ class Covoiturage
     }
 
     /**
-     * Get typeCovoit
+     * Get l'attribut typeCovoit
      *
      * @return \BackOfficeBundle\Entity\TypeCovoit
      */
@@ -226,7 +252,7 @@ class Covoiturage
     }
 
     /**
-     * Set utilisateur
+     * Set l'attribut utilisateur
      *
      * @param \BackOfficeBundle\Entity\Utilisateur $utilisateur
      *
@@ -240,7 +266,7 @@ class Covoiturage
     }
 
     /**
-     * Get utilisateur
+     * Get l'attribut utilisateur
      *
      * @return \BackOfficeBundle\Entity\Utilisateur
      */

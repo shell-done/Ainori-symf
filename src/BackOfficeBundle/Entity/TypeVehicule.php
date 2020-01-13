@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * Fichier de l'entité 'TypeVehicule'
+ * 
+ * Ce fichier a été généré par Symfony, pour plus d'informations :
+ * https://symfony.com/doc/current/bundles/SensioGeneratorBundle/commands/generate_doctrine_crud.html
+ * 
+ * @author Alexandre THOMAS <alexandre.thomas@isen-ouest.yncrea.fr>
+ * @version 1.0.0
+ * @package BackOfficeBundle
+ */
+
 namespace BackOfficeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -7,7 +18,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * TypeVehicule
+ * TypeVehicule représente un type de véhicule
+ * 
+ * TypeVehicule représente un type de véhicule comme 'Break', 'Coupé'
+ * ou 'Pickup'
+ * Deux typeVehicules ne peuvent pas avoir le même nom
  *
  * @ORM\Table(name="type_vehicule")
  * @ORM\Entity
@@ -16,6 +31,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class TypeVehicule
 {
     /**
+     * Nom du type de véhicule, doit contenir entre 2 et 50 caractères
      * @var string
      *
      * @Assert\NotBlank(message = "Ce champ ne peut pas être vide")
@@ -30,6 +46,7 @@ class TypeVehicule
     private $type;
 
     /**
+     * Identifiant du type de véhicule
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -41,7 +58,7 @@ class TypeVehicule
 
 
     /**
-     * Set type
+     * Set l'attribut type
      *
      * @param string $type
      *
@@ -55,7 +72,7 @@ class TypeVehicule
     }
 
     /**
-     * Get type
+     * Get l'attribut type
      *
      * @return string
      */
@@ -65,7 +82,7 @@ class TypeVehicule
     }
 
     /**
-     * Get id
+     * Get l'attribut id
      *
      * @return integer
      */
@@ -75,7 +92,10 @@ class TypeVehicule
     }
 
     /**
-     * Convert the object to string
+     * Converti l'objet en une chaine de caractères
+     * 
+     * La chaine de caractères est composée du nom du type de véhicule
+     * Exemple : 'Monospace'
      * 
      * @return string
      */

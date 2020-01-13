@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * Fichier de l'entité 'Categorie'
+ * 
+ * Ce fichier a été généré par Symfony, pour plus d'informations :
+ * https://symfony.com/doc/current/bundles/SensioGeneratorBundle/commands/generate_doctrine_crud.html
+ * 
+ * @author Alexandre THOMAS <alexandre.thomas@isen-ouest.yncrea.fr>
+ * @version 1.0.0
+ * @package BackOfficeBundle
+ */
+
 namespace BackOfficeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -7,7 +18,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * Categorie
+ * Categorie représente une catégorie d'utilisateur
+ * 
+ * Categorie représente une catégorie d'utilisateur comme 'Etudiant',
+ * 'Enseignant' ou 'Externe'
+ * Deux catégories ne peuvent pas avoir le même nom
  *
  * @ORM\Table(name="categorie")
  * @ORM\Entity(repositoryClass="BackOfficeBundle\Repository\CategorieRepository")
@@ -16,6 +31,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Categorie
 {
     /**
+     * Nom de la catégorie, doit contenir entre 2 et 50 caractères
      * @var string
      *
      * @Assert\NotBlank(message = "Ce champ ne peut pas être vide")
@@ -30,6 +46,7 @@ class Categorie
     private $categorie;
 
     /**
+     * Identifiant de la catégorie
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -41,7 +58,7 @@ class Categorie
 
 
     /**
-     * Set categorie
+     * Set l'attribut categorie
      *
      * @param string $categorie
      *
@@ -55,7 +72,7 @@ class Categorie
     }
 
     /**
-     * Get categorie
+     * Get l'attribut categorie
      *
      * @return string
      */
@@ -65,7 +82,7 @@ class Categorie
     }
 
     /**
-     * Get id
+     * Get l'attribut id
      *
      * @return integer
      */
@@ -75,7 +92,10 @@ class Categorie
     }
 
     /**
-     * Convert the object to string
+     * Converti l'objet en une chaine de caractères
+     * 
+     * La chaine de caractères est composée du nom de la catégorie (attribut categorie)
+     * Exemple : 'Enseignant'
      * 
      * @return string
      */

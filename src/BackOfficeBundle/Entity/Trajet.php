@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * Fichier de l'entité 'Trajet'
+ * 
+ * Ce fichier a été généré par Symfony, pour plus d'informations :
+ * https://symfony.com/doc/current/bundles/SensioGeneratorBundle/commands/generate_doctrine_crud.html
+ * 
+ * @author Alexandre THOMAS <alexandre.thomas@isen-ouest.yncrea.fr>
+ * @version 1.0.0
+ * @package BackOfficeBundle
+ */
+
 namespace BackOfficeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -7,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * Trajet
+ * Trajet représente un trajet de covoiturage entre deux villes
  *
  * @ORM\Table(name="trajet", indexes={@ORM\Index(name="trajet_ville_FK", columns={"id_ville"}), @ORM\Index(name="trajet_ville0_FK", columns={"id_ville_ville_arrivee"}), @ORM\Index(name="trajet_possede1_FK", columns={"id_possede"}), @ORM\Index(name="trajet_type_trajet2_FK", columns={"id_type_trajet"})})
  * @ORM\Entity(repositoryClass="BackOfficeBundle\Repository\TrajetRepository")
@@ -15,6 +26,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Trajet
 {
     /**
+     * La date de départ du trajet
      * @var \DateTime
      * 
      * @Assert\NotBlank(message = "Ce champ ne peut pas être vide")
@@ -23,6 +35,7 @@ class Trajet
     private $dateDepart;
 
     /**
+     * L'instant (heure/minute) de départ du trajet
      * @var \DateTime
      *
      * @Assert\NotBlank(message = "Ce champ ne peut pas être vide")
@@ -31,6 +44,7 @@ class Trajet
     private $heureDepart;
 
     /**
+     * Le nombre de place passager proposées pour ce trajet, doit être strictement inférieur au nombre de place du véhicule
      * @var integer
      *
      * @Assert\NotBlank(message = "Ce champ ne peut pas être vide")
@@ -43,32 +57,36 @@ class Trajet
     private $nbPlace;
 
     /**
-     * @var float
+     * Durée du trajet en heures
+     * @var float|null
      *
      * @ORM\Column(name="duree", type="float", precision=10, scale=0, nullable=true)
      */
     private $duree;
 
     /**
-     * @var string
+     * Commentaire du trajet
+     * @var string|null
      *
      * @ORM\Column(name="commentaire", type="text", length=65535, nullable=true)
      */
     private $commentaire;
 
     /**
+     * Distance entre la ville de départ et la ville d'arrivée, doit être strictement positive
      * @var float
      *
      * @Assert\NotBlank(message = "Ce champ ne peut pas être vide")
      * @Assert\GreaterThan(
      *  value = 0,
-     *  message = "Le nombre de place doit être strictement positif"
+     *  message = "La distance parcourue doit être strictement positive"
      * )
      * @ORM\Column(name="nb_km", type="float", precision=10, scale=0, nullable=false)
      */
     private $nbKm;
 
     /**
+     * L'identifiant du trajet
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -78,6 +96,7 @@ class Trajet
     private $id;
 
     /**
+     * Voiture utilisée pour le trajet
      * @var \BackOfficeBundle\Entity\Possede
      *
      * @Assert\NotBlank
@@ -89,6 +108,7 @@ class Trajet
     private $possede;
 
     /**
+     * Type de trajet (Régulier ou Ponctuel)
      * @var \BackOfficeBundle\Entity\TypeTrajet
      *
      * @Assert\NotBlank
@@ -100,6 +120,7 @@ class Trajet
     private $typeTrajet;
 
     /**
+     * Ville d'arrivée du trajet
      * @var \BackOfficeBundle\Entity\Ville
      *
      * @Assert\NotBlank
@@ -111,6 +132,7 @@ class Trajet
     private $villeArrivee;
 
     /**
+     * Ville de départ du trajet
      * @var \BackOfficeBundle\Entity\Ville
      *
      * @Assert\NotBlank
@@ -121,6 +143,11 @@ class Trajet
      */
     private $villeDepart;
 
+    /**
+     * Constructeur de la classe
+     * 
+     * Initialise la date et l'heure de départ à l'instant présent
+     */
     public function __construct() {
         $now = new \DateTime();
         $this->dateDepart = new \DateTime($now->format("Y-m-d"));
@@ -128,7 +155,7 @@ class Trajet
     }
 
     /**
-     * Set dateDepart
+     * Set l'attribut dateDepart
      *
      * @param \DateTime $dateDepart
      *
@@ -142,7 +169,7 @@ class Trajet
     }
 
     /**
-     * Get dateDepart
+     * Get l'attribut dateDepart
      *
      * @return \DateTime
      */
@@ -152,7 +179,7 @@ class Trajet
     }
 
     /**
-     * Set heureDepart
+     * Set l'attribut heureDepart
      *
      * @param \DateTime $heureDepart
      *
@@ -166,7 +193,7 @@ class Trajet
     }
 
     /**
-     * Get heureDepart
+     * Get l'attribut heureDepart
      *
      * @return \DateTime
      */
@@ -176,7 +203,7 @@ class Trajet
     }
 
     /**
-     * Set nbPlace
+     * Set l'attribut nbPlace
      *
      * @param integer $nbPlace
      *
@@ -190,7 +217,7 @@ class Trajet
     }
 
     /**
-     * Get nbPlace
+     * Get l'attribut nbPlace
      *
      * @return integer
      */
@@ -200,7 +227,7 @@ class Trajet
     }
 
     /**
-     * Set duree
+     * Set l'attribut duree
      *
      * @param float $duree
      *
@@ -214,7 +241,7 @@ class Trajet
     }
 
     /**
-     * Get duree
+     * Get l'attribut duree
      *
      * @return float
      */
@@ -224,7 +251,7 @@ class Trajet
     }
 
     /**
-     * Set commentaire
+     * Set l'attribut commentaire
      *
      * @param string $commentaire
      *
@@ -238,7 +265,7 @@ class Trajet
     }
 
     /**
-     * Get commentaire
+     * Get l'attribut commentaire
      *
      * @return string
      */
@@ -248,7 +275,7 @@ class Trajet
     }
 
     /**
-     * Set nbKm
+     * Set l'attribut nbKm
      *
      * @param float $nbKm
      *
@@ -262,7 +289,7 @@ class Trajet
     }
 
     /**
-     * Get nbKm
+     * Get l'attribut nbKm
      *
      * @return float
      */
@@ -272,7 +299,7 @@ class Trajet
     }
 
     /**
-     * Get id
+     * Get l'attribut id
      *
      * @return integer
      */
@@ -282,7 +309,7 @@ class Trajet
     }
 
     /**
-     * Set possede
+     * Set l'attribut possede
      *
      * @param \BackOfficeBundle\Entity\Possede $possede
      *
@@ -296,7 +323,7 @@ class Trajet
     }
 
     /**
-     * Get possede
+     * Get l'attribut possede
      *
      * @return \BackOfficeBundle\Entity\Possede
      */
@@ -306,7 +333,7 @@ class Trajet
     }
 
     /**
-     * Set typeTrajet
+     * Set l'attribut typeTrajet
      *
      * @param \BackOfficeBundle\Entity\TypeTrajet $typeTrajet
      *
@@ -320,7 +347,7 @@ class Trajet
     }
 
     /**
-     * Get typeTrajet
+     * Get l'attribut typeTrajet
      *
      * @return \BackOfficeBundle\Entity\TypeTrajet
      */
@@ -330,7 +357,7 @@ class Trajet
     }
 
     /**
-     * Set villeArrivee
+     * Set l'attribut villeArrivee
      *
      * @param \BackOfficeBundle\Entity\Ville $villeArrivee
      *
@@ -344,7 +371,7 @@ class Trajet
     }
 
     /**
-     * Get villeArrivee
+     * Get l'attribut villeArrivee
      *
      * @return \BackOfficeBundle\Entity\Ville
      */
@@ -354,7 +381,7 @@ class Trajet
     }
 
     /**
-     * Set villeDepart
+     * Set l'attribut villeDepart
      *
      * @param \BackOfficeBundle\Entity\Ville $villeDepart
      *
@@ -368,7 +395,7 @@ class Trajet
     }
 
     /**
-     * Get villeDepart
+     * Get l'attribut villeDepart
      *
      * @return \BackOfficeBundle\Entity\Ville
      */
@@ -378,7 +405,11 @@ class Trajet
     }
 
     /**
-     * Convert the object to string
+     * Converti l'objet en une chaine de caractères
+     * 
+     * La chaine de caractères est composée du nom de la ville de départ
+     * et de celui de la ville d'arrivée
+     * Exemple : 'De Brest à Paris'
      * 
      * @return string
      */
