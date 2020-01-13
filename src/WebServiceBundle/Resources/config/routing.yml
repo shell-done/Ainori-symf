@@ -17,7 +17,7 @@ web_service_get_trajets:
     methods: GET
 
 web_service_new_trajet:
-    path: /trajets/new
+    path: /trajets
     defaults: { _controller: WebServiceBundle:Trajet:newTrajet }
     methods: POST
 
@@ -37,9 +37,9 @@ web_service_delete_trajet:
 
 # ---------------
 
-web_service_get_trajets_utilisateur:
-    path: /utilisateur/{id}/trajets
-    defaults: { _controller: WebServiceBundle:Covoiturage:getTrajetsUtilisateur }
+web_service_get_covoiturages_utilisateur:
+    path: /utilisateur/{id}/covoiturages
+    defaults: { _controller: WebServiceBundle:Covoiturage:getCovoituragesUtilisateur }
     methods: GET
     requirements:
         id: '\d+'

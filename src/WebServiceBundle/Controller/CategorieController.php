@@ -24,7 +24,7 @@ class CategorieController extends Controller {
      */
     public function getCategoriesAction(Request $request) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Categorie");
-        $categories = $repository->getCategories();
+        $categories = $repository->getCategories($hydrated = true);
 
         if(!$categories) {
             return new Response('', 404);

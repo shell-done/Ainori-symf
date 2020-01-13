@@ -10,11 +10,14 @@ namespace BackOfficeBundle\Repository;
  */
 class CategorieRepository extends \Doctrine\ORM\EntityRepository {
 
-    public function getCategories() {
+    public function getCategories($hydrated = false) {
         $em = $this->createQueryBuilder("c")
             ->getQuery();
         
-        return $em->getArrayResult();
+        if($hydrated)
+            return $em->getArrayResult();
+
+        return $em->getResult();
     }
     
 }

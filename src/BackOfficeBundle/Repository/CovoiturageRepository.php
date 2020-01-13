@@ -26,7 +26,7 @@ class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
         $avg = 0;
 
         for($i=1; $i<=12; $i++) {
-            $query = $this->createQueryBuilder("covoit")
+            $em = $this->createQueryBuilder("covoit")
                 ->select("sum(co2.valCo2)")
                 ->innerJoin("covoit.co2", "co2")
                 ->innerJoin("covoit.trajet", "trajet")
@@ -37,7 +37,7 @@ class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
                 ->setParameter("end", $now->format("Y-$i-t"))
                 ->getQuery();
 
-            $res = $query->getSingleScalarResult();
+            $res = $em->getSingleScalarResult();
 
             if(!$res)
                 $res = 0;
@@ -49,16 +49,16 @@ class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
     }
 
     public function getCovoiturageOfTrajet($trajet) {
-        $query = $this->createQueryBuilder("covoit")
+        $em = $this->createQueryBuilder("covoit")
             ->innerJoin("covoit.trajet", "trajet")
             ->where("trajet = :trajet")
             ->setParameter("trajet", $trajet)
             ->getQuery();
 
-        return $query->getResult();
+        return $em->getResult();
     }
 
-    public function getTrajetsUtilisateur($id) {
+    public function getCovoituragesUtilisateur($id, $hydrated = false) {
         $em = $this->createQueryBuilder("covoit")
             ->innerJoin("covoit.trajet", "t")
             ->innerJoin("covoit.utilisateur", "u")
@@ -66,7 +66,10 @@ class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
             ->setParameter("id", $id)
             ->getQuery();
 
-        return $em->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        if($hydrated)
+            return $em->getArrayResult();
+
+        return $em->getResult();
     }
 
 }

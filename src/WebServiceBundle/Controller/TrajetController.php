@@ -58,7 +58,7 @@ class TrajetController extends Controller {
         }
 
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Trajet");
-        $trajets = $repository->getTrajets($trajet);
+        $trajets = $repository->getTrajets($trajet, $hydrated = true);
 
         return new JsonResponse($trajets);
     }

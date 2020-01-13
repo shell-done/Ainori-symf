@@ -39,7 +39,7 @@ class TrajetRepository extends \Doctrine\ORM\EntityRepository {
         return $em->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
 
-    public function getTrajets($trajet) {
+    public function getTrajets($trajet, $hydrated = false) {
         // Création de la requête
         $em = $this->createQueryBuilder("t");
         $em->select(["t", "villeD", "villeA", "typeT"]);
@@ -87,8 +87,11 @@ class TrajetRepository extends \Doctrine\ORM\EntityRepository {
 
         if($trajet->getTypeTrajet())
             $em->setParameter("typeTrajet", $trajet->getTypeTrajet());
+        
+        if($hydrated)
+            return $em->getQuery()->getArrayResult();
 
-        return $em->getQuery()->getArrayResult();
+        return $em->getQuery()->getResult();
     }
 
 }

@@ -16,17 +16,19 @@ use BackOfficeBundle\Entity\Covoiturage;
 use BackOfficeBundle\Entity\TypeCovoit;
 use BackOfficeBundle\Entity\Co2;
 
+use WebServiceBundle\Utils\FormErrorsConverter;
+
 class CovoiturageController extends Controller {
 
-    public function getTrajetsUtilisateurAction(Request $request, $id) {
+    public function getCovoituragesUtilisateurAction(Request $request, $id) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Covoiturage");
-        $trajets = $repository->getTrajetsUtilisateur($id);
+        $covoiturages = $repository->getCovoituragesUtilisateur($id, $hydrated = true);
 
-        if(!$trajets) {
+        if(!$covoiturages) {
             return new Response('', 404);
         }
 
-        return new JsonResponse($trajets);
+        return new JsonResponse($covoiturages);
     }
 
     public function registerToATrajetAction(Request $request, $id_user, $id_trajet) {
