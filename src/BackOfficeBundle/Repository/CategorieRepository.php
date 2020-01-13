@@ -14,7 +14,7 @@ class CategorieRepository extends \Doctrine\ORM\EntityRepository {
         $em = $this->createQueryBuilder("c")
             ->getQuery();
         
-        return $em->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        return $em->getArrayResult();
     }
     
 }

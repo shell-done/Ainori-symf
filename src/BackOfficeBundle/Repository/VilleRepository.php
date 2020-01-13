@@ -14,7 +14,7 @@ class VilleRepository extends \Doctrine\ORM\EntityRepository {
         $em = $this->createQueryBuilder("v")
             ->getQuery();
         
-        return $em->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        return $em->getArrayResult();
     }
     
 }
