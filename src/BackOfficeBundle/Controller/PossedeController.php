@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Fichier du controller 'Possede' utilisé pour gérer les différentes pages
+ * Fichier du controller 'PossedeController' utilisé pour gérer les différentes pages
  * du CRUD relatives à l'entité 'possede'
  * 
  * Ce fichier a été généré par Symfony, pour plus d'informations :

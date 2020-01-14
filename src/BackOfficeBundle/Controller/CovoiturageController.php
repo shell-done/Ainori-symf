@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Fichier du controller 'Covoiturage' utilisé pour gérer les différentes pages
+ * Fichier du controller 'CovoiturageController' utilisé pour gérer les différentes pages
  * du CRUD relatives à l'entité 'covoiturage'
  * 
  * Ce fichier a été généré par Symfony, pour plus d'informations :

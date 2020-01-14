@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Fichier du controller 'Utilisateur' utilisé pour gérer les différentes pages
+ * Fichier du controller 'UtilisateurController' utilisé pour gérer les différentes pages
  * du CRUD relatives à l'entité 'utilisateur'
  * 
  * Ce fichier a été généré par Symfony, pour plus d'informations :

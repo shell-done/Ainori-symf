@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Fichier du controller 'Voiture' utilisé pour gérer les différentes pages
+ * Fichier du controller 'VoitureController' utilisé pour gérer les différentes pages
  * du CRUD relatives à l'entité 'voiture'
  * 
  * Ce fichier a été généré par Symfony, pour plus d'informations :

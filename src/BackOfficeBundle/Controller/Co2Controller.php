@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Fichier du controller 'Co2' utilisé pour gérer les différentes pages
+ * Fichier du controller 'Co2Controller' utilisé pour gérer les différentes pages
  * du CRUD relatives à l'entité 'co2'
  * 
  * Ce fichier a été généré par Symfony, pour plus d'informations :

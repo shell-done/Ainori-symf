@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Fichier du controller 'API' utilisé pour gérer les différentes pages
+ * Fichier du controller 'APIController' utilisé pour gérer les différentes pages
  * relatives à l'API
  * 
  * @author Alexandre THOMAS <alexandre.thomas@isen-ouest.yncrea.fr>

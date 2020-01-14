@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Fichier du controller 'Ville' utilisé pour gérer les différentes pages
+ * Fichier du controller 'VilleController' utilisé pour gérer les différentes pages
  * du CRUD relatives à l'entité 'ville'
  * 
  * Ce fichier a été généré par Symfony, pour plus d'informations :

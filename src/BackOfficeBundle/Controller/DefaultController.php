@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Fichier du controller 'Default utilisé pour gérer la page principale
+ * Fichier du controller 'DefaultController' utilisé pour gérer la page principale
  * du back office
  * 
  * @author Alexandre THOMAS <alexandre.thomas@isen-ouest.yncrea.fr>
