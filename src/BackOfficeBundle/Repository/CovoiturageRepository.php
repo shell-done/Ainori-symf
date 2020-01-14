@@ -20,10 +20,10 @@ use \Datetime;
  */
 class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
 
-    public function getCo2EconomyAvgByMonth() {
+    public function getCo2EconomyByMonth() {
         $now = new DateTime(); 
 
-        $avg = 0;
+        $co2SavedByMonth = [];
 
         for($i=1; $i<=12; $i++) {
             $query = $this->createQueryBuilder("covoit")
@@ -42,10 +42,10 @@ class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
             if(!$res)
                 $res = 0;
 
-            $avg += $res;
+            array_push($co2SavedByMonth, number_format($res, 1));
         }
 
-        return number_format($avg/12, 1);
+        return $co2SavedByMonth;
     }
 
     public function getCovoiturageOfTrajet($trajet) {

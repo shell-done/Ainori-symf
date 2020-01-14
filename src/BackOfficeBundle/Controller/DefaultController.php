@@ -46,7 +46,8 @@ class DefaultController extends Controller
         $nbTrajets = $repository->countTrajets();
 
         $repository = $this->getDoctrine()->getRepository(Covoiturage::class);
-        $co2Saved = $repository->getCo2EconomyAvgByMonth();
+        $co2SavedByMonth = $repository->getCo2EconomyByMonth();
+        $co2SavedAvg = number_format(array_sum($co2SavedByMonth)/12, 1);
 
         // Affichage de la page avec ces informations
         return $this->render('@BackOffice/Default/index.html.twig', [
@@ -54,7 +55,8 @@ class DefaultController extends Controller
             "nbUtilisateurs" => $nbUtilisateurs,
             "last10Trajets" => $last10Trajets,
             "nbTrajets" => $nbTrajets,
-            "co2Saved" => $co2Saved
+            "co2SavedAvg" => $co2SavedAvg,
+            "co2SavedByMonth" => $co2SavedByMonth
         ]);
     }
 }

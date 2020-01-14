@@ -36,6 +36,10 @@
     color: #202020;
 }
 
+.chart-block {
+    padding: 25px;
+}
+
 .block-body table {
     width: 100%;
 }
