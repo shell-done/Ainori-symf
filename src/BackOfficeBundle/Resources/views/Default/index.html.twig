@@ -56,10 +56,10 @@
         </div>
     </div>
 
-    {# Block 'Économie de Co2 par mois' avec le graphique affichant la quantité de Co2 économisé chaque mois #}
+    {# Block 'Économies de Co2 par mois' avec le graphique affichant la quantité de Co2 économisé chaque mois #}
     <div class="block">
         <div class="block-header">
-            <span class="block-title">Économie de Co2 par mois</span>
+            <span class="block-title">Économies de Co2 par mois</span>
         </div>
         <div class="block-body chart-block">
             <canvas id="co2-chart"></canvas>
@@ -117,6 +117,7 @@
     {# Javascript utilisé pour l'affichage du graphique #}
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <script>
+        {# Transfert du tableau php dans le code JS #}
         var co2Data = [{{ co2SavedByMonth|join(',') }}]
 
         function initChart() {
@@ -126,7 +127,7 @@
             }
 
             let chartData = {
-                labels: ["Janvier", "Février", "Mars", "Avril", "Mais", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
+                labels: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
                 datasets: [{
                     data: co2Data,
                     borderWidth: 4,
@@ -144,9 +145,20 @@
                     data: chartData,
                     options: {
                         scales: {
+                            xAxes: [{
+                                ticks: {
+                                    fontSize: 15
+                                }
+                            }],
                             yAxes: [{
                                 ticks: {
-                                beginAtZero: false
+                                    beginAtZero: false,
+                                    fontSize: 15
+                                },
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'kg de Co2',
+                                    fontSize: 20
                                 }
                             }]
                         },
