@@ -10,7 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * TypeVehicule
  *
  * @ORM\Table(name="type_vehicule")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="BackOfficeBundle\Repository\TypeVehiculeRepository")
  * @UniqueEntity(fields="type", message="Ce type est déjà utilisé")
  */
 class TypeVehicule

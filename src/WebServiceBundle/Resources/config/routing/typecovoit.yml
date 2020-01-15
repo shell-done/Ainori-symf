@@ -1,0 +1,4 @@
+typecovoit_list:
+    path: /
+    defaults: { _controller: WebServiceBundle:TypeCovoit:getTypeCovoits }
+    methods: GET

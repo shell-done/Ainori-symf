@@ -1,0 +1,30 @@
+trajet_list:
+    path: /
+    defaults: { _controller: WebServiceBundle:Trajet:getTrajets }
+    methods: GET
+
+trajet_show:
+    path: /{id}
+    defaults: { _controller: WebServiceBundle:Trajet:getTrajet }
+    methods: GET
+    requirements:
+        id: '\d+'
+
+trajet_new:
+    path: /
+    defaults: { _controller: WebServiceBundle:Trajet:newTrajet }
+    methods: POST
+
+trajet_edit:
+    path: /{id}
+    defaults: { _controller: WebServiceBundle:Trajet:editTrajet }
+    methods: POST
+    requirements:
+        id: '\d+'
+
+trajet_delete:
+    path: /{id}
+    defaults: { _controller: WebServiceBundle:Trajet:deleteTrajet }
+    methods: DELETE
+    requirements:
+        id: '\d+'

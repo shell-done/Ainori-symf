@@ -1,0 +1,26 @@
+possede_list:
+    path: /
+    defaults: { _controller: WebServiceBundle:Possede:newPossede }
+    methods: POST
+
+possede_show:
+    path: /{id}
+    defaults: { _controller: WebServiceBundle:Possede:getPossede }
+    methods: GET
+    requirements:
+        id: '\d+'
+
+possede_edit:
+    path: /{id}
+    defaults: { _controller: WebServiceBundle:Possede:editPossede }
+    methods: POST
+    requirements:
+        id: '\d+'
+
+possede_delete:
+    path: /{id}
+    defaults: { _controller: WebServiceBundle:Possede:deletePossede }
+    methods: DELETE
+    requirements:
+        id_user: '\d+'
+        id_voiture: '\d+'

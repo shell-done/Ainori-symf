@@ -1,131 +1,52 @@
 # --- DEBUG ---
+
 web_service_debug:
     path: /
     defaults: { _controller: WebServiceBundle:Default:debug }
 
-# --- TRAJETS ---
-web_service_get_trajet:
-    path: /trajets/{id}
-    defaults: { _controller: WebServiceBundle:Trajet:getTrajet }
-    methods: GET
-    requirements:
-        id: '\d+'
+# -------------
 
-web_service_get_trajets:
-    path: /trajets
-    defaults: { _controller: WebServiceBundle:Trajet:getTrajets }
-    methods: GET
+web_service_categorie:
+    resource: "@WebServiceBundle/Resources/config/routing/categorie.yml"
+    prefix:   /categories
 
-web_service_new_trajet:
-    path: /trajets
-    defaults: { _controller: WebServiceBundle:Trajet:newTrajet }
-    methods: POST
+web_service_covoiturage:
+    resource: "@WebServiceBundle/Resources/config/routing/covoiturage.yml"
+    prefix:   /covoiturages
 
-web_service_edit_trajet:
-    path: /trajets/{id}
-    defaults: { _controller: WebServiceBundle:Trajet:editTrajet }
-    methods: POST
-    requirements:
-        id: '\d+'
+web_service_marque:
+    resource: "@WebServiceBundle/Resources/config/routing/marque.yml"
+    prefix:   /marques
 
-web_service_delete_trajet:
-    path: /trajets/{id}
-    defaults: { _controller: WebServiceBundle:Trajet:deleteTrajet }
-    methods: DELETE
-    requirements:
-        id: '\d+'
+web_service_possede:
+    resource: "@WebServiceBundle/Resources/config/routing/possede.yml"
+    prefix:   /possedes
 
-# ---------------
+web_service_trajet:
+    resource: "@WebServiceBundle/Resources/config/routing/trajet.yml"
+    prefix:   /trajets
 
-web_service_get_covoiturages_utilisateur:
-    path: /utilisateur/{id}/covoiturages
-    defaults: { _controller: WebServiceBundle:Covoiturage:getCovoituragesUtilisateur }
-    methods: GET
-    requirements:
-        id: '\d+'
+web_service_typecovoit:
+    resource: "@WebServiceBundle/Resources/config/routing/typecovoit.yml"
+    prefix:   /typecovoits
 
-web_service_register_to_a_trajet:
-    path: /trajet/{id_trajet}/utilisateur/{id_user}
-    defaults: { _controller: WebServiceBundle:Covoiturage:registerToATrajet }
-    methods: POST
-    requirements:
-        id_user: '\d+'
-        id_trajet: '\d+'
+web_service_typetrajet:
+    resource: "@WebServiceBundle/Resources/config/routing/typetrajet.yml"
+    prefix:   /typetrajets
 
-web_service_get_utilisateur:
-    path: /utilisateurs/{id}
-    defaults: { _controller: WebServiceBundle:Utilisateur:getUtilisateur }
-    methods: GET
-    requirements:
-        id: '\d+'
+web_service_typevehicule:
+    resource: "@WebServiceBundle/Resources/config/routing/typevehicule.yml"
+    prefix:   /typevehicules
 
-web_service_new_utilisateur:
-    path: /utilisateurs
-    defaults: { _controller: WebServiceBundle:Utilisateur:newUtilisateur }
-    methods: POST
+web_service_utilisateur:
+    resource: "@WebServiceBundle/Resources/config/routing/utilisateur.yml"
+    prefix:   /utilisateurs
 
-web_service_edit_utilisateur:
-    path: /utilisateurs/{id}
-    defaults: { _controller: WebServiceBundle:Utilisateur:editUtilisateur }
-    methods: POST
-    requirements:
-        id: '\d+'
+web_service_ville:
+    resource: "@WebServiceBundle/Resources/config/routing/ville.yml"
+    prefix:   /villes
 
-web_service_delete_utilisateur:
-    path: /utilisateurs/{id}
-    defaults: { _controller: WebServiceBundle:Utilisateur:deleteUtilisateur }
-    methods: DELETE
-    requirements:
-        id: '\d+'
+web_service_voiture:
+    resource: "@WebServiceBundle/Resources/config/routing/voiture.yml"
+    prefix:   /voitures
 
-web_service_get_possede:
-    path: /possedes/{id}
-    defaults: { _controller: WebServiceBundle:Possede:getPossede }
-    methods: GET
-    requirements:
-        id: '\d+'
-
-web_service_new_possede:
-    path: /possedes
-    defaults: { _controller: WebServiceBundle:Possede:newPossede }
-    methods: POST
-
-web_service_edit_possede:
-    path: /possedes/{id}
-    defaults: { _controller: WebServiceBundle:Possede:editPossede }
-    methods: POST
-    requirements:
-        id: '\d+'
-
-web_service_delete_possede:
-    path: /possede/{id}
-    defaults: { _controller: WebServiceBundle:Possede:deletePossede }
-    methods: DELETE
-    requirements:
-        id_user: '\d+'
-        id_voiture: '\d+'
-
-web_service_get_voitures:
-    path: /voitures
-    defaults: { _controller: WebServiceBundle:Voiture:getVoitures }
-    methods: GET
-
-web_service_get_villes:
-    path: /villes
-    defaults: { _controller: WebServiceBundle:Ville:getVilles }
-    methods: GET
-
-web_service_get_categories:
-    path: /categories
-    defaults: { _controller: WebServiceBundle:Categorie:getCategories }
-    methods: GET
-
-web_service_get_typetrajets:
-    path: /typetrajets
-    defaults: { _controller: WebServiceBundle:TypeTrajet:getTypeTrajets }
-    methods: GET
-
-web_service_get_typecovoits:
-    path: /typecovoits
-    defaults: { _controller: WebServiceBundle:TypeCovoit:getTypeCovoits }
-    methods: GET

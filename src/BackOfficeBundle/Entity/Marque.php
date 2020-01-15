@@ -10,7 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * Marque
  *
  * @ORM\Table(name="marque")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="BackOfficeBundle\Repository\MarqueRepository")
  * @UniqueEntity(fields="marque", message="Nom de marque déjà utilisé")
  */
 class Marque

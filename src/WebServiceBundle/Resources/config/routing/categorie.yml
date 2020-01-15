@@ -1,0 +1,4 @@
+categorie_list:
+    path: /
+    defaults: { _controller: WebServiceBundle:Categorie:getCategories }
+    methods: GET

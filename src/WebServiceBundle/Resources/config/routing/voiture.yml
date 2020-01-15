@@ -1,0 +1,4 @@
+voiture_list:
+    path: /
+    defaults: { _controller: WebServiceBundle:Voiture:getVoiture }
+    methods: GET

@@ -1,0 +1,14 @@
+covoiturage_utilisateur_list:
+    path: /utilisateurs/{id}
+    defaults: { _controller: WebServiceBundle:Covoiturage:getCovoituragesUtilisateur }
+    methods: GET
+    requirements:
+        id: '\d+'
+
+register_to_a_trajet:
+    path: /trajets/{id_trajet}/utilisateurs/{id_user}
+    defaults: { _controller: WebServiceBundle:Covoiturage:registerToATrajet }
+    methods: POST
+    requirements:
+        id_user: '\d+'
+        id_trajet: '\d+'
