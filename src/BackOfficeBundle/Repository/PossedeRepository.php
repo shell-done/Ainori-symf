@@ -12,24 +12,31 @@ use BackOfficeBundle\Entity\Utilisateur;
  */
 class PossedeRepository extends \Doctrine\ORM\EntityRepository {
 
-    public function getPossede($id) {
+    public function getPossede($id, $hydrated = false) {
         $em = $this->createQueryBuilder("p")
+            ->select(["p", "u"])
             ->innerJoin("p.utilisateur", "u")
             ->where("u.id = :id")
             ->setParameter("id", $id)
             ->getQuery();
-        
-        return $em->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+
+        if($hydrated)
+            return $em->getArrayResult();
+
+        return $em->getResult();
     }
 
-    public function deletePossede($id) {
+    public function deletePossede($id, $hydrated = false) {
         $em = $this->createQueryBuilder("p")
             ->delete()
             ->where("p.id = :id")
             ->setParameter("id", $id)
             ->getQuery();
         
-        return $em->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        if($hydrated)
+            return $em->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        
+        return $em->getOneOrNullResult();
     }
     
 }

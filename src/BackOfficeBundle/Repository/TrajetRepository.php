@@ -30,13 +30,16 @@ class TrajetRepository extends \Doctrine\ORM\EntityRepository {
             ->getQuery()->getSingleScalarResult();
     }
 
-    public function getTrajet($id) {
+    public function getTrajet($id, $hydrated = false) {
         $em = $this->createQueryBuilder("t")
             ->where("t.id = :id")
             ->setParameter("id", $id)
             ->getQuery();
 
-        return $em->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        if($hydrated)
+            return $em->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        
+        return $em->getOneOrNullResult();
     }
 
     public function getTrajets($trajet, $hydrated = false) {

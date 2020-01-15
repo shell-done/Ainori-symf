@@ -50,6 +50,7 @@ class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
 
     public function getCovoiturageOfTrajet($trajet) {
         $em = $this->createQueryBuilder("covoit")
+            ->select(["covoit", "trajet"])
             ->innerJoin("covoit.trajet", "trajet")
             ->where("trajet = :trajet")
             ->setParameter("trajet", $trajet)
@@ -60,6 +61,7 @@ class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
 
     public function getCovoituragesUtilisateur($id, $hydrated = false) {
         $em = $this->createQueryBuilder("covoit")
+            ->select(["covoit", "t", "u"])
             ->innerJoin("covoit.trajet", "t")
             ->innerJoin("covoit.utilisateur", "u")
             ->where("u.id = :id")

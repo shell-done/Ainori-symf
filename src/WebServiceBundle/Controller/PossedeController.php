@@ -24,46 +24,40 @@ class PossedeController extends Controller {
      */
     public function getPossedeAction(Request $request, $id) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Possede");
-        $voiture = $repository->getPossede($id);
+        $possede = $repository->getPossede($id, $hydrated = true);
 
-        if(!$voiture) {
+        if(!$possede) {
             return new Response('', 404);
         }
 
-        return new JsonResponse($voiture);
+        return new JsonResponse($possede);
     }
 
     public function deletePossedeAction(Request $request, $id) {
-        $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Possede");
-        $voiture = $repository->deletePossede($id);
+        $em = $this->getDoctrine()->getManager();
+        $possede = $repository->getPossede($id, $hydrated = true);
 
-        if(!$voiture) {
+        if(!$possede) {
             return new Response('', 404);
         }
 
-        return new Response('', 200);
+        $em->remove($possede);
+        try {
+            $em->flush();
+        } catch (\Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException $e) {
+            return new Response('', 409);
+        }
+
+        return new Response();
     }
 
-    public function createPossedeAction(Request $request) {
+    public function newPossedeAction(Request $request) {
         $erreur = FALSE;
 
         $possede = new Possede();
         $form = $this->createForm('WebServiceBundle\Form\PossedeType', $possede);
         
-        $json = $request->getContent();
-        if ($decodedJson = json_decode($json, true)) {
-            $data = $decodedJson;
-        } else {
-            $data = $request->request->all();
-        }
-        $formData = [];
-        foreach ($form->all() as $name => $field) {
-            if (isset($data[$name])) {
-                $formData[$name] = $data[$name];
-            }
-        }
-    
-        $form->submit($formData);
+        $form->submit($request->request->all());
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -81,7 +75,9 @@ class PossedeController extends Controller {
         $response = new Response();
         
         if($erreur) {
-            $response->setContent(json_encode((string) $form->getErrors(true, false)));
+            $errors = (new FormErrorsConverter($form))->toStringArray(true);
+
+            $response->setContent($errors);
             $response->setStatusCode(400);
         } else {
             $response->setContent($serializer->serialize($possede, 'json'));
@@ -94,28 +90,19 @@ class PossedeController extends Controller {
         return $response;
      }
 
-     public function modifyPossedeAction(Request $request, $id) {
+     public function editPossedeAction(Request $request, $id) {
         $erreur = FALSE;
 
         $possedeRepo = $this->getDoctrine()->getRepository(Possede::class);
         $possede = $possedeRepo->findOneById($id);
         
+        if(!$possede) {
+            return new Response('', 404);
+        }
+
         $form = $this->createForm('WebServiceBundle\Form\PossedeType', $possede);
         
-        $json = $request->getContent();
-        if ($decodedJson = json_decode($json, true)) {
-            $data = $decodedJson;
-        } else {
-            $data = $request->request->all();
-        }
-        $formData = [];
-        foreach ($form->all() as $name => $field) {
-            if (isset($data[$name])) {
-                $formData[$name] = $data[$name];
-            }
-        }
-    
-        $form->submit($formData);
+        $form->submit($request->request->all());
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -133,11 +120,13 @@ class PossedeController extends Controller {
         $response = new Response();
         
         if($erreur) {
-            $response->setContent(json_encode((string) $form->getErrors(true, false)));
+            $errors = (new FormErrorsConverter($form))->toStringArray(true);
+
+            $response->setContent($errors);
             $response->setStatusCode(400);
         } else {
             $response->setContent($serializer->serialize($possede, 'json'));
-            $response->setStatusCode(201);
+            $response->setStatusCode(200);
         }
 
         $response->headers->set('Content-Type', 'application/json');

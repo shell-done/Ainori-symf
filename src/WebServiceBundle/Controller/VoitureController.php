@@ -24,7 +24,7 @@ class VoitureController extends Controller {
      */
     public function getVoituresAction(Request $request) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Voiture");
-        $voitures = $repository->getVoitures();
+        $voitures = $repository->getVoitures($hydrated = true);
 
         if(!$voitures) {
             return new Response('', 404);

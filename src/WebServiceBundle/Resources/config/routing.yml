@@ -53,52 +53,52 @@ web_service_register_to_a_trajet:
         id_trajet: '\d+'
 
 web_service_get_utilisateur:
-    path: /utilisateur/{id}/info
+    path: /utilisateurs/{id}
     defaults: { _controller: WebServiceBundle:Utilisateur:getUtilisateur }
     methods: GET
     requirements:
         id: '\d+'
 
-web_service_create_utilisateur:
-    path: /utilisateur/create
-    defaults: { _controller: WebServiceBundle:Utilisateur:createUtilisateur }
+web_service_new_utilisateur:
+    path: /utilisateurs
+    defaults: { _controller: WebServiceBundle:Utilisateur:newUtilisateur }
     methods: POST
 
-web_service_modify_utilisateur:
-    path: /utilisateur/{id}/modify
-    defaults: { _controller: WebServiceBundle:Utilisateur:modifyUtilisateur }
-    methods: PUT
+web_service_edit_utilisateur:
+    path: /utilisateurs/{id}
+    defaults: { _controller: WebServiceBundle:Utilisateur:editUtilisateur }
+    methods: POST
     requirements:
         id: '\d+'
 
 web_service_delete_utilisateur:
-    path: /utilisateur/{id}/delete
+    path: /utilisateurs/{id}
     defaults: { _controller: WebServiceBundle:Utilisateur:deleteUtilisateur }
     methods: DELETE
     requirements:
         id: '\d+'
 
 web_service_get_possede:
-    path: /possede/{id}
+    path: /possedes/{id}
     defaults: { _controller: WebServiceBundle:Possede:getPossede }
     methods: GET
     requirements:
         id: '\d+'
 
-web_service_create_possede:
-    path: /possede/create
-    defaults: { _controller: WebServiceBundle:Possede:createPossede }
+web_service_new_possede:
+    path: /possedes
+    defaults: { _controller: WebServiceBundle:Possede:newPossede }
     methods: POST
 
-web_service_modify_possede:
-    path: /possede/{id}/modify
-    defaults: { _controller: WebServiceBundle:Possede:modifyPossede }
-    methods: PUT
+web_service_edit_possede:
+    path: /possedes/{id}
+    defaults: { _controller: WebServiceBundle:Possede:editPossede }
+    methods: POST
     requirements:
         id: '\d+'
 
 web_service_delete_possede:
-    path: /possede/{id}/delete
+    path: /possede/{id}
     defaults: { _controller: WebServiceBundle:Possede:deletePossede }
     methods: DELETE
     requirements:
@@ -120,12 +120,12 @@ web_service_get_categories:
     defaults: { _controller: WebServiceBundle:Categorie:getCategories }
     methods: GET
 
-web_service_get_type_trajet:
-    path: /typestrajet
-    defaults: { _controller: WebServiceBundle:TypeTrajet:getTypesTrajet }
+web_service_get_typetrajets:
+    path: /typetrajets
+    defaults: { _controller: WebServiceBundle:TypeTrajet:getTypeTrajets }
     methods: GET
 
-web_service_get_type_covoit:
-    path: /typescovoit
-    defaults: { _controller: WebServiceBundle:TypeCovoit:getTypesCovoit }
+web_service_get_typecovoits:
+    path: /typecovoits
+    defaults: { _controller: WebServiceBundle:TypeCovoit:getTypeCovoits }
     methods: GET

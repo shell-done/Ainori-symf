@@ -28,7 +28,7 @@ class TrajetController extends Controller {
      */
     public function getTrajetAction(Request $request, $id) { 
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Trajet");
-        $trajet = $repository->getTrajet($id);
+        $trajet = $repository->getTrajet($id, $hydrated = true);
 
         if(!$trajet) {
             return new Response('', 404);

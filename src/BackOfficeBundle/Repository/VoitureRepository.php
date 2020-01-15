@@ -10,11 +10,14 @@ namespace BackOfficeBundle\Repository;
  */
 class VoitureRepository extends \Doctrine\ORM\EntityRepository {
 
-    public function getVoitures() {
+    public function getVoitures($hydrated = false) {
         $em = $this->createQueryBuilder("v")
             ->getQuery();
         
-        return $em->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        if($hydrated)
+            return $em->getArrayResult();
+
+        return $em->getResult();
     }
     
 }

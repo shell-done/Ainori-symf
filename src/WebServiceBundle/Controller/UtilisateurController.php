@@ -24,7 +24,7 @@ class UtilisateurController extends Controller {
      */
     public function getUtilisateurAction(Request $request, $id) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Utilisateur");
-        $utilisateur = $repository->getUtilisateur($id);
+        $utilisateur = $repository->getUtilisateur($id, $hydrated = true);
 
         if(!$utilisateur) {
             return new Response('', 404);
@@ -34,36 +34,30 @@ class UtilisateurController extends Controller {
     }
 
     public function deleteUtilisateurAction(Request $request, $id) {
-        $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Utilisateur");
-        $utilisateur = $repository->deleteUtilisateur($id);
+        $em = $this->getDoctrine()->getManager();
+        $utilisateur = $repository->getUtilisateur($id, $hydrated = true);
 
         if(!$utilisateur) {
             return new Response('', 404);
         }
 
-        return new Response('', 200);
+        $em->remove($utilisateur);
+        try {
+            $em->flush();
+        } catch (\Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException $e) {
+            return new Response('', 409);
+        }
+
+        return new Response();
     }
 
-    public function createUtilisateurAction(Request $request) {
+    public function newUtilisateurAction(Request $request) {
         $erreur = FALSE;
 
         $utilisateur = new Utilisateur();
         $form = $this->createForm('WebServiceBundle\Form\UtilisateurType', $utilisateur);
-        
-        $json = $request->getContent();
-        if ($decodedJson = json_decode($json, true)) {
-            $data = $decodedJson;
-        } else {
-            $data = $request->request->all();
-        }
-        $formData = [];
-        foreach ($form->all() as $name => $field) {
-            if (isset($data[$name])) {
-                $formData[$name] = $data[$name];
-            }
-        }
-    
-        $form->submit($formData);
+
+        $form->submit($request->request->all());
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -81,7 +75,9 @@ class UtilisateurController extends Controller {
         $response = new Response();
         
         if($erreur) {
-            $response->setContent(json_encode((string) $form->getErrors(true, false)));
+            $errors = (new FormErrorsConverter($form))->toStringArray(true);
+
+            $response->setContent($errors);
             $response->setStatusCode(400);
         } else {
             $response->setContent($serializer->serialize($utilisateur, 'json'));
@@ -94,28 +90,19 @@ class UtilisateurController extends Controller {
         return $response;
      }
 
-     public function modifyUtilisateurAction(Request $request, $id) {
+     public function editUtilisateurAction(Request $request, $id) {
         $erreur = FALSE;
 
         $utilisateurRepo = $this->getDoctrine()->getRepository(Utilisateur::class);
         $utilisateur = $utilisateurRepo->findOneById($id);
 
+        if(!$utilisateur) {
+            return new Response('', 404);
+        }
+
         $form = $this->createForm('WebServiceBundle\Form\UtilisateurType', $utilisateur);
         
-        $json = $request->getContent();
-        if ($decodedJson = json_decode($json, true)) {
-            $data = $decodedJson;
-        } else {
-            $data = $request->request->all();
-        }
-        $formData = [];
-        foreach ($form->all() as $name => $field) {
-            if (isset($data[$name])) {
-                $formData[$name] = $data[$name];
-            }
-        }
-    
-        $form->submit($formData);
+        $form->submit($request->request->all());
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -133,11 +120,13 @@ class UtilisateurController extends Controller {
         $response = new Response();
         
         if($erreur) {
-            $response->setContent(json_encode((string) $form->getErrors(true, false)));
+            $errors = (new FormErrorsConverter($form))->toStringArray(true);
+
+            $response->setContent($errors);
             $response->setStatusCode(400);
         } else {
             $response->setContent($serializer->serialize($utilisateur, 'json'));
-            $response->setStatusCode(201);
+            $response->setStatusCode(200);
         }
 
         $response->headers->set('Content-Type', 'application/json');

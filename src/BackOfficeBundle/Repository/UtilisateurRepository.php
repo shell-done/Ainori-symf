@@ -29,23 +29,16 @@ class UtilisateurRepository extends \Doctrine\ORM\EntityRepository {
         return $em->getSingleScalarResult();
     }
 
-    public function getUtilisateur($id) {
+    public function getUtilisateur($id, $hydrated = false) {
         $em = $this->createQueryBuilder("u")
             ->where("u.id = :id")
             ->setParameter("id", $id)
             ->getQuery();
-        
-        return $em->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-    }
 
-    public function deleteUtilisateur($id) {
-        $em = $this->createQueryBuilder("u")
-            ->delete()
-            ->where("u.id = :id")
-            ->setParameter("id", $id)
-            ->getQuery();
-        
-        return $em->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        if($hydrated)
+            return $em->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+
+        return $em->getOneOrNullResult();
     }
     
 }

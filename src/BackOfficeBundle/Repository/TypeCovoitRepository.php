@@ -10,11 +10,14 @@ namespace BackOfficeBundle\Repository;
  */
 class TypeCovoitRepository extends \Doctrine\ORM\EntityRepository {
 
-    public function getTypesCovoit() {
+    public function getTypeCovoits($hydrated = false) {
         $em = $this->createQueryBuilder("tc")
             ->getQuery();
         
-        return $em->getArrayResult();
+        if($hydrated)
+            return $em->getArrayResult();
+
+        return $em->getResult();
     }
     
 }

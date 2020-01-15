@@ -24,7 +24,7 @@ class VilleController extends Controller {
      */
     public function getVillesAction(Request $request) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Ville");
-        $villes = $repository->getVilles();
+        $villes = $repository->getVilles($hydrated = true);
 
         if(!$villes) {
             return new Response('', 404);

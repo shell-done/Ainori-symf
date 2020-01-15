@@ -10,11 +10,14 @@ namespace BackOfficeBundle\Repository;
  */
 class VilleRepository extends \Doctrine\ORM\EntityRepository {
 
-    public function getVilles() {
+    public function getVilles($hydrated = false) {
         $em = $this->createQueryBuilder("v")
             ->getQuery();
         
-        return $em->getArrayResult();
+        if($hydrated)
+            return $em->getArrayResult();
+
+        return $em->getResult();
     }
     
 }

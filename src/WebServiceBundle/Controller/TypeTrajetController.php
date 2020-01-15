@@ -22,15 +22,15 @@ class TypeTrajetController extends Controller {
      * Returns all typeTrajet entities
      *
      */
-    public function getTypesTrajetAction(Request $request) {
+    public function getTypeTrajetsAction(Request $request) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:TypeTrajet");
-        $types_trajet = $repository->getTypesTrajet();
+        $typetrajets = $repository->getTypeTrajets($hydrated = true);
 
-        if(!$types_trajet) {
+        if(!$typetrajets) {
             return new Response('', 404);
         }
 
-        return new JsonResponse($types_trajet);
+        return new JsonResponse($typetrajets);
     }
 
 }

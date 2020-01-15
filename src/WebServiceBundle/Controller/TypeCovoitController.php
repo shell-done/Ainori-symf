@@ -22,15 +22,15 @@ class TypeCovoitController extends Controller {
      * Returns all typeCovoit entities
      *
      */
-    public function getTypesCovoitAction(Request $request) {
+    public function getTypeCovoitsAction(Request $request) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:TypeCovoit");
-        $types_covoit = $repository->getTypesCovoit();
+        $typecovoits = $repository->getTypeCovoits($hydrated = true);
 
-        if(!$types_covoit) {
+        if(!$typecovoits) {
             return new Response('', 404);
         }
 
-        return new JsonResponse($types_covoit);
+        return new JsonResponse($typecovoits);
     }
 
 }

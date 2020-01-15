@@ -10,11 +10,14 @@ namespace BackOfficeBundle\Repository;
  */
 class TypeTrajetRepository extends \Doctrine\ORM\EntityRepository {
 
-    public function getTypesTrajet() {
+    public function getTypeTrajets($hydrated = false) {
         $em = $this->createQueryBuilder("tt")
             ->getQuery();
         
-        return $em->getArrayResult();
+        if($hydrated)
+            return $em->getArrayResult();
+
+        return $em->getResult();
     }
     
 }

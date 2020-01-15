@@ -75,7 +75,9 @@ class CovoiturageController extends Controller {
         $response = new Response();
         
         if($erreur) {
-            $response->setContent(json_encode((string) $form->getErrors(true, false)));
+            $errors = (new FormErrorsConverter($form))->toStringArray(true);
+
+            $response->setContent();
             $response->setStatusCode(400);
         } else {
             $response->setContent($serializer->serialize($covoiturage, 'json'));
