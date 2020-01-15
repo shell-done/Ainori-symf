@@ -1,3 +1,5 @@
+# Routes liées aux catégories
+
 categorie_index:
     path:     /
     defaults: { _controller: "BackOfficeBundle:Categorie:index" }

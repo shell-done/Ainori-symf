@@ -2,6 +2,7 @@
 # https://symfony.com/doc/current/security.html
 security:
 
+    # Nom d'utilisateur et mot de passe pour l'authentification sur le back office
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         in_memory:
@@ -21,6 +22,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
+        # Routes liées à l'authentification sur le back office
         main:
             anonymous: ~
             form_login:

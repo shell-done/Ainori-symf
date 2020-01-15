@@ -1,3 +1,5 @@
+{# Page principale du back office, affiche notamment les statistiques sur l'utilisation du service #}
+
 {% extends '@BackOffice/base.html.twig' %}
 
 {% block stylesheets %}
@@ -6,6 +8,8 @@
 
 {% block body %}
     <h1>Accueil</h1>
+    
+    {# Block 'Statistiques' avec la moyenne de Co2 économisé par mois dans l'année, le nombre d'utilisateurs et le nombre de trajets #}
     <div class="block">
         <div class="block-header">
             <span class="block-title">Statistiques</span>
@@ -52,6 +56,7 @@
         </div>
     </div>
 
+    {# Block 'Économie de Co2 par mois' avec le graphique affichant la quantité de Co2 économisé chaque mois #}
     <div class="block">
         <div class="block-header">
             <span class="block-title">Économie de Co2 par mois</span>
@@ -63,6 +68,7 @@
 
     <div class="row">
         <div class="col-6 block">
+            {# Tableau des 10 derniers utilisateurs inscrits #}
             <div class="block-header">
                 <span class="block-title">Derniers utilisateurs inscrits</span>
             </div>
@@ -84,6 +90,7 @@
         </div>
 
         <div class="col-6 block">
+            {# Tableau des 10 derniers trajets proposés #}
             <div class="block-header">
                 <span class="block-title">Derniers trajets proposés</span>
             </div>
@@ -107,6 +114,7 @@
 {% endblock %}
 
 {% block javascripts %}
+    {# Javascript utilisé pour l'affichage du graphique #}
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <script>
         var co2Data = [{{ co2SavedByMonth|join(',') }}]

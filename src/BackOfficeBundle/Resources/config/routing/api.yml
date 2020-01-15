@@ -1,3 +1,5 @@
+# Routes liées à l'API
+
 api_documentation:
     path:     /documentation
     defaults: { _controller: BackOfficeBundle:Api:documentation }

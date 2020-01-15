@@ -1,3 +1,5 @@
+# Routes liées aux utilisateurs
+
 utilisateur_index:
     path:     /
     defaults: { _controller: "BackOfficeBundle:Utilisateur:index" }

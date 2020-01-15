@@ -20,6 +20,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  * Les pages relatives à l'API sont :
  *  - La documentation
  * 
+ * CE CONTROLLER NE DÉFINIT PAS LES REQUÊTES RELATIVES A L'API, CELLES-CI SONT
+ * PRÉSENTES DANS LE WEBSERVICEBUNDLE
+ * 
  * D'autres pages en lien avec l'API (affichage des statistiques, activation/désactivation 
  * des requêtes) pourront être rajouté dans le futur
  */

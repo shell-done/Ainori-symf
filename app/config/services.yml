@@ -31,6 +31,8 @@ services:
         bind:
             $authenticationUtils: '@security.authentication_utils'
 
+    # Permet de fournir à UtilisateurController l'objet UserPasswordEncoderInterface afin de hasher
+    # le mot de passe
     BackOfficeBundle\Controller\UtilisateurController:
         autowire: true
         tags: ['controller.service_arguments']
