@@ -1,4 +1,4 @@
-voiture_list:
+api_voiture_list:
     path: /
     defaults: { _controller: WebServiceBundle:Voiture:getVoiture }
     methods: GET

@@ -1,4 +1,4 @@
-marque_list:
+api_marque_list:
     path: /
     defaults: { _controller: WebServiceBundle:Marque:getMarques }
     methods: GET

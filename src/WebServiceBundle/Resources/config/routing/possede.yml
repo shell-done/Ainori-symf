@@ -1,23 +1,23 @@
-possede_list:
+api_possede_list:
     path: /
     defaults: { _controller: WebServiceBundle:Possede:newPossede }
     methods: POST
 
-possede_show:
+api_possede_show:
     path: /{id}
     defaults: { _controller: WebServiceBundle:Possede:getPossede }
     methods: GET
     requirements:
         id: '\d+'
 
-possede_edit:
+api_possede_edit:
     path: /{id}
     defaults: { _controller: WebServiceBundle:Possede:editPossede }
     methods: POST
     requirements:
         id: '\d+'
 
-possede_delete:
+api_possede_delete:
     path: /{id}
     defaults: { _controller: WebServiceBundle:Possede:deletePossede }
     methods: DELETE

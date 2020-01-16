@@ -1,23 +1,23 @@
-utilisateur_show:
+api_utilisateur_show:
     path: /{id}
     defaults: { _controller: WebServiceBundle:Utilisateur:getUtilisateur }
     methods: GET
     requirements:
         id: '\d+'
 
-utilisateur_new:
+api_utilisateur_new:
     path: /
     defaults: { _controller: WebServiceBundle:Utilisateur:newUtilisateur }
     methods: POST
 
-utilisateur_edit:
+api_utilisateur_edit:
     path: /{id}
     defaults: { _controller: WebServiceBundle:Utilisateur:editUtilisateur }
     methods: POST
     requirements:
         id: '\d+'
 
-utilisateur_delete:
+api_utilisateur_delete:
     path: /{id}
     defaults: { _controller: WebServiceBundle:Utilisateur:deleteUtilisateur }
     methods: DELETE

@@ -1,4 +1,4 @@
-typetrajets_list:
+api_typetrajets_list:
     path: /
     defaults: { _controller: WebServiceBundle:TypeTrajet:getTypeTrajets }
     methods: GET

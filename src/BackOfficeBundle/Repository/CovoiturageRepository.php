@@ -74,4 +74,24 @@ class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
         return $em->getResult();
     }
 
+    public function getCovoitsAsConducteur($id, $hydrated = false) {
+        $em = $this->createQueryBuilder("c")
+            ->select(["c", "t", "villeD", "villeA", "typeT", "typeC"])
+            ->innerJoin("c.trajet", "t")
+            ->innerJoin("t.villeDepart", "villeD")
+            ->innerJoin("t.villeArrivee", "villeA")
+            ->innerJoin("t.typeTrajet", "typeT")
+            ->innerJoin("c.typeCovoit", "typeC")
+            ->innerJoin("c.utilisateur", "u")
+            ->where("typeC.type = 'Conducteur'")
+            ->where("u.id = :id")
+            ->setParameter("id", $id)
+            ->getQuery();
+
+        if($hydrated)
+            return $em->getArrayResult();
+        
+        return $em->getResult();
+    }
+
 }

@@ -1,4 +1,4 @@
-typevehicule_list:
+api_typevehicule_list:
     path: /
     defaults: { _controller: WebServiceBundle:TypeVehicule:getTypeVehicules }
     methods: GET

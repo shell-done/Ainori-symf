@@ -1,4 +1,4 @@
-villes_list:
+api_villes_list:
     path: /
     defaults: { _controller: WebServiceBundle:Ville:getVilles }
     methods: GET

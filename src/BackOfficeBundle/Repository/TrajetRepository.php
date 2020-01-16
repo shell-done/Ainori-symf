@@ -32,6 +32,10 @@ class TrajetRepository extends \Doctrine\ORM\EntityRepository {
 
     public function getTrajet($id, $hydrated = false) {
         $em = $this->createQueryBuilder("t")
+            ->select(["t", "villeD", "villeA", "typeT"])
+            ->innerJoin("t.villeDepart", "villeD")
+            ->innerJoin("t.villeArrivee", "villeA")
+            ->innerJoin("t.typeTrajet", "typeT")
             ->where("t.id = :id")
             ->setParameter("id", $id)
             ->getQuery();
