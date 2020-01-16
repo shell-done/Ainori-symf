@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * Fichier de l'entité 'Utilisateur'
+ * 
+ * Ce fichier a été généré par Symfony, pour plus d'informations :
+ * https://symfony.com/doc/current/bundles/SensioGeneratorBundle/commands/generate_doctrine_crud.html
+ * 
+ * @author Alexandre THOMAS <alexandre.thomas@isen-ouest.yncrea.fr>
+ * @version 1.0.0
+ * @package BackOfficeBundle
+ */
+
 namespace BackOfficeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -8,7 +19,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * Utilisateur
+ * Utilisateur représente un utilisateur du service de covoiturage
+ * 
+ * Deux utilisateurs ne peuvent pas avoir la même adresse mail
+ * Le hachage du mot de passe est réalisé par l'interface UserInterface, pour plus d'informations :
+ * https://symfony.com/doc/3.4/security/password_encoding.html
  *
  * @ORM\Table(name="utilisateur", indexes={@ORM\Index(name="utilisateur_ville_FK", columns={"id_ville"}), @ORM\Index(name="utilisateur_categorie0_FK", columns={"id_categorie"})})
  * @ORM\Entity(repositoryClass="BackOfficeBundle\Repository\UtilisateurRepository")
@@ -17,6 +32,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Utilisateur implements UserInterface
 {
     /**
+     * Adresse mail de l'utilisateur, doit avoir le format d'un mail et contenir au plus 5 caractères
      * @var string
      * 
      * @Assert\NotBlank(message = "Ce champ ne peut pas être vide")
@@ -30,6 +46,7 @@ class Utilisateur implements UserInterface
     private $mail;
 
     /**
+     * Nom de l'utilisateur, doit contenir entre 2 et 50 caractères
      * @var string
      *
      * @Assert\NotBlank(message = "Ce champ ne peut pas être vide")
@@ -44,6 +61,7 @@ class Utilisateur implements UserInterface
     private $nom;
 
     /**
+     * Prénom de l'utilisateur, doit contenir entre 2 et 50 caractères
      * @var string
      *
      * @Assert\NotBlank(message = "Ce champ ne peut pas être vide")
@@ -58,6 +76,7 @@ class Utilisateur implements UserInterface
     private $prenom;
 
     /**
+     * Mot de passe non haché demandé à l'utilisateur, doit contenir entre 5 et 4096 caractères
      * @var string
      * 
      * @Assert\NotBlank(message = "Ce champ ne peut pas être vide")
@@ -71,6 +90,7 @@ class Utilisateur implements UserInterface
     private $plainPassword;
 
     /**
+     * Mot de passe haché
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=150, nullable=false)
@@ -78,12 +98,14 @@ class Utilisateur implements UserInterface
     private $password;
 
     /**
+     * Roles d'un utilisateur authentifié (pour UserInterface)
      * @var array
      */
     private $roles;
 
     /**
-     * @var string
+     * Numéro de téléphone de l'utilisateur, doit contenir 10 chiffres
+     * @var string|null
      *
      * @Assert\Regex(
      *  pattern = "/^[0-9]{10}$/",
@@ -94,7 +116,8 @@ class Utilisateur implements UserInterface
     private $telephone;
 
     /**
-     * @var string
+     * Adresse de l'utilisateur
+     * @var string|null
      *
      * @Assert\Length(
      *  max = 100,
@@ -105,6 +128,7 @@ class Utilisateur implements UserInterface
     private $adresse;
 
     /**
+     * Identifiant de l'utilisateur
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -114,6 +138,7 @@ class Utilisateur implements UserInterface
     private $id;
 
     /**
+     * Catégorie d'utilisateur
      * @var \BackOfficeBundle\Entity\Categorie
      *
      * @Assert\NotBlank
@@ -125,6 +150,7 @@ class Utilisateur implements UserInterface
     private $categorie;
 
     /**
+     * Ville de l'utilisateur
      * @var \BackOfficeBundle\Entity\Ville
      *
      * @Assert\NotBlank
@@ -136,12 +162,17 @@ class Utilisateur implements UserInterface
     private $ville;
 
     
+    /**
+     * Constructeur de la classe
+     * 
+     * Définit l'attribut roles
+     */
     public function __construct() {
         $this->roles = ['ROLE_USER'];
     }
 
     /**
-     * Set mail
+     * Set l'attribut mail
      *
      * @param string $mail
      *
@@ -155,7 +186,7 @@ class Utilisateur implements UserInterface
     }
 
     /**
-     * Get mail
+     * Get l'attribut mail
      *
      * @return string
      */
@@ -164,12 +195,17 @@ class Utilisateur implements UserInterface
         return $this->mail;
     }
 
+    /**
+     * Get le nom d'utilisateur qui est l'adresse mail
+     * 
+     * Implémenté pour UserInterface
+     */
     public function getUsername() {
         return $this->mail;
     }
 
     /**
-     * Set nom
+     * Set l'attribut nom
      *
      * @param string $nom
      *
@@ -183,7 +219,7 @@ class Utilisateur implements UserInterface
     }
 
     /**
-     * Get nom
+     * Get l'attribut nom
      *
      * @return string
      */
@@ -193,7 +229,7 @@ class Utilisateur implements UserInterface
     }
 
     /**
-     * Set prenom
+     * Set l'attribut prenom
      *
      * @param string $prenom
      *
@@ -207,7 +243,7 @@ class Utilisateur implements UserInterface
     }
 
     /**
-     * Get prenom
+     * Get l'attribut prenom
      *
      * @return string
      */
@@ -217,7 +253,7 @@ class Utilisateur implements UserInterface
     }
 
     /**
-     * Set plainPassword
+     * Set l'attribut plainPassword
      *
      * @param string $plainPassword
      *
@@ -231,7 +267,7 @@ class Utilisateur implements UserInterface
     }
 
     /**
-     * Get plainPassword
+     * Get l'attribut plainPassword
      *
      * @return string
      */
@@ -241,7 +277,7 @@ class Utilisateur implements UserInterface
     }
 
     /**
-     * Set password
+     * Set l'attribut password
      *
      * @param string $password
      *
@@ -255,7 +291,7 @@ class Utilisateur implements UserInterface
     }
 
     /**
-     * Get password
+     * Get l'attribut password
      *
      * @return string
      */
@@ -264,13 +300,16 @@ class Utilisateur implements UserInterface
         return $this->password;
     }
 
+    /**
+     * Get le salage du hachage
+     */
     public function getSalt()
     {
         return null;
     }
 
     /**
-     * Set roles
+     * Set l'attribut roles
      *
      * @param array $roles
      *
@@ -282,7 +321,7 @@ class Utilisateur implements UserInterface
     }
 
     /**
-     * Get roles
+     * Get l'attribut roles
      *
      * @return array
      */
@@ -292,7 +331,7 @@ class Utilisateur implements UserInterface
     }
 
     /**
-     * Set telephone
+     * Set l'attribut telephone
      *
      * @param string $telephone
      *
@@ -306,7 +345,7 @@ class Utilisateur implements UserInterface
     }
 
     /**
-     * Get telephone
+     * Get l'attribut telephone
      *
      * @return string
      */
@@ -316,7 +355,7 @@ class Utilisateur implements UserInterface
     }
 
     /**
-     * Set adresse
+     * Set l'attribut adresse
      *
      * @param string $adresse
      *
@@ -330,7 +369,7 @@ class Utilisateur implements UserInterface
     }
 
     /**
-     * Get adresse
+     * Get l'attribut adresse
      *
      * @return string
      */
@@ -340,7 +379,7 @@ class Utilisateur implements UserInterface
     }
 
     /**
-     * Get id
+     * Get l'attribut id
      *
      * @return integer
      */
@@ -350,7 +389,7 @@ class Utilisateur implements UserInterface
     }
 
     /**
-     * Set categorie
+     * Set l'attribut categorie
      *
      * @param \BackOfficeBundle\Entity\Categorie $categorie
      *
@@ -364,7 +403,7 @@ class Utilisateur implements UserInterface
     }
 
     /**
-     * Get categorie
+     * Get l'attribut categorie
      *
      * @return \BackOfficeBundle\Entity\Categorie
      */
@@ -374,7 +413,7 @@ class Utilisateur implements UserInterface
     }
 
     /**
-     * Set ville
+     * Set l'attribut ville
      *
      * @param \BackOfficeBundle\Entity\Ville $ville
      *
@@ -388,7 +427,7 @@ class Utilisateur implements UserInterface
     }
 
     /**
-     * Get ville
+     * Get l'attribut ville
      *
      * @return \BackOfficeBundle\Entity\Ville
      */
@@ -397,12 +436,20 @@ class Utilisateur implements UserInterface
         return $this->ville;
     }
 
+    /**
+     * Peut être implémenter pour supprimer plainPassword une fois que celui-ci a été traité
+     * 
+     * Implémenté pour UserInterface
+     */
     public function eraseCredentials()
     {
     }
 
     /**
-     * Convert the object to string
+     * Converti l'objet en une chaine de caractères
+     * 
+     * La chaine de caractères est composée du nom et du prénom de l'utilisateur
+     * Exemple : 'Dustin Thompson'
      * 
      * @return string
      */

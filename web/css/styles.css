@@ -65,6 +65,19 @@ nav .container, nav .row {
     text-align: left;
 }
 
+.dropdown-menu .dropdown-item:active, .dropdown-menu .dropdown-item:hover {
+    background: #ddd;
+}
+
+.dropdown:hover .dropdown-menu{
+    display:block;
+    position: absolute;
+    transform: translate3d(15px, 43px, 0px);
+    top: 0px;
+    left: 0px;
+    will-change: transform;
+}
+
 #main {
     margin-top: 50px;
     margin-bottom: 50px;

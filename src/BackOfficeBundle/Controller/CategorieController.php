@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Fichier du controller 'Categorie' utilisé pour gérer les différentes pages
+ * Fichier du controller 'CategorieController' utilisé pour gérer les différentes pages
  * du CRUD relatives à l'entité 'categorie'
  * 
  * Ce fichier a été généré par Symfony, pour plus d'informations :

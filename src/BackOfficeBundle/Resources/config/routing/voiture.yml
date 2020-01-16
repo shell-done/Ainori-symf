@@ -1,3 +1,5 @@
+# Routes liées aux voitures
+
 voiture_index:
     path:     /
     defaults: { _controller: "BackOfficeBundle:Voiture:index" }

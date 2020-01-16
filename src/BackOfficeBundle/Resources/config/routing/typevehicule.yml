@@ -1,3 +1,5 @@
+# Routes liées aux types de véhicules
+
 typevehicule_index:
     path:     /
     defaults: { _controller: "BackOfficeBundle:TypeVehicule:index" }

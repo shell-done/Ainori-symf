@@ -1,3 +1,5 @@
+# Routes liées aux covoiturages
+
 covoiturage_index:
     path:     /
     defaults: { _controller: "BackOfficeBundle:Covoiturage:index" }

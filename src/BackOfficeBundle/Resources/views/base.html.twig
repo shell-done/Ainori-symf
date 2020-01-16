@@ -1,3 +1,7 @@
+{# Fichier de base utilisé par toutes les pages du back office UNE FOIS AUTHENTIFIÉ #}
+{# Hérite du fichier base.html situé dans app/config/Resources/views/base.html.twig #}
+{# Ajoute un header (le logo et le bouton de déconnexion) ainsi la barre de navigation pour accéder aux différentes tables#}
+
 {% extends 'base.html.twig' %}
 
 {% block page %}
@@ -11,7 +15,7 @@
                 <div class="col-2 nav-item dropdown">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">Utilisateurs</a>
 
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu" x-placement="bottom-start">
                         <a class="dropdown-item" href="{{ path('utilisateur_index') }}">Utilisateurs</a>
                         <a class="dropdown-item" href="{{ path('categorie_index') }}">Catégories</a>
                     </div>
@@ -19,7 +23,7 @@
                 <div class="col-2 nav-item dropdown">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">Véhicules</a>
 
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu" x-placement="bottom-start">
                         <a class="dropdown-item" href="{{ path('possede_index') }}">Possède</a>
                         <a class="dropdown-item" href="{{ path('voiture_index') }}">Voitures</a>
                         <a class="dropdown-item" href="{{ path('marque_index') }}">Marques</a>
@@ -30,7 +34,7 @@
                 <div class="col-2 nav-item dropdown">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">Trajets</a>
 
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu" x-placement="bottom-start">
                         <a class="dropdown-item" href="{{ path('trajet_index') }}">Trajets</a>
                         <a class="dropdown-item" href="{{ path('typetrajet_index') }}">Types de trajet</a>
                     </div>
@@ -38,7 +42,7 @@
                 <div class="col-2 nav-item dropdown">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">Covoiturages</a>
 
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu" x-placement="bottom-start">
                         <a class="dropdown-item" href="{{ path('covoiturage_index') }}">Covoiturages</a>
                         <a class="dropdown-item" href="{{ path('typecovoit_index') }}">Types de covoiturage</a>
                         <a class="dropdown-item" href="{{ path('co2_index') }}">Co2</a>

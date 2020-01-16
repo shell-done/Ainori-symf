@@ -1,3 +1,6 @@
+# Fichier de routage principal
+# Chaque bundle a son propre fichier de routage
+
 app:
     resource: '@AppBundle/Resources/config/routing.yml'
 

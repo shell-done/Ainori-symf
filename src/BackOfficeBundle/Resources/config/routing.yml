@@ -1,3 +1,7 @@
+# Fichier de routage du BackOfficeBundle
+# Chacune des entités a son propre fichier de routage (dans /routing) qui définissent chacun
+# 5 routes pour : lister, afficher, ajouter, modifier et supprimer une entité
+
 back_office_homepage:
     path:     /
     defaults: { _controller: BackOfficeBundle:Default:index }

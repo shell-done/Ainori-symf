@@ -1,3 +1,5 @@
+# Routes liées aux économies de Co2
+
 co2_index:
     path:     /
     defaults: { _controller: "BackOfficeBundle:Co2:index" }

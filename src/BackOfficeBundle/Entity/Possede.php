@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * Fichier de l'entité 'Possede'
+ * 
+ * Ce fichier a été généré par Symfony, pour plus d'informations :
+ * https://symfony.com/doc/current/bundles/SensioGeneratorBundle/commands/generate_doctrine_crud.html
+ * 
+ * @author Alexandre THOMAS <alexandre.thomas@isen-ouest.yncrea.fr>
+ * @version 1.0.0
+ * @package BackOfficeBundle
+ */
+
 namespace BackOfficeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -7,7 +18,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * Possede
+ * Possede représente la possession d'une voiture par un utilisateur
+ * 
+ * Deux possessions ne peuvent pas avoir la même immatriculation
  *
  * @ORM\Table(name="possede", indexes={@ORM\Index(name="possede_utilisateur_FK", columns={"id_utilisateur"}), @ORM\Index(name="possede_voiture0_FK", columns={"id_voiture"})})
  * @ORM\Entity(repositoryClass="BackOfficeBundle\Repository\PossedeRepository")
@@ -16,6 +29,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Possede
 {
     /**
+     * Immatriculation de la voiture possédée, doit contenir entre 7 et 15 caractères
      * @var string
      *
      * @Assert\NotBlank(message = "Ce champ ne peut pas être vide")
@@ -30,6 +44,7 @@ class Possede
     private $immatriculation;
 
     /**
+     * Nombre de place de la voiture, doit être supérieur ou égal à 1
      * @var integer
      *
      * @Assert\NotBlank(message = "Ce champ ne peut pas être vide")
@@ -42,6 +57,7 @@ class Possede
     private $nbPlace;
 
     /**
+     * Identifiant de la possession
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -51,6 +67,7 @@ class Possede
     private $id;
 
     /**
+     * Utilisateur possédant la voiture
      * @var \BackOfficeBundle\Entity\Utilisateur
      *
      * @Assert\NotBlank
@@ -62,6 +79,7 @@ class Possede
     private $utilisateur;
 
     /**
+     * Voiture possédée
      * @var \BackOfficeBundle\Entity\Voiture
      *
      * @Assert\NotBlank
@@ -75,7 +93,7 @@ class Possede
 
 
     /**
-     * Set immatriculation
+     * Set l'attribut immatriculation
      *
      * @param string $immatriculation
      *
@@ -89,7 +107,7 @@ class Possede
     }
 
     /**
-     * Get immatriculation
+     * Get l'attribut immatriculation
      *
      * @return string
      */
@@ -99,7 +117,7 @@ class Possede
     }
 
     /**
-     * Set nbPlace
+     * Set l'attribut nbPlace
      *
      * @param integer $nbPlace
      *
@@ -113,7 +131,7 @@ class Possede
     }
 
     /**
-     * Get nbPlace
+     * Get l'attribut nbPlace
      *
      * @return integer
      */
@@ -123,7 +141,7 @@ class Possede
     }
 
     /**
-     * Get id
+     * Get l'attribut id
      *
      * @return integer
      */
@@ -133,7 +151,7 @@ class Possede
     }
 
     /**
-     * Set utilisateur
+     * Set l'attribut utilisateur
      *
      * @param \BackOfficeBundle\Entity\Utilisateur $utilisateur
      *
@@ -147,7 +165,7 @@ class Possede
     }
 
     /**
-     * Get utilisateur
+     * Get l'attribut utilisateur
      *
      * @return \BackOfficeBundle\Entity\Utilisateur
      */
@@ -157,7 +175,7 @@ class Possede
     }
 
     /**
-     * Set voiture
+     * Set l'attribut voiture
      *
      * @param \BackOfficeBundle\Entity\Voiture $voiture
      *
@@ -171,7 +189,7 @@ class Possede
     }
 
     /**
-     * Get voiture
+     * Get l'attribut voiture
      *
      * @return \BackOfficeBundle\Entity\Voiture
      */
@@ -181,7 +199,11 @@ class Possede
     }
 
     /**
-     * Convert the object to string
+     * Converti l'objet en une chaine de caractères
+     * 
+     * La chaine de caractères est composée du nom de la voiture suivi de
+     * l'immatriculation entre parenthèses
+     * Exemple : 'Renault Twingo (HR-381-LW)'
      * 
      * @return string
      */

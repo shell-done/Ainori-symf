@@ -1,3 +1,5 @@
+# Routes liées aux trajets
+
 trajet_index:
     path:     /
     defaults: { _controller: "BackOfficeBundle:Trajet:index" }

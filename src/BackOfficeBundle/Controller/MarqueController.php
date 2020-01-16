@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Fichier du controller 'Marque' utilisé pour gérer les différentes pages
+ * Fichier du controller 'MarqueController' utilisé pour gérer les différentes pages
  * du CRUD relatives à l'entité 'marque'
  * 
  * Ce fichier a été généré par Symfony, pour plus d'informations :

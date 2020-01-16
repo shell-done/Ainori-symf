@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Fichier du controller 'TypeTrajet' utilisé pour gérer les différentes pages
+ * Fichier du controller 'TypeTrajetController' utilisé pour gérer les différentes pages
  * du CRUD relatives à l'entité 'typeTrajet'
  * 
  * Ce fichier a été généré par Symfony, pour plus d'informations :
