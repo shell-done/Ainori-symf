@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Trajets</title>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        
+    </head>
+    <body class="vscode-light">
+        <h1 id="trajets">Trajets</h1>
+<h2 id="informations-g%c3%a9n%c3%a9rales">Informations générales</h2>
+<h4 id="description">Description</h4>
+<p>Un trajet représente un trajet de covoiturage entre deux villes. L'utilisateur créant un trajet est automatiquement définit comme étant le conducteur sur ce trajet (cf. requêtes Covoiturage)</p>
+<h4 id="attributs-dun-trajet">Attributs d'un Trajet</h4>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Type</th>
+<th>Optionnel</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>Number (int)</td>
+<td>NON</td>
+<td>Identifiant unique</td>
+</tr>
+<tr>
+<td>dateDepart</td>
+<td>Object (Datetime)</td>
+<td>NON</td>
+<td>Date de départ</td>
+</tr>
+<tr>
+<td>heureDepart</td>
+<td>Object (Datetime)</td>
+<td>NON</td>
+<td>Heure de départ</td>
+</tr>
+<tr>
+<td>nbPlace</td>
+<td>Number (int)</td>
+<td>NON</td>
+<td>Nombre de place passager</td>
+</tr>
+<tr>
+<td>duree</td>
+<td>Number (float)</td>
+<td>OUI</td>
+<td>Durée du trajet</td>
+</tr>
+<tr>
+<td>commentaire</td>
+<td>String</td>
+<td>OUI</td>
+<td>Commentaire</td>
+</tr>
+<tr>
+<td>nbKm</td>
+<td>Number (float)</td>
+<td>NON</td>
+<td>Distance du trajet</td>
+</tr>
+<tr>
+<td>possede</td>
+<td>Object (Possede)</td>
+<td>NON</td>
+<td>Véhicule possédé utilisé</td>
+</tr>
+<tr>
+<td>typeTrajet</td>
+<td>Object (TypeTrajet)</td>
+<td>NON</td>
+<td>Type de trajet</td>
+</tr>
+<tr>
+<td>villeDepart</td>
+<td>Object (Ville)</td>
+<td>NON</td>
+<td>Ville de départ</td>
+</tr>
+<tr>
+<td>villeArrivee</td>
+<td>Object (Ville)</td>
+<td>NON</td>
+<td>Ville d'arrivée</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<h2 id="requ%c3%aates">Requêtes</h2>
+<h4 id="span-class%22get%22getspan-trajet"><span class="get">GET</span> Trajet</h4>
+<p>Retourne un trajet spécifique</p>
+<p><code>GET foang.cir3-frm-smf-ang-xx/api/trajets/:id</code></p>
+<h5 id="param%c3%a8tres">Paramètres</h5>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Type</th>
+<th>Optionnel</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>Number (int)</td>
+<td>NON</td>
+<td>Identifiant du trajet à récupérer</td>
+</tr>
+</tbody>
+</table>
+<h5 id="r%c3%a9ponse-exemple">Réponse (exemple)</h5>
+<p>200 OK</p>
+<pre><code class="language-json"><div>{
+    <span class="hljs-attr">"dateDepart"</span>: {
+        <span class="hljs-attr">"date"</span>:<span class="hljs-string">"2020-01-04 00:00:00.000000"</span>,
+        <span class="hljs-attr">"timezone_type"</span>:<span class="hljs-number">3</span>,
+        <span class="hljs-attr">"timezone"</span>:<span class="hljs-string">"Europe/Paris"</span>
+    },
+    <span class="hljs-attr">"heureDepart"</span>:{
+        <span class="hljs-attr">"date"</span>:<span class="hljs-string">"1970-01-01 10:10:00.000000"</span>,
+        <span class="hljs-attr">"timezone_type"</span>:<span class="hljs-number">3</span>,
+        <span class="hljs-attr">"timezone"</span>:<span class="hljs-string">"Europe/Paris"</span>
+    },
+    <span class="hljs-attr">"nbPlace"</span>:<span class="hljs-number">6</span>,
+    <span class="hljs-attr">"duree"</span>:<span class="hljs-number">5.36</span>,
+    <span class="hljs-attr">"commentaire"</span>:<span class="hljs-literal">null</span>,
+    <span class="hljs-attr">"nbKm"</span>:<span class="hljs-number">597</span>,
+    <span class="hljs-attr">"id"</span>:<span class="hljs-number">2</span>
+}
+</div></code></pre>
+<p><br><br></p>
+<h4 id="span-class%22get%22getspan-trajets"><span class="get">GET</span> Trajets</h4>
+<p>Retourne une liste de trajets correspondant aux critères passés. Les trajets dans une fourchette de 4h
+(2h avant/2h après) autour de l'heure passée.</p>
+<p><code>GET foang.cir3-frm-smf-ang-xx/api/trajets(?heureDepart, dateDepart, villeDepart, villeArrivee, typeTrajet)</code></p>
+<h5 id="param%c3%a8tres-1">Paramètres</h5>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Type</th>
+<th>Optionnel</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>heureDepart</td>
+<td>ISO 8601 Time (HH:MM)</td>
+<td>OUI</td>
+<td>Heure du départ du trajet</td>
+</tr>
+<tr>
+<td>dateDepart</td>
+<td>ISO 8601 Date (YYYY-MM-DD)</td>
+<td>OUI</td>
+<td>Date de départ du trajet</td>
+</tr>
+<tr>
+<td>villeDepart</td>
+<td>Number (int)</td>
+<td>OUI</td>
+<td>Identifiant de la ville de départ</td>
+</tr>
+<tr>
+<td>villeArrivee</td>
+<td>Number (int)</td>
+<td>OUI</td>
+<td>Identifiant de la ville d'arrivée</td>
+</tr>
+<tr>
+<td>typeTrajet</td>
+<td>Number (int)</td>
+<td>OUI</td>
+<td>Identifiant du type de trajet</td>
+</tr>
+</tbody>
+</table>
+<h5 id="r%c3%a9ponse-exemple-1">Réponse (exemple)</h5>
+<p>200 OK</p>
+<pre><code class="language-json"><div>[
+    {
+        <span class="hljs-attr">"dateDepart"</span>: {
+            <span class="hljs-attr">"date"</span>: <span class="hljs-string">"2020-02-05 00:00:00.000000"</span>,
+            <span class="hljs-attr">"timezone_type"</span>: <span class="hljs-number">3</span>,
+            <span class="hljs-attr">"timezone"</span>: <span class="hljs-string">"Europe/Paris"</span>
+        },
+        <span class="hljs-attr">"heureDepart"</span>: {
+            <span class="hljs-attr">"date"</span>: <span class="hljs-string">"1970-01-01 20:20:00.000000"</span>,
+            <span class="hljs-attr">"timezone_type"</span>: <span class="hljs-number">3</span>,
+            <span class="hljs-attr">"timezone"</span>: <span class="hljs-string">"Europe/Paris"</span>
+        },
+        <span class="hljs-attr">"nbPlace"</span>: <span class="hljs-number">3</span>,
+        <span class="hljs-attr">"duree"</span>: <span class="hljs-number">3</span>,
+        <span class="hljs-attr">"commentaire"</span>: <span class="hljs-literal">null</span>,
+        <span class="hljs-attr">"nbKm"</span>: <span class="hljs-number">318</span>,
+        <span class="hljs-attr">"id"</span>: <span class="hljs-number">3</span>,
+        <span class="hljs-attr">"villeDepart"</span>: {
+            <span class="hljs-attr">"codeInsee"</span>: <span class="hljs-string">"13200"</span>,
+            <span class="hljs-attr">"ville"</span>: <span class="hljs-string">"Marseille"</span>,
+            <span class="hljs-attr">"codePostal"</span>: <span class="hljs-string">"13000"</span>,
+            <span class="hljs-attr">"dep"</span>: <span class="hljs-string">"13"</span>,
+            <span class="hljs-attr">"id"</span>: <span class="hljs-number">4</span>
+        },
+        <span class="hljs-attr">"villeArrivee"</span>: {
+            <span class="hljs-attr">"codeInsee"</span>: <span class="hljs-string">"66136"</span>,
+            <span class="hljs-attr">"ville"</span>: <span class="hljs-string">"Perpignan"</span>,
+            <span class="hljs-attr">"codePostal"</span>: <span class="hljs-string">"66000"</span>,
+            <span class="hljs-attr">"dep"</span>: <span class="hljs-string">"66"</span>,
+            <span class="hljs-attr">"id"</span>: <span class="hljs-number">30</span>
+        },
+        <span class="hljs-attr">"typeTrajet"</span>: {
+            <span class="hljs-attr">"typeTrajet"</span>: <span class="hljs-string">"Ponctuel"</span>,
+            <span class="hljs-attr">"id"</span>: <span class="hljs-number">2</span>
+        }
+    },
+    ,
+    {
+        <span class="hljs-attr">"dateDepart"</span>: {
+            <span class="hljs-attr">"date"</span>: <span class="hljs-string">"2020-02-05 00:00:00.000000"</span>,
+            <span class="hljs-attr">"timezone_type"</span>: <span class="hljs-number">3</span>,
+            <span class="hljs-attr">"timezone"</span>: <span class="hljs-string">"Europe/Paris"</span>
+        },
+        <span class="hljs-attr">"heureDepart"</span>: {
+            <span class="hljs-attr">"date"</span>: <span class="hljs-string">"1970-01-01 20:20:00.000000"</span>,
+            <span class="hljs-attr">"timezone_type"</span>: <span class="hljs-number">3</span>,
+            <span class="hljs-attr">"timezone"</span>: <span class="hljs-string">"Europe/Paris"</span>
+        },
+        <span class="hljs-attr">"nbPlace"</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-attr">"duree"</span>: <span class="hljs-number">6.22</span>,
+        <span class="hljs-attr">"commentaire"</span>: <span class="hljs-literal">null</span>,
+        <span class="hljs-attr">"nbKm"</span>: <span class="hljs-number">691</span>,
+        <span class="hljs-attr">"id"</span>: <span class="hljs-number">10</span>,
+        <span class="hljs-attr">"villeDepart"</span>: {
+            <span class="hljs-attr">"codeInsee"</span>: <span class="hljs-string">"87085"</span>,
+            <span class="hljs-attr">"ville"</span>: <span class="hljs-string">"Limoges"</span>,
+            <span class="hljs-attr">"codePostal"</span>: <span class="hljs-string">"87000"</span>,
+            <span class="hljs-attr">"dep"</span>: <span class="hljs-string">"87"</span>,
+            <span class="hljs-attr">"id"</span>: <span class="hljs-number">28</span>
+        },
+        <span class="hljs-attr">"villeArrivee"</span>: {
+            <span class="hljs-attr">"codeInsee"</span>: <span class="hljs-string">"13200"</span>,
+            <span class="hljs-attr">"ville"</span>: <span class="hljs-string">"Marseille"</span>,
+            <span class="hljs-attr">"codePostal"</span>: <span class="hljs-string">"13000"</span>,
+            <span class="hljs-attr">"dep"</span>: <span class="hljs-string">"13"</span>,
+            <span class="hljs-attr">"id"</span>: <span class="hljs-number">4</span>
+        }
+    }
+]
+</div></code></pre>
+
+    </body>
+    </html>
