@@ -1,8 +1,18 @@
 <?php
 
+/**
+ * Fichier du controller 'CovoiturageController' utilisé pour proposer les différentes requêtes
+ * de l'API relatives à l'entité 'covoiturage'
+ * 
+ * @author Margaux DOUDET <margaux.doudet@isen-ouest.yncrea.fr>
+ * @version 1.0.0
+ * @package WebServiceBundle
+ */
+
 namespace WebServiceBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,8 +28,22 @@ use BackOfficeBundle\Entity\Co2;
 
 use WebServiceBundle\Utils\FormErrorsConverter;
 
+/**
+ * Controller utilisé pour proposer les requêtes relatives à l'API de la table 'covoiturage'
+ * 
+ * Les requêtes sont les suivantes :
+ *  - getCovoituragesUtilisateur : GET
+ *  - registerToATrajet : POST
+ */
 class CovoiturageController extends Controller {
-
+    /**
+     * Récupère la liste des entités 'covoiturage' associé à un utilisateur (passager + conducteur)
+     *
+     * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
+     * @param Integer $id l'id de l'utilisateur
+     * 
+     * @return Response|JsonResponse 
+     */
     public function getCovoituragesUtilisateurAction(Request $request, $id) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Covoiturage");
         $covoiturages = $repository->getCovoituragesUtilisateur($id, $hydrated = true);
@@ -31,6 +55,15 @@ class CovoiturageController extends Controller {
         return new JsonResponse($covoiturages);
     }
 
+    /**
+     * Créée une entité 'covoiturage' associé à un utilisateur et à un trajet
+     *
+     * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
+     * @param Integer $id_user l'id de l'utilisateur
+     * @param Integer $id_trajet l'id du trajet
+     * 
+     * @return Response
+     */
     public function registerToATrajetAction(Request $request, $id_user, $id_trajet) {
         $erreur = FALSE;
 

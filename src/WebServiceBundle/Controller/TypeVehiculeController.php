@@ -1,34 +1,40 @@
 <?php
 
+/**
+ * Fichier du controller 'TypeTrajetController' utilisé pour proposer les différentes requêtes
+ * de l'API relatives à l'entité 'typeTrajet'
+ * 
+ * @author Margaux DOUDET <margaux.doudet@isen-ouest.yncrea.fr>
+ * @version 1.0.0
+ * @package WebServiceBundle
+ */
+
 namespace WebServiceBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 
 use BackOfficeBundle\Entity\TypeVehicule;
 
 /**
- * TypeVehicule controller.
- *
+ * Controller utilisé pour proposer les requêtes relatives à l'API de la table 'typeVehicule'
+ * 
+ * La requête est la suivante :
+ *  - getTypeVehicules : GET
  */
 class TypeVehiculeController extends Controller {
     /**
-     * Returns all typeVehicule entities
+     * Récupère la liste des entités 'typeVehicule'
      *
+     * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
+     * 
+     * @return JsonResponse
      */
     public function getTypeVehiculesAction(Request $request) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:TypeVehicule");
         $typevehicules = $repository->getTypeVehicules($hydrated = true);
-
-        if(!$typevehicules) {
-            return new Response('', 404);
-        }
 
         return new JsonResponse($typevehicules);
     }
