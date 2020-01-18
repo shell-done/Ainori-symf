@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Documentation de l'API</title>
+
+    <link rel="stylesheet" href="css/markdown.css">
+    <link rel="stylesheet" href="css/highlight.css">
+</head>
+
+<body class="vscode-light">
+    <h1 id="documentation-de-lapi">Documentation de l'API</h1>
+    <h3 id="introduction">Introduction</h3>
+    <p>Cette documentation décrit le fonctionnement de l'API du service de covoiturage Ainoiri.
+        Chaque page décrit la forme des objets renvoyés ainsi que les différentes requêtes proposées.</p>
+    <h3 id="acc%c3%a8s">Accès</h3>
+    <h4 id="adresse">Adresse</h4>
+    <p>L'URL de base de toutes les requêtes est :
+        <code>http://foang.cir3-frm-smf-ang-xx/api/</code></p>
+    <p>Aucune authentification n'est requise pour toutes les requêtes proposéees</p>
+    <h4 id="format">Format</h4>
+    <p>Les données peuvent être envoyées de plusieurs manières différentes :
+        - Les identifiants sont passés dans l'URL (avant les éventuels paramètres)
+        - Les paramètres sont passés après l'identifiant dans l'URL, précédé d'un '?'
+        - Les champs des formulaires (dans le cas d'un POST) sont passées dans le corps de la requête</p>
+    <p>La syntaxe des requêtes suit les conventions de nommage des API Rest*, pour plus d'informations :
+        <a href="https://restfulapi.net/resource-naming/">https://restfulapi.net/resource-naming/</a></p>
+    <p>(*) A la différence des conventions REST, la modification d'une ressource se fait grâce à la requêtes
+        POST et non PUT.</p>
+    <h4 id="m%c3%a9thodes-autoris%c3%a9es">Méthodes autorisées</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Méthode</th>
+                <th>Objectif</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="get">GET</span></td>
+                <td>Récupération d'une ou plusieurs ressource</td>
+            </tr>
+            <tr>
+                <td><span class="post">POST</span></td>
+                <td>Création d'une ressource en base</td>
+            </tr>
+            <tr>
+                <td><span class="post">POST</span></td>
+                <td>Modification d'une ressource en base*</td>
+            </tr>
+            <tr>
+                <td><span class="delete">DELETE</span></td>
+                <td>Suppression d'une ressource en base</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <div class="page-break"></div>
+    <h3 id="retour">Retour</h3>
+    <h4 id="format-1">Format</h4>
+    <p>Toutes les données renvoyées sont au format JSON</p>
+    <h4 id="codes-http">Codes HTTP</h4>
+    <p>En fonction de la requête, le code de réponse HTTP peut varier :</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Code de retour</th>
+                <th>Signification</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="get">200</span></td>
+                <td>Réponse traitée avec succès</td>
+            </tr>
+            <tr>
+                <td><span class="get">201</span></td>
+                <td>Réponse traitée avec succès et création d'une ressource</td>
+            </tr>
+            <tr>
+                <td><span class="delete">400</span></td>
+                <td>La syntaxe de la requête est érronée</td>
+            </tr>
+            <tr>
+                <td><span class="delete">404</span></td>
+                <td>La ressource demandée n'existe pas</td>
+            </tr>
+            <tr>
+                <td><span class="delete">409</span></td>
+                <td>La ressource existe mais ne peut pas être supprimée car utilisée par d'autres ressources</td>
+            </tr>
+        </tbody>
+    </table>
+    <h4 id="objets">Objets</h4>
+    <p>Les ressources renvoyées sont des objets ou des tableaus d'objets JSON. Le format de chacun
+        des objets associés aux requêtes sont définis dans la documentation des requêtes.</p>
+    <p>Certaines requêtes renvoient aussi des objets DateTime possédant cex attributs :</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Variable</th>
+                <th>Type</th>
+                <th>Nullable</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>date</td>
+                <td>String</td>
+                <td>NON</td>
+                <td>Date au format YYYY-MM-DD HH:MM:SS.ms</td>
+            </tr>
+            <tr>
+                <td>timezone_type</td>
+                <td>Number (int)</td>
+                <td>NON</td>
+                <td>Type de fuseau horaire</td>
+            </tr>
+            <tr>
+                <td>timezone</td>
+                <td>String</td>
+                <td>NON</td>
+                <td>Fuseau horaire au format Continent/Capitale</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+
+</html>

@@ -5,21 +5,29 @@
 Un trajet représente un trajet de covoiturage entre deux villes. L'utilisateur créant un trajet est automatiquement définit comme étant le conducteur sur ce trajet (cf. requêtes Covoiturage)
 
 #### Attributs d'un Trajet
-| Variable        | Type                  | Optionnel | Description                            |
-| --------------- | --------------------- | --------- | -------------------------------------- |
-| id              | Number (int)          | NON       | Identifiant unique                     |
-| dateDepart      | Object (Datetime)     | NON       | Date de départ                         |
-| heureDepart     | Object (Datetime)     | NON       | Heure de départ                        |
-| nbPlace         | Number (int)          | NON       | Nombre de place passager               |
-| duree           | Number (float)        | OUI       | Durée du trajet                        |
-| commentaire     | String                | OUI       | Commentaire                            |
-| nbKm            | Number (float)        | NON       | Distance du trajet                     |
-| possede         | Object (Possede)      | NON       | Véhicule possédé utilisé               |
-| typeTrajet      | Object (TypeTrajet)   | NON       | Type de trajet                         |
-| villeDepart     | Object (Ville)        | NON       | Ville de départ                        |
-| villeArrivee    | Object (Ville)        | NON       | Ville d'arrivée                        |
+| Variable        | Type                  | Nullable | Description                            |
+| --------------- | --------------------- | -------- | -------------------------------------- |
+| id              | Number (int)          | NON      | Identifiant unique                     |
+| dateDepart      | Object (Datetime)     | NON      | Date de départ                         |
+| heureDepart     | Object (Datetime)     | NON      | Heure de départ                        |
+| nbPlace         | Number (int)          | NON      | Nombre de place passager               |
+| duree           | Number (float)        | OUI      | Durée du trajet                        |
+| commentaire     | String                | OUI      | Commentaire                            |
+| nbKm            | Number (float)        | NON      | Distance du trajet                     |
+| possede         | Object (Possede)      | NON      | Véhicule possédé utilisé               |
+| typeTrajet      | Object (TypeTrajet)   | NON      | Type de trajet                         |
+| villeDepart     | Object (Ville)        | NON      | Ville de départ                        |
+| villeArrivee    | Object (Ville)        | NON      | Ville d'arrivée                        |
 
-<br><br>
+#### Résumé des requêtes
+| Méthode                            | Requête                                    |
+| ---------------------------------- | ------------------------------------------ |
+| <span class="get">GET</span>       | foang.cir3-frm-smf-ang-xx/api/trajets/:id  |
+| <span class="get">GET</span>       | foang.cir3-frm-smf-ang-xx/api/trajets      |
+| <span class="delete">DELETE</span> | foang.cir3-frm-smf-ang-xx/api/trajets/:id  |
+
+<br>
+<div class="page-break"></div>
 
 ## Requêtes
 #### <span class="get">GET</span> Trajet
@@ -74,12 +82,13 @@ Retourne un trajet spécifique
 }
 ```
 
-<br><br>
+<br>
+<div class="page-break"></div>
 
 #### <span class="get">GET</span> Trajets
 
 Retourne une liste de trajets correspondant aux critères passés. Les trajets dans une fourchette de 4h
-(2h avant/2h après) autour de l'heure passée.
+(2h avant/2h après) autour de l'heure passée sont retournés.
 
 `GET foang.cir3-frm-smf-ang-xx/api/trajets(?heureDepart, dateDepart, villeDepart, villeArrivee, typeTrajet)`
 
@@ -133,12 +142,13 @@ Retourne une liste de trajets correspondant aux critères passés. Les trajets d
         }
     },
     {
-        ...
+        //...
     }
 ]
 ```
 
-<br><br>
+<br>
+<div class="page-break"></div>
 
 #### <span class="delete">DELETE</span> Trajets
 
