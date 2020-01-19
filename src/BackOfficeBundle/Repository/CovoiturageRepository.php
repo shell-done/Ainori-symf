@@ -66,9 +66,9 @@ class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
     }
 
     /**
-     * Récupère la liste des entités 'categorie'
+     * Récupère la liste des entités 'covoiturage'
      *
-     * @param Trajet $trajet une entité trajet contenant les choix de l'utilisateur
+     * @param Trajet $trajet l'entité 'trajet' associé au covoiturage
      * 
      * @return Array le résultat de la requête
      */
