@@ -33,6 +33,14 @@ use BackOfficeBundle\Entity\Possede;
  *  - editPossede : POST
  */
 class PossedeController extends Controller {
+
+    public function getPossedeAction(Request $request, $id) {
+        $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Possede");
+        $possede = $repository->getPossede($id, $hydrated = true);
+
+        return new JsonResponse($possede);
+    }
+
     /**
      * Récupère une entité 'possede' définie par son id
      *
@@ -41,19 +49,15 @@ class PossedeController extends Controller {
      * 
      * @return Response|JsonResponse
      */
-    public function getPossedeAction(Request $request, $id) {
+    public function getPossedesUtilisateurAction(Request $request, $id) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Possede");
-        $possede = $repository->getPossede($id, $hydrated = true);
-
-        if(!$possede) {
-            return new Response('', 404);
-        }
+        $possede = $repository->getPossedesUtilisateur($id, $hydrated = true);
 
         return new JsonResponse($possede);
     }
 
     /**
-     * Supprime une entité 'possede' définit par son id
+     * Supprime une entité 'possede' définie par son id
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
      * @param Integer $id l'id de l'entité 'possede'

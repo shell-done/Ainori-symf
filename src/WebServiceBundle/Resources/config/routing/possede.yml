@@ -1,7 +1,9 @@
-api_possede_list:
-    path: /
-    defaults: { _controller: WebServiceBundle:Possede:newPossede }
-    methods: POST
+api_possede_utilisateur_list:
+    path: /utilisateurs/{id}
+    defaults: { _controller: WebServiceBundle:Possede:getPossedesUtilisateur }
+    methods: GET
+    requirements:
+        id: '\d+'
 
 api_possede_show:
     path: /{id}
@@ -9,6 +11,11 @@ api_possede_show:
     methods: GET
     requirements:
         id: '\d+'
+
+api_possede_new:
+    path: /
+    defaults: { _controller: WebServiceBundle:Possede:newPossede }
+    methods: POST
 
 api_possede_edit:
     path: /{id}
