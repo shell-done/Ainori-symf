@@ -1,34 +1,40 @@
 <?php
 
+/**
+ * Fichier du controller 'MarqueController' utilisé pour proposer les différentes requêtes
+ * de l'API relatives à l'entité 'marque'
+ * 
+ * @author Margaux DOUDET <margaux.doudet@isen-ouest.yncrea.fr>
+ * @version 1.0.0
+ * @package WebServiceBundle
+ */
+
 namespace WebServiceBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 
 use BackOfficeBundle\Entity\Marque;
 
 /**
- * Marque controller.
- *
+ * Controller utilisé pour proposer les requêtes relatives à l'API de la table 'marque'
+ * 
+ * La requête est la suivante :
+ *  - getMarques : GET
  */
 class MarqueController extends Controller {
     /**
-     * Returns all marque entities
+     * Récupère la liste des entités 'marque'
      *
+     * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
+     * 
+     * @return JsonResponse
      */
     public function getMarquesAction(Request $request) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Marque");
         $marques = $repository->getMarques($hydrated = true);
-
-        if(!$marques) {
-            return new Response('', 404);
-        }
 
         return new JsonResponse($marques);
     }

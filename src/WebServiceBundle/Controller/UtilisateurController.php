@@ -1,8 +1,18 @@
 <?php
 
+/**
+ * Fichier du controller 'UtilisateurController' utilisé pour proposer les différentes requêtes
+ * de l'API relatives à l'entité 'utilisateur'
+ * 
+ * @author Margaux DOUDET <margaux.doudet@isen-ouest.yncrea.fr>
+ * @version 1.0.0
+ * @package WebServiceBundle
+ */
+
 namespace WebServiceBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,13 +24,22 @@ use Symfony\Component\Serializer\Serializer;
 use BackOfficeBundle\Entity\Utilisateur;
 
 /**
- * Utilisateur controller.
- *
+ * Controller utilisé pour proposer les requêtes relatives à l'API de la table 'utilisateur'
+ * 
+ * Les requêtes sont les suivantes :
+ *  - getUtilisateur : GET
+ *  - deleteUtilisateur : DELETE
+ *  - newUtilisateur : POST
+ *  - editUtilisateur : POST
  */
 class UtilisateurController extends Controller {
     /**
-     * Returns a user entity indicated by the id
+     * Récupère une entité 'utilisateur' définie par son id
      *
+     * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
+     * @param Integer $id l'id de l'entité 'utilisateur'
+     * 
+     * @return Response|JsonResponse
      */
     public function getUtilisateurAction(Request $request, $id) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Utilisateur");
@@ -33,6 +52,14 @@ class UtilisateurController extends Controller {
         return new JsonResponse($utilisateur);
     }
 
+    /**
+     * Supprime une entité 'utilisateur' définie par son id
+     *
+     * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
+     * @param Integer $id l'id de l'entité 'utilisateur'
+     * 
+     * @return Response
+     */
     public function deleteUtilisateurAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
         $utilisateur = $repository->getUtilisateur($id, $hydrated = true);
@@ -51,6 +78,13 @@ class UtilisateurController extends Controller {
         return new Response();
     }
 
+    /**
+     * Créée une entité 'utilisateur'
+     *
+     * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
+     * 
+     * @return Response
+     */
     public function newUtilisateurAction(Request $request) {
         $erreur = FALSE;
 
@@ -88,9 +122,17 @@ class UtilisateurController extends Controller {
         $response->headers->set('Access-Control-Allow-Origin', '*');
         
         return $response;
-     }
+    }
 
-     public function editUtilisateurAction(Request $request, $id) {
+    /**
+     * Modifie une entité 'utilisateur'
+     *
+     * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
+     * @param Interger $id l'id de l'entité 'utilisateur'
+     * 
+     * @return Response
+     */
+    public function editUtilisateurAction(Request $request, $id) {
         $erreur = FALSE;
 
         $utilisateurRepo = $this->getDoctrine()->getRepository(Utilisateur::class);
@@ -116,7 +158,7 @@ class UtilisateurController extends Controller {
         $encoders = [new JsonEncoder()];
         $normalizers = [new ObjectNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
-    
+
         $response = new Response();
         
         if($erreur) {
@@ -133,6 +175,6 @@ class UtilisateurController extends Controller {
         $response->headers->set('Access-Control-Allow-Origin', '*');
         
         return $response;
-     }
+    }
 
 }

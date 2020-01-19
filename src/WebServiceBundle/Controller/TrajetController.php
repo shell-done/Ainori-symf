@@ -1,30 +1,42 @@
 <?php
 
+/**
+ * Fichier du controller 'TrajetController' utilisé pour proposer les différentes requêtes
+ * de l'API relatives à l'entité 'trajet'
+ * 
+ * @author Margaux DOUDET <margaux.doudet@isen-ouest.yncrea.fr>
+ * @version 1.0.0
+ * @package WebServiceBundle
+ */
+
 namespace WebServiceBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 
 use BackOfficeBundle\Entity\Trajet;
 use BackOfficeBundle\Entity\Ville;
 use BackOfficeBundle\Entity\TypeTrajet;
 
-use WebServiceBundle\Utils\FormErrorsConverter;
-
 /**
- * Trajet controller.
- *
+ * Controller utilisé pour proposer les requêtes relatives à l'API de la table 'trajet'
+ * 
+ * Les requêtes sont les suivantes :
+ *  - getTrajet : GET
+ *  - getTrajets : GET
+ *  - deleteTrajet : DELETE
  */
 class TrajetController extends Controller {
-
-    /**
-     * Returns a trajet entity indicated by the id
+     /**
+     * Récupère une entité 'trajet' définie par son id
      *
+     * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
+     * @param Integer $id l'id de l'entité 'trajet'
+     * 
+     * @return Response
      */
     public function getTrajetAction(Request $request, $id) { 
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Trajet");
@@ -37,9 +49,12 @@ class TrajetController extends Controller {
         return new JsonResponse($trajet);
     }
 
-    /**
-     * Lists all trajet entities
+     /**
+     * Récupère une liste filtrée des entités 'trajet'
      *
+     * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
+     * 
+     * @return Response|JsonResponse
      */
     public function getTrajetsAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -63,6 +78,14 @@ class TrajetController extends Controller {
         return new JsonResponse($trajets);
     }
 
+    /**
+     * Supprime une entité 'trajet' définie par son id
+     *
+     * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
+     * @param Integer $id l'id de l'entité 'trajet'
+     * 
+     * @return Response
+     */
     public function deleteTrajetAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
         $trajet = $repository->getTrajet($id);

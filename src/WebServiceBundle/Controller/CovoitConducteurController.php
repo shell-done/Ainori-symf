@@ -1,8 +1,19 @@
 <?php
 
+/**
+ * Fichier du controller 'CovoitConducteurController' utilisé pour proposer les différentes requêtes
+ * de l'API relatives à l'entité 'covoiturage' nécessissant la spécification de l'utilisateur en tant que
+ * conducteur relatif à l'entité 'utilisateur'
+ * 
+ * @author Margaux DOUDET <margaux.doudet@isen-ouest.yncrea.fr>
+ * @version 1.0.0
+ * @package WebServiceBundle
+ */
+
 namespace WebServiceBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,13 +28,21 @@ use BackOfficeBundle\Entity\TypeTrajet;
 use WebServiceBundle\Utils\FormErrorsConverter;
 
 /**
- * CovoitConducteur controller.
- *
+ * Controller utilisé pour proposer les requêtes relatives à l'API de la table 'covoitConducteur'
+ * 
+ * Les requêtes sont les suivantes :
+ *  - getCovoitConducteur : GET
+ *  - newTrajet : POST
+ *  - editTrajet : POST
  */
 class CovoitConducteurController extends Controller {
     /**
-     * Lists all trajet entities from a user
+     * Récupère la liste des entités 'covoiturage' associé à un utilisateur en tant que conducteur
      *
+     * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
+     * @param Integer $id l'id de l'utilisateur
+     * 
+     * @return Response|JsonResponse 
      */
     public function getCovoitsAsConducteurAction(Request $request, $id) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Covoiturage");
@@ -36,6 +55,14 @@ class CovoitConducteurController extends Controller {
         return new JsonResponse($covoiturages);
     }
 
+    /**
+     * Créée une nouvelle entité 'trajet'
+     *
+     * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
+     * @param Integer $id l'id de l'utilisateur
+     * 
+     * @return Response 
+     */
     public function newTrajetAction(Request $request, $id) {
         $erreur = FALSE;
 
@@ -82,6 +109,14 @@ class CovoitConducteurController extends Controller {
         return $response;
     }
     
+    /**
+     * Modifie une entité 'trajet'
+     *
+     * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
+     * @param Integer $id l'id de l'utilisateur
+     * 
+     * @return Response 
+     */
     public function editTrajetAction(Request $request, $id) {
         $erreur = FALSE;
 

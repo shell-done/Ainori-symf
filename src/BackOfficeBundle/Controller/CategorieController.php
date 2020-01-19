@@ -18,21 +18,12 @@ use BackOfficeBundle\Entity\Categorie;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * Controller utilisé pour l'affichage des pages relatives du CRUD de la table 'categorie'
- * 
- * Les pages relatives à la table 'categorie' sont :
- *  - index : La liste des différentes entités
- *  - new : Le formulaire pour créer une nouvelle entité
- *  - show : Les détails d'une entité
- *  - edit : Le formulaire pour modifier une entité existante
- */
 class CategorieController extends Controller
 {
     /**
      * Affiche la liste des entités 'categorie'
-     *
-     * @return \Symfony\Component\HttpFoundation\Response la vue associée à la liste
+     *  
+     * @return 
      */
     public function indexAction()
     {

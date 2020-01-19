@@ -1,11 +1,3 @@
-# --- DEBUG ---
-
-web_service_debug:
-    path: /
-    defaults: { _controller: WebServiceBundle:Default:debug }
-
-# -------------
-
 web_service_categorie:
     resource: "@WebServiceBundle/Resources/config/routing/categorie.yml"
     prefix:   /categories

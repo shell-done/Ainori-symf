@@ -1,8 +1,18 @@
 <?php
 
+/**
+ * Fichier du controller 'PossedeController' utilisé pour proposer les différentes requêtes
+ * de l'API relatives à l'entité 'possede'
+ * 
+ * @author Margaux DOUDET <margaux.doudet@isen-ouest.yncrea.fr>
+ * @version 1.0.0
+ * @package WebServiceBundle
+ */
+
 namespace WebServiceBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,25 +24,46 @@ use Symfony\Component\Serializer\Serializer;
 use BackOfficeBundle\Entity\Possede;
 
 /**
- * Possede controller.
- *
+ * Controller utilisé pour proposer les requêtes relatives à l'API de la table 'possede'
+ * 
+ * Les requêtes sont les suivantes :
+ *  - getPossede : GET
+ *  - deletePossede : DELETE
+ *  - newPossede : POST
+ *  - editPossede : POST
  */
 class PossedeController extends Controller {
-    /**
-     * Returns a voiture entity indicated by the id of the user
-     *
-     */
+
     public function getPossedeAction(Request $request, $id) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Possede");
         $possede = $repository->getPossede($id, $hydrated = true);
 
-        if(!$possede) {
-            return new Response('', 404);
-        }
+        return new JsonResponse($possede);
+    }
+
+    /**
+     * Récupère une entité 'possede' définie par son id
+     *
+     * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
+     * @param Integer $id l'id de l'entité 'possede'
+     * 
+     * @return Response|JsonResponse
+     */
+    public function getPossedesUtilisateurAction(Request $request, $id) {
+        $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Possede");
+        $possede = $repository->getPossedesUtilisateur($id, $hydrated = true);
 
         return new JsonResponse($possede);
     }
 
+    /**
+     * Supprime une entité 'possede' définie par son id
+     *
+     * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
+     * @param Integer $id l'id de l'entité 'possede'
+     * 
+     * @return Response
+     */
     public function deletePossedeAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
         $possede = $repository->getPossede($id, $hydrated = true);
@@ -51,6 +82,13 @@ class PossedeController extends Controller {
         return new Response();
     }
 
+    /**
+     * Créée une entité 'possede'
+     *
+     * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
+     * 
+     * @return Response
+     */
     public function newPossedeAction(Request $request) {
         $erreur = FALSE;
 
@@ -88,8 +126,16 @@ class PossedeController extends Controller {
         $response->headers->set('Access-Control-Allow-Origin', '*');
         
         return $response;
-     }
+    }
 
+    /**
+     * Modifie une entité 'possede'
+     *
+     * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
+     * @param Interger $id l'id de l'entité 'possede'
+     * 
+     * @return Response
+     */
      public function editPossedeAction(Request $request, $id) {
         $erreur = FALSE;
 
