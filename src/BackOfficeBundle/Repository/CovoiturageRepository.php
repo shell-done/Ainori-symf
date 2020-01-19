@@ -34,32 +34,30 @@ class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
     /**
      * Récupère le nombre de Co2 économisé par mois, en ne prenant en compte que les covoiturages ponctuels et passagers
      * 
-     * @return Integer le résultat de la requête
+     * @return array le résultat de la requête
      */
     public function getCo2EconomyByMonth() {
-        $now = new DateTime(); 
+        $currentYear = intval((new DateTime())->format("Y")); 
 
-        $co2SavedByMonth = [];
-
-        for($i=1; $i<=12; $i++) {
-            $em = $this->createQueryBuilder("covoit")
-                ->select("sum(co2.valCo2)")
+        $em = $this->createQueryBuilder("covoit")
+                ->select("MONTH(trajet.dateDepart) as month, SUM(co2.valCo2) as tot")
                 ->innerJoin("covoit.co2", "co2")
                 ->innerJoin("covoit.trajet", "trajet")
                 ->innerJoin("trajet.typeTrajet", "type")
                 ->where("type.typeTrajet = 'Ponctuel'")
-                ->andWhere("trajet.dateDepart BETWEEN :start AND :end")
+                ->andWhere("YEAR(trajet.dateDepart) = :currentYear")
                 ->andWhere("co2.actif = true")
-                ->setParameter("start", $now->format("Y-$i-1"))
-                ->setParameter("end", $now->format("Y-$i-t"))
+                ->setParameter("currentYear", $currentYear)
+                ->groupBy("month")
+                ->orderBy("month")
                 ->getQuery();
 
-            $res = $em->getSingleScalarResult();
+        $res = $em->getResult();
 
-            if(!$res)
-                $res = 0;
+        $co2SavedByMonth = array_fill(0, 12, 0);
 
-            array_push($co2SavedByMonth, number_format($res, 1));
+        foreach($res as $r) {
+            $co2SavedByMonth[$r["month"] - 1] = number_format($r["tot"], 1);
         }
 
         return $co2SavedByMonth;
