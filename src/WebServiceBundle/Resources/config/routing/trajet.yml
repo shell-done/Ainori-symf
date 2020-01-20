@@ -11,13 +11,15 @@ api_trajet_show:
         id: '\d+'
 
 api_trajet_new:
-    path: /
-    defaults: { _controller: WebServiceBundle:TrajetUtilisateur:newTrajet }
+    path: /utilisateur/{id}
+    defaults: { _controller: WebServiceBundle:Trajet:newTrajet }
     methods: POST
+    requirements:
+        id: '\d+'
 
 api_trajet_edit:
     path: /{id}
-    defaults: { _controller: WebServiceBundle:TrajetUtilisateur:editTrajet }
+    defaults: { _controller: WebServiceBundle:Trajet:editTrajet }
     methods: POST
     requirements:
         id: '\d+'

@@ -17,6 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Form\FormError;
 
 use BackOfficeBundle\Entity\Trajet;
 use BackOfficeBundle\Entity\Ville;
@@ -106,4 +107,135 @@ class TrajetController extends Controller {
         return new Response();
     }
 
+    /**
+     * Crée une entité 'Trajet' ainsi qu'une entité 'Covoiturage' pour le conducteur
+     *
+     * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
+     * @param int $id l'id de l'utilisateur qui crée le trajet
+     * 
+     * @return Response les entités créées
+     */
+    public function newTrajetAction(Request $request, $id) {
+        $erreur = FALSE;
+
+        // Création d'une entité ainsi que d'un formulaire associé
+        $trajet = new Trajet();
+        $form = $this->createForm('WebServiceBundle\Form\TrajetType', $trajet);
+    
+        // Validation du formulaire avec le contenu de la requête POST
+        $form->submit($request->request->all());
+
+        if ($form->isValid()) {
+            // S'il n'y a pas d'erreur, on créer le covoiturage correspondant à la
+            // participation du conducteur au trajet en cours de création
+            $covoiturage = new Covoiturage();
+
+            // On définit le trajet, le type de covoit à 'Conducteur' ainsi que l'utilisateur
+            $covoiturage->setTrajet($trajet);
+            $covoiturage->setTypeCovoit($this->getDoctrine()->getRepository(TypeCovoit::class)->findOneByType("Conducteur"));
+            
+            // On vérifie que l'utilisateur existe
+            $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findById($id);
+            if(!$utilisateur) {
+                $form->addError(new FormError("Cet utilisateur n'existe pas"));
+                $erreur = TRUE;
+            } else {
+                $covoiturage->setUtilisateur();
+            }
+
+            if(!$erreur) {
+                //On sauvegarde les entités en base
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($trajet);
+                $em->persist($covoiturage);
+                $em->flush();
+            }
+        }
+        else {
+            $erreur = TRUE;
+        }
+        
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+    
+        $response = new Response();
+        
+        if($erreur) {
+            // En cas d'erreur, on renvoit un code 400 avec la liste des erreurs générées
+            $errors = (new FormErrorsConverter($form))->toStringArray(true);
+            
+            $response->setContent($errors);
+            $response->setStatusCode(400);
+        } else {
+            // Sinon on renvoie l'entité créée au format JSON
+            $response->setContent($serializer->serialize($trajet, 'json'));
+            $response->setStatusCode(201);
+        }
+
+        // Définition des headers, notamment pour autoriser le cross origin resource sharing (CORS)
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        
+        return $response;
+    }
+
+    /**
+     * Modifie une entité 'trajet'
+     *
+     * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
+     * @param int $id l'id de l'entité 'trajet' à modifier
+     * 
+     * @return Response l'entité modifiée
+     */
+    public function editTrajetAction(Request $request, $id) {
+        $erreur = FALSE;
+
+        // Récupération de l'entité à modifier
+        $trajetRepo = $this->getDoctrine()->getRepository(Trajet::class);
+        $trajet = $trajetRepo->findOneById($id);
+        
+        // Si celle-ci n'existe pas, on renvoit un code 404
+        if(!$trajet) {
+            return new Response('', 404);
+        }
+
+        // Création et validation du formulaire associé à l'entité
+        $form = $this->createForm('WebServiceBundle\Form\TrajetType', $trajet);
+        $form->submit($request->request->all());
+
+        if ($form->isValid()) {
+            // S'il n'y a pas d'erreur, on sauvegarde l'entité en base
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($trajet);
+            $em->flush();
+        }
+        else {
+            $erreur = TRUE;
+        }
+        
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $response = new Response();
+        
+        if($erreur) {
+            // En cas d'erreur, on renvoit un code 400 avec la liste des erreurs générées
+            $errors = (new FormErrorsConverter($form))->toStringArray(true);
+            
+            $response->setContent($errors);
+            $response->setStatusCode(400);
+        } else {
+            // Sinon on renvoie l'entité créée au format JSON
+            $response->setContent($serializer->serialize($trajet, 'json'));
+            $response->setStatusCode(200);
+        }
+
+        // Définition des headers, notamment pour autoriser le cross origin resource sharing (CORS)
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        
+        return $response;
+    }
 }
