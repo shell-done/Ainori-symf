@@ -3,6 +3,7 @@
 /**
  * Fichier du controller 'MarqueController' utilisé pour proposer les différentes requêtes
  * de l'API relatives à l'entité 'marque'
+ * Pour plus d'informations, veuillez consulter la documentation API associée au projet
  * 
  * @author Margaux DOUDET <margaux.doudet@isen-ouest.yncrea.fr>
  * @version 1.0.0
@@ -20,9 +21,7 @@ use BackOfficeBundle\Entity\Marque;
 
 /**
  * Controller utilisé pour proposer les requêtes relatives à l'API de la table 'marque'
- * 
- * La requête est la suivante :
- *  - getMarques : GET
+ * représentant les différentes marques de véhicules
  */
 class MarqueController extends Controller {
     /**
@@ -30,7 +29,7 @@ class MarqueController extends Controller {
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
      * 
-     * @return JsonResponse
+     * @return JsonResponse la liste des entités
      */
     public function getMarquesAction(Request $request) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Marque");

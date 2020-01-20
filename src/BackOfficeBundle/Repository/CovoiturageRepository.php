@@ -22,23 +22,22 @@ use \Datetime;
 
 /**
  * Repository utilisé pour gérer les requêtes relatives à l'API de la table 'covoiturage'
- * 
- * Les requêtes sont les suivantes :
- *  - getCo2EconomyByMonth : GET
- *  - getCovoiturageOfTrajet : GET
- *  - getCovoituragesUtilisateur : GET
- *  - getCovoitsAsConducteur : POST
  */
 class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
-
     /**
-     * Récupère le nombre de Co2 économisé par mois, en ne prenant en compte que les covoiturages ponctuels et passagers
+     * Récupère la quantité de Co2 économisé chaque mois, en ne prenant en 
+     * compte que les covoiturages ponctuels
      * 
-     * @return array le résultat de la requête
+     * @return array un tableau de 12 cases correspondants à l'économie de Co2 
+     *               pour chaque mois (De janvier à l'index 0 et décembre à l'index 11)
      */
     public function getCo2EconomyByMonth() {
-        $currentYear = intval((new DateTime())->format("Y")); 
+        // Récupération de l'année courante
+        $currentYear = (new DateTime())->format("Y"); 
 
+        // On effectue entre les tables 'covoiturage', 'co2', 'trajet' et 'typeTrajet'
+        // afin de calculer l'économie de Co2 chaque mois de l'année courante (à l'aide du groupBy) 
+        // réalisée par les trajets ponctuels
         $em = $this->createQueryBuilder("covoit")
                 ->select("MONTH(trajet.dateDepart) as month, SUM(co2.valCo2) as tot")
                 ->innerJoin("covoit.co2", "co2")
@@ -52,10 +51,16 @@ class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
                 ->orderBy("month")
                 ->getQuery();
 
+        // Le résultat est de la forme [["month" => 1, "tot" => 63.2], ["month" => 2, ...]]
+        // Les mois SANS trajets ne sont pas présents dans le tableau
         $res = $em->getResult();
 
+        // On initialise un tableau de 12 cases de 0 (pour les 12 mois)
         $co2SavedByMonth = array_fill(0, 12, 0);
 
+        // On met les résultats de la requêtes dans le tableau précédemment initialisé
+        // Cette étape est nécessaire car les mois SANS trajets ne sont pas retournés, or
+        // il faut quand même définir l'économie sur ce mois à 0.
         foreach($res as $r) {
             $co2SavedByMonth[$r["month"] - 1] = number_format($r["tot"], 1);
         }
@@ -64,11 +69,14 @@ class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
     }
 
     /**
-     * Récupère la liste des entités 'covoiturage'
+     * Récupère la liste des entités 'covoiturage' associés à un trajet
      *
      * @param Trajet $trajet l'entité 'trajet' associé au covoiturage
+     * @param bool $hydrated
+     *      si $hydrated = FALSE, le résultat est un tableau d'entités
+     *      si $hydrated = TRUE, le résultat est un tableau associatif représentant l'entité
      * 
-     * @return Array le résultat de la requête
+     * @return array la liste des entités
      */
     public function getCovoiturageOfTrajet($trajet, $hydrated = false) {
         $em = $this->createQueryBuilder("covoit")
@@ -78,21 +86,23 @@ class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
             ->setParameter("trajet", $trajet)
             ->getQuery();
         
+        // Retour sous la forme d'un tableau associatif
         if($hydrated)
             return $em->getArrayResult();
 
+        // Retour sous la forme d'un tableau d'entité
         return $em->getResult();
     }
 
     /**
      * Récupère la liste des entités 'covoiturage' d'un utilisateur
      *
-     * @param Integer $id l'id de l'utilisateur
-     * @param Boolean $hydrated
-     *      si $hydrated = true, le résultat est un tableau d'entité
-     *      si $hydrated = false, le résultat est un tableau associatif représentant l'entité
+     * @param int $id l'id de l'utilisateur
+     * @param bool $hydrated
+     *      si $hydrated = FALSE, le résultat est un tableau d'entités
+     *      si $hydrated = TRUE, le résultat est un tableau associatif représentant l'entité
      * 
-     * @return Array le résultat de la requête
+     * @return array la liste des entités
      */
     public function getCovoituragesUtilisateur($id, $hydrated = false) {
         $em = $this->createQueryBuilder("covoit")
@@ -103,21 +113,23 @@ class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
             ->setParameter("id", $id)
             ->getQuery();
 
+        // Retour sous la forme d'un tableau associatif
         if($hydrated)
             return $em->getArrayResult();
 
+        // Retour sous la forme d'un tableau d'entité
         return $em->getResult();
     }
 
     /**
      * Récupère la liste des entités 'covoiturage' qu'un utilisateur a créé
      *
-     * @param Integer $id l'id de l'utilisateur
-     * @param Boolean $hydrated
-     *      si $hydrated = true, le résultat est un tableau d'entité
-     *      si $hydrated = false, le résultat est un tableau associatif représentant l'entité
+     * @param int $id l'id de l'utilisateur
+     * @param bool $hydrated
+     *      si $hydrated = FALSE, le résultat est un tableau d'entités
+     *      si $hydrated = TRUE, le résultat est un tableau associatif représentant l'entité
      * 
-     * @return Array le résultat de la requête
+     * @return array la liste des entités
      */
     public function getCovoitsAsConducteur($id, $hydrated = false) {
         $em = $this->createQueryBuilder("c")
@@ -133,9 +145,11 @@ class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
             ->setParameter("id", $id)
             ->getQuery();
 
+        // Retour sous la forme d'un tableau associatif
         if($hydrated)
             return $em->getArrayResult();
         
+        // Retour sous la forme d'un tableau d'entité
         return $em->getResult();
     }
 

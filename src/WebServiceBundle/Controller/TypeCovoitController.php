@@ -3,6 +3,7 @@
 /**
  * Fichier du controller 'TypeCovoitController' utilisé pour proposer les différentes requêtes
  * de l'API relatives à l'entité 'typeCovoit'
+ * Pour plus d'informations, veuillez consulter la documentation API associée au projet
  * 
  * @author Margaux DOUDET <margaux.doudet@isen-ouest.yncrea.fr>
  * @version 1.0.0
@@ -20,9 +21,6 @@ use BackOfficeBundle\Entity\TypeCovoit;
 
 /**
  * Controller utilisé pour proposer les requêtes relatives à l'API de la table 'typeCovoit'
- * 
- * La requête est la suivante :
- *  - getTypeCovoits : GET
  */
 class TypeCovoitController extends Controller {
     /**
@@ -30,7 +28,7 @@ class TypeCovoitController extends Controller {
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
      * 
-     * @return JsonResponse
+     * @return JsonResponse la liste des entités
      */
     public function getTypeCovoitsAction(Request $request) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:TypeCovoit");

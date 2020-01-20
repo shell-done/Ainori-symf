@@ -12,28 +12,27 @@ namespace BackOfficeBundle\Repository;
 
 /**
  * Repository utilisé pour gérer les requêtes relatives à l'API de la table 'categorie'
- * 
- * Les requêtes sont les suivantes :
- *  - getCategories : GET
  */
 class CategorieRepository extends \Doctrine\ORM\EntityRepository {
     /**
      * Récupère la liste des entités 'categorie'
      *
-     * @param Boolean $hydrated
-     *      si $hydrated = true, le résultat est un tableau d'entité
-     *      si $hydrated = false, le résultat est un tableau associatif représentant l'entité
+     * @param bool $hydrated
+     *      si $hydrated = FALSE, le résultat est un tableau d'entités
+     *      si $hydrated = TRUE, le résultat est un tableau associatif représentant l'entité
      * 
-     * @return Array le résultat de la requête
+     * @return array la liste des entités
      */
     public function getCategories($hydrated = false) {
         $em = $this->createQueryBuilder("c")
             ->getQuery();
         
+        // Retour sous la forme d'un tableau associatif
         if($hydrated)
             return $em->getArrayResult();
 
+        // Retour sous la forme d'un tableau d'entité
         return $em->getResult();
     }
-    
+
 }

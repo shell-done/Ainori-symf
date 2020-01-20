@@ -12,22 +12,17 @@ namespace BackOfficeBundle\Repository;
 
 /**
  * Repository utilisé pour gérer les requêtes relatives à l'API de la table 'utilisateur'
- * 
- * Les requêtes sont les suivantes :
- *  - getLastUtilisateurs : GET
- *  - countUtilisateurs : GET
- *  - getUtilisateur : GET
  */
 class UtilisateurRepository extends \Doctrine\ORM\EntityRepository {
     /**
      * Récupère la liste des dernières entités 'utilisateur' créées
      *
-     * @param Integer $nbOfUtilisateurs le nombre d'utilisateurs souhaité
-     * @param Boolean $hydrated
-     *      si $hydrated = true, le résultat est un tableau d'entité
-     *      si $hydrated = false, le résultat est un tableau associatif représentant l'entité
+     * @param int $nbOfUtilisateurs le nombre d'utilisateurs souhaité
+     * @param bool $hydrated
+     *      si $hydrated = FALSE, le résultat est un tableau d'entités
+     *      si $hydrated = TRUE, le résultat est un tableau associatif représentant l'entité
      * 
-     * @return Array le résultat de la requête
+     * @return array|null la liste des entités ou null si le nombre de trajet demandé est inférieur à 1
      */
     public function getLastUtilisateurs($nbOfUtilisateurs, $hydrated = false) {
         if($nbOfUtilisateurs < 1)
@@ -38,16 +33,18 @@ class UtilisateurRepository extends \Doctrine\ORM\EntityRepository {
             ->setMaxResults($nbOfUtilisateurs)
             ->getQuery();
 
+        // Retour sous la forme d'un tableau associatif
         if($hydrated)
             return $em->getArrayResult();
 
+        // Retour sous la forme d'un tableau d'entité
         return $em->getResult();
     }
 
     /**
      * Récupère le nombre d'entités 'utilisateur'
      * 
-     * @return Integer le résultat de la requête
+     * @return int le nombre d'entité 'trajet'
      */
     public function countUtilisateurs() {
         $em = $this->createQueryBuilder("u")
@@ -58,14 +55,14 @@ class UtilisateurRepository extends \Doctrine\ORM\EntityRepository {
     }
 
     /**
-     * Récupère une entité 'utilisateur' définie par son id
+     * Récupère une entité 'utilisateur' défini par son id
      *
-     * @param Integer $id l'id de l'entité
-     * @param Boolean $hydrated
-     *      si $hydrated = true, le résultat est un tableau d'entité
-     *      si $hydrated = false, le résultat est un tableau associatif représentant l'entité
+     * @param int $id l'id de l'entité
+     * @param bool $hydrated
+     *      si $hydrated = FALSE, le résultat est un tableau d'entités
+     *      si $hydrated = TRUE, le résultat est un tableau associatif représentant l'entité
      * 
-     * @return Utilisateur le résultat de la requête
+     * @return Utilisateur|null l'entité demandée ou null si celle-ci n'existe pas
      */
     public function getUtilisateur($id, $hydrated = false) {
         $em = $this->createQueryBuilder("u")
@@ -73,9 +70,11 @@ class UtilisateurRepository extends \Doctrine\ORM\EntityRepository {
             ->setParameter("id", $id)
             ->getQuery();
 
+        // Retour sous la forme d'un tableau associatif
         if($hydrated)
             return $em->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
 
+        // Retour sous la forme d'un tableau d'entité
         return $em->getOneOrNullResult();
     }
     

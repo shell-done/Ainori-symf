@@ -14,23 +14,17 @@ use BackOfficeBundle\Entity\Ville;
 
 /**
  * Repository utilisé pour gérer les requêtes relatives à l'API de la table 'trajet'
- * 
- * Les requêtes sont les suivantes :
- *  - getLastTrajets : GET
- *  - countTrajets : GET
- *  - getTrajet : GET
- *  - getTrajets : GET
  */
 class TrajetRepository extends \Doctrine\ORM\EntityRepository {
     /**
      * Récupère la liste des dernières entités 'trajet' créées
      *
-     * @param Integer $nbOfTrajets le nombre de trajets souhaité
-     * @param Boolean $hydrated
-     *      si $hydrated = true, le résultat est un tableau d'entité
-     *      si $hydrated = false, le résultat est un tableau associatif représentant l'entité
+     * @param int $nbOfTrajets le nombre de trajets souhaité
+     * @param bool $hydrated
+     *      si $hydrated = FALSE, le résultat est un tableau d'entités
+     *      si $hydrated = TRUE, le résultat est un tableau associatif représentant l'entité
      * 
-     * @return Array le résultat de la requête
+     * @return array|null la liste des entités ou null si le nombre de trajet demandé est inférieur à 1
      */
     public function getLastTrajets($nbOfTrajets, $hydrated = false) {
         if($nbOfTrajets < 1)
@@ -41,16 +35,18 @@ class TrajetRepository extends \Doctrine\ORM\EntityRepository {
             ->setMaxResults($nbOfTrajets)
             ->getQuery();
         
+        // Retour sous la forme d'un tableau associatif
         if($hydrated)
             return $em->getArrayResult();
 
+        // Retour sous la forme d'un tableau d'entité
         return $em->getResult();
     }
 
     /**
-     * Récupère le nombre d'entités 'trajet'
+     * Compte le nombre d'entités 'trajet'
      * 
-     * @return Integer le résultat de la requête
+     * @return int le nombre d'entité 'trajet'
      */
     public function countTrajets() {
         $em = $this->createQueryBuilder("t")
@@ -61,14 +57,14 @@ class TrajetRepository extends \Doctrine\ORM\EntityRepository {
     }
 
     /**
-     * Récupère une entité 'trajet' définie par son id
+     * Récupère une entité 'trajet' défini par son id
      *
-     * @param Integer $id l'id de l'entité
-     * @param Boolean $hydrated
-     *      si $hydrated = true, le résultat est un tableau d'entité
-     *      si $hydrated = false, le résultat est un tableau associatif représentant l'entité
-     * 
-     * @return Trajet le résultat de la requête
+     * @param int $id l'id de l'entité
+     * @param bool $hydrated
+     *      si $hydrated = FALSE, le résultat est un tableau d'entités
+     *      si $hydrated = TRUE, le résultat est un tableau associatif représentant l'entité
+     *
+     * @return Trajet|null l'entité demandée ou null si celle-ci n'existe pas
      */
     public function getTrajet($id, $hydrated = false) {
         $em = $this->createQueryBuilder("t")
@@ -80,21 +76,23 @@ class TrajetRepository extends \Doctrine\ORM\EntityRepository {
             ->setParameter("id", $id)
             ->getQuery();
 
+        // Retour sous la forme d'un tableau associatif
         if($hydrated)
             return $em->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
         
+        // Retour sous la forme d'un tableau d'entité
         return $em->getOneOrNullResult();
     }
 
     /**
-     * Récupère la liste des entités 'trajet' filtrée
+     * Récupère la liste des entités 'trajet' filtrée avec certains paramètres
      *
      * @param Trajet $trajet l'entité 'trajet' avec les choix de filtre
-     * @param Boolean $hydrated
-     *      si $hydrated = true, le résultat est un tableau d'entité
-     *      si $hydrated = false, le résultat est un tableau associatif représentant l'entité
+     * @param bool $hydrated
+     *      si $hydrated = FALSE, le résultat est un tableau d'entités
+     *      si $hydrated = TRUE, le résultat est un tableau associatif représentant l'entité
      * 
-     * @return Array le résultat de la requête
+     * @return array la liste des entités
      */
     public function getTrajets($trajet, $hydrated = false) {
         // Création de la requête
@@ -145,9 +143,11 @@ class TrajetRepository extends \Doctrine\ORM\EntityRepository {
         if($trajet->getTypeTrajet())
             $em->setParameter("typeTrajet", $trajet->getTypeTrajet());
         
+        // Retour sous la forme d'un tableau associatif
         if($hydrated)
             return $em->getQuery()->getArrayResult();
 
+        // Retour sous la forme d'un tableau d'entité
         return $em->getQuery()->getResult();
     }
 

@@ -29,11 +29,6 @@ use WebServiceBundle\Utils\FormErrorsConverter;
 
 /**
  * Controller utilisé pour proposer les requêtes relatives à l'API de la table 'covoitConducteur'
- * 
- * Les requêtes sont les suivantes :
- *  - getCovoitConducteur : GET
- *  - newTrajet : POST
- *  - editTrajet : POST
  */
 class CovoitConducteurController extends Controller {
     /**
