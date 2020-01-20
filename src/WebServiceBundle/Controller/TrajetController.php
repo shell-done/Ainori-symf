@@ -61,6 +61,7 @@ class TrajetController extends Controller {
         // On récupère les paramètres passés dans l'URI
         // Si un paramètre n'a pas la bonne forme, une exception est lancée et une erreur 400 Bad request est retournée
         try {
+            // Pour chaque paramètre, si celui-ci est spécifié alors on set l'attribut de $trajet à la valeur passée, sinon on le met à null
             $trajet->setHeureDepart($request->query->get('heureDepart') ? new \DateTime($request->query->get('heureDepart')) : null);
             $trajet->setDateDepart($request->query->get('dateDepart') ? new \DateTime($request->query->get('dateDepart')) : null);
             $trajet->setVilleDepart($request->query->get('villeDepart') ? $em->getReference("BackOfficeBundle:Ville", $request->query->get('villeDepart')) : null);

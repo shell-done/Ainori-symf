@@ -71,48 +71,21 @@ class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
     /**
      * Récupère la liste des entités 'covoiturage' associés à un trajet
      *
-     * @param Trajet $trajet l'entité 'trajet' associé au covoiturage
+     * @param int $trajet l'id du trajet des covoiturages
      * @param bool $hydrated
      *      si $hydrated = FALSE, le résultat est un tableau d'entités
      *      si $hydrated = TRUE, le résultat est un tableau associatif représentant l'entité
      * 
      * @return array la liste des entités
      */
-    public function getCovoiturageOfTrajet($trajet, $hydrated = false) {
+    public function getCovoiturageOfTrajet($id, $hydrated = false) {
         $em = $this->createQueryBuilder("covoit")
             ->select(["covoit", "trajet"])
             ->innerJoin("covoit.trajet", "trajet")
-            ->where("trajet = :trajet")
-            ->setParameter("trajet", $trajet)
+            ->where("trajet.id = :trajet")
+            ->setParameter("trajet", $id)
             ->getQuery();
         
-        // Retour sous la forme d'un tableau associatif
-        if($hydrated)
-            return $em->getArrayResult();
-
-        // Retour sous la forme d'un tableau d'entité
-        return $em->getResult();
-    }
-
-    /**
-     * Récupère la liste des entités 'covoiturage' d'un utilisateur
-     *
-     * @param int $id l'id de l'utilisateur
-     * @param bool $hydrated
-     *      si $hydrated = FALSE, le résultat est un tableau d'entités
-     *      si $hydrated = TRUE, le résultat est un tableau associatif représentant l'entité
-     * 
-     * @return array la liste des entités
-     */
-    public function getCovoituragesUtilisateur($id, $hydrated = false) {
-        $em = $this->createQueryBuilder("covoit")
-            ->select(["covoit", "t", "u"])
-            ->innerJoin("covoit.trajet", "t")
-            ->innerJoin("covoit.utilisateur", "u")
-            ->where("u.id = :id")
-            ->setParameter("id", $id)
-            ->getQuery();
-
         // Retour sous la forme d'un tableau associatif
         if($hydrated)
             return $em->getArrayResult();
@@ -125,13 +98,17 @@ class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
      * Récupère la liste des entités 'covoiturage' qu'un utilisateur a créé
      *
      * @param int $id l'id de l'utilisateur
+     * @param string|null $typeCovoit
+     *      si $typeCovoit = null, tous les covoiturages sont récupérés
+     *      sinon, seuls ceux dont le typeCovoit est celui passé en paramètre (comme 'Conducteur' ou 'Passager')
+     *      sont récupérés
      * @param bool $hydrated
      *      si $hydrated = FALSE, le résultat est un tableau d'entités
      *      si $hydrated = TRUE, le résultat est un tableau associatif représentant l'entité
      * 
      * @return array la liste des entités
      */
-    public function getCovoitsAsConducteur($id, $hydrated = false) {
+    public function getCovoituragesOfUtilisateur($id, $typeCovoit = null, $hydrated = false) {
         $em = $this->createQueryBuilder("c")
             ->select(["c", "t", "villeD", "villeA", "typeT", "typeC"])
             ->innerJoin("c.trajet", "t")
@@ -140,17 +117,21 @@ class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
             ->innerJoin("t.typeTrajet", "typeT")
             ->innerJoin("c.typeCovoit", "typeC")
             ->innerJoin("c.utilisateur", "u")
-            ->where("typeC.type = 'Conducteur'")
-            ->where("u.id = :id")
-            ->setParameter("id", $id)
-            ->getQuery();
+            ->where("u.id = :id");
+
+        if($typeCovoit) {
+            $em->andWhere("typeC.type = :typeTrajet");
+            $em->setParameter("typeTrajet", ucwords($typeCovoit));
+        }
+
+        $em->setParameter("id", $id);
 
         // Retour sous la forme d'un tableau associatif
         if($hydrated)
-            return $em->getArrayResult();
+            return $em->getQuery()->getArrayResult();
         
         // Retour sous la forme d'un tableau d'entité
-        return $em->getResult();
+        return $em->getQuery()->getResult();
     }
 
 }

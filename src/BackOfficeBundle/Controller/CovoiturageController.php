@@ -67,7 +67,7 @@ class CovoiturageController extends Controller
             $hasComplexError = false;
 
             $repository = $this->getDoctrine()->getRepository(Covoiturage::class);
-            $covoiturages = $repository->getCovoiturageOfTrajet($covoiturage->getTrajet());
+            $covoiturages = $repository->getCovoiturageOfTrajet($covoiturage->getTrajet()->getId());
             
             // On vérifie qu'il reste au moins une place sur ce trajet
             if(count($covoiturages) >= $covoiturage->getTrajet()->getNbPlace() + 1) {
@@ -160,7 +160,7 @@ class CovoiturageController extends Controller
             $hasComplexError = false;
 
             $repository = $this->getDoctrine()->getRepository(Covoiturage::class);
-            $covoiturages = $repository->getCovoiturageOfTrajet($covoiturage->getTrajet());
+            $covoiturages = $repository->getCovoiturageOfTrajet($covoiturage->getTrajet()->getId());
             
             // On enlève des covoiturages associés, le covoiturage qui est en train d'être traité
             foreach($covoiturages as $off => $c) {

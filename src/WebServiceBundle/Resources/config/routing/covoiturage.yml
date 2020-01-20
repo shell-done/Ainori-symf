@@ -1,13 +1,13 @@
 api_covoiturage_utilisateur_list:
     path: /utilisateurs/{id}
-    defaults: { _controller: WebServiceBundle:Covoiturage:getCovoituragesUtilisateur }
+    defaults: { _controller: WebServiceBundle:Covoiturage:getCovoituragesOfUtilisateur }
     methods: GET
     requirements:
         id: '\d+'
 
-api_covoiturage_as_conducteur_list:
-    path: /conducteurs/{id}
-    defaults: { _controller: WebServiceBundle:CovoitConducteur:getCovoitsAsConducteur }
+api_covoiturage_trajet_list:
+    path: /trajets/{id}
+    defaults: { _controller: WebServiceBundle:Covoiturage:getCovoituragesOfTrajet }
     methods: GET
     requirements:
         id: '\d+'

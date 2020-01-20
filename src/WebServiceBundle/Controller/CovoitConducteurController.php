@@ -32,25 +32,6 @@ use WebServiceBundle\Utils\FormErrorsConverter;
  */
 class CovoitConducteurController extends Controller {
     /**
-     * Récupère la liste des entités 'covoiturage' associé à un utilisateur en tant que conducteur
-     *
-     * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
-     * @param Integer $id l'id de l'utilisateur
-     * 
-     * @return Response|JsonResponse 
-     */
-    public function getCovoitsAsConducteurAction(Request $request, $id) {
-        $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Covoiturage");
-        $covoiturages = $repository->getCovoitsAsConducteur($id, $hydrated = true);
-
-        if(!$covoiturages) {
-            return new Response('', 404);
-        }
-
-        return new JsonResponse($covoiturages);
-    }
-
-    /**
      * Créée une nouvelle entité 'trajet'
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
