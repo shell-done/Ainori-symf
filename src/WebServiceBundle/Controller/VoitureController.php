@@ -27,12 +27,13 @@ class VoitureController extends Controller {
      * Récupère la liste des entités 'voiture'
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
+     * @param int $id l'id de l'entité 'marque'
      * 
      * @return JsonResponse la liste des entités
      */
-    public function getVoituresAction(Request $request) {
+    public function getVoituresAction(Request $request, $id) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Voiture");
-        $voitures = $repository->getVoitures($hydrated = true);
+        $voitures = $repository->getVoitures($id, $hydrated = true);
 
         return new JsonResponse($voitures);
     }
