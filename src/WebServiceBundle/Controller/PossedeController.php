@@ -15,14 +15,19 @@ namespace WebServiceBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
+use WebServiceBundle\Utils\FormErrorsConverter;
+
 use BackOfficeBundle\Entity\Possede;
+
 
 /**
  * Controller utilisé pour proposer les requêtes relatives à l'API de la table 'possede'
@@ -49,7 +54,7 @@ class PossedeController extends Controller {
     }
 
     /**
-     * Récupère la liste des entités 'possede' associées à un utilisateurs
+     * Récupère la liste des entités 'possede' associées à un utilisateur
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
      * @param int $id l'id de l'utilisateur
@@ -73,7 +78,7 @@ class PossedeController extends Controller {
      */
     public function deletePossedeAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
-        $possede = $repository->getPossede($id, $hydrated = true);
+        $possede = $em->getRepository("BackOfficeBundle:Possede")->findOneById($id);
 
         // Si l'entité n'existe pas, on renvoie un code 404 (Not found)
         if(!$possede) {
@@ -93,14 +98,14 @@ class PossedeController extends Controller {
     }
 
     /**
-     * Crée une entité 'possede'
+     * Créée une entité 'possede'
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
      * 
      * @return Response l'entité créée
      */
     public function newPossedeAction(Request $request) {
-        $erreur = FALSE;
+        $errors = FALSE;
 
         // Création d'une entité ainsi que d'un formulaire associé
         $possede = new Possede();
@@ -116,7 +121,7 @@ class PossedeController extends Controller {
             $em->flush();
         }
         else {
-            $erreur = TRUE;
+            $errors = TRUE;
         }
         
         $encoders = [new JsonEncoder()];
@@ -125,8 +130,8 @@ class PossedeController extends Controller {
     
         $response = new Response();
         
-        if($erreur) {
-            // En cas d'erreur, on renvoit un code 400 avec la liste des erreurs générées
+        if($errors) {
+            // En cas d'erreur, on renvoie un code 400 avec la liste des erreurs générées
             $errors = (new FormErrorsConverter($form))->toStringArray(true);
 
             $response->setContent($errors);
@@ -153,7 +158,7 @@ class PossedeController extends Controller {
      * @return Response l'entité modifiée
      */
      public function editPossedeAction(Request $request, $id) {
-        $erreur = FALSE;
+        $errors = FALSE;
 
         // Récupération de l'entité à modifier
         $possedeRepo = $this->getDoctrine()->getRepository(Possede::class);
@@ -175,7 +180,7 @@ class PossedeController extends Controller {
             $em->flush();
         }
         else {
-            $erreur = TRUE;
+            $errors = TRUE;
         }
         
         $encoders = [new JsonEncoder()];
@@ -184,8 +189,8 @@ class PossedeController extends Controller {
     
         $response = new Response();
         
-        if($erreur) {
-            // En cas d'erreur, on renvoit un code 400 avec la liste des erreurs générées
+        if($errors) {
+            // En cas d'erreur, on renvoie un code 400 avec la liste des erreurs générées
             $errors = (new FormErrorsConverter($form))->toStringArray(true);
 
             $response->setContent($errors);

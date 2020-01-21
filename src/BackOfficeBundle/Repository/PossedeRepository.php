@@ -28,6 +28,9 @@ class PossedeRepository extends \Doctrine\ORM\EntityRepository {
      */
     public function getPossede($id, $hydrated = false) {
         $em = $this->createQueryBuilder("p")
+            ->select(["p", "v", "m"])
+            ->innerJoin("p.voiture", "v")
+            ->innerJoin("v.marque", "m")
             ->where("p.id = :id")
             ->setParameter("id", $id)
             ->getQuery();
@@ -52,6 +55,9 @@ class PossedeRepository extends \Doctrine\ORM\EntityRepository {
      */
     public function getPossedesUtilisateur($id, $hydrated = false) {
         $em = $this->createQueryBuilder("p")
+            ->select(["p", "v", "m"])
+            ->innerJoin("p.voiture", "v")
+            ->innerJoin("v.marque", "m")
             ->innerJoin("p.utilisateur", "u")
             ->where("u.id = :id")
             ->setParameter("id", $id)

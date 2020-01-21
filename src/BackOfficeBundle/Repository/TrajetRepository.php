@@ -46,7 +46,7 @@ class TrajetRepository extends \Doctrine\ORM\EntityRepository {
     /**
      * Compte le nombre d'entités 'trajet'
      * 
-     * @return int le nombre d'entité 'trajet'
+     * @return int le nombre d'entités 'trajet'
      */
     public function countTrajets() {
         $em = $this->createQueryBuilder("t")
@@ -57,7 +57,7 @@ class TrajetRepository extends \Doctrine\ORM\EntityRepository {
     }
 
     /**
-     * Récupère une entité 'trajet' défini par son id
+     * Récupère une entité 'trajet' définie par son id
      *
      * @param int $id l'id de l'entité
      * @param bool $hydrated

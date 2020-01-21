@@ -25,7 +25,7 @@ use \Datetime;
  */
 class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
     /**
-     * Récupère la quantité de Co2 économisé chaque mois, en ne prenant en 
+     * Récupère la quantité de Co2 économisée chaque mois, en ne prenant en 
      * compte que les covoiturages ponctuels
      * 
      * @return array un tableau de 12 cases correspondants à l'économie de Co2 
@@ -52,15 +52,15 @@ class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
                 ->getQuery();
 
         // Le résultat est de la forme [["month" => 1, "tot" => 63.2], ["month" => 2, ...]]
-        // Les mois SANS trajets ne sont pas présents dans le tableau
+        // Les mois SANS trajet ne sont pas présents dans le tableau
         $res = $em->getResult();
 
         // On initialise un tableau de 12 cases de 0 (pour les 12 mois)
         $co2SavedByMonth = array_fill(0, 12, 0);
 
         // On met les résultats de la requêtes dans le tableau précédemment initialisé
-        // Cette étape est nécessaire car les mois SANS trajets ne sont pas retournés, or
-        // il faut quand même définir l'économie sur ce mois à 0.
+        // Cette étape est nécessaire car les mois SANS trajet ne sont pas retournés, or
+        // il faut quand même définir l'économie sur ces mois à 0.
         foreach($res as $r) {
             $co2SavedByMonth[$r["month"] - 1] = number_format($r["tot"], 1);
         }
@@ -69,7 +69,7 @@ class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
     }
 
     /**
-     * Récupère la liste des entités 'covoiturage' associés à un trajet
+     * Récupère la liste des entités 'covoiturage' associées à un trajet
      *
      * @param int $trajet l'id du trajet des covoiturages
      * @param bool $hydrated

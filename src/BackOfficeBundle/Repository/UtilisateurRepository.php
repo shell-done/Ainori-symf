@@ -44,7 +44,7 @@ class UtilisateurRepository extends \Doctrine\ORM\EntityRepository {
     /**
      * Récupère le nombre d'entités 'utilisateur'
      * 
-     * @return int le nombre d'entité 'trajet'
+     * @return int le nombre d'entités 'trajet'
      */
     public function countUtilisateurs() {
         $em = $this->createQueryBuilder("u")
@@ -55,7 +55,7 @@ class UtilisateurRepository extends \Doctrine\ORM\EntityRepository {
     }
 
     /**
-     * Récupère une entité 'utilisateur' défini par son id
+     * Récupère une entité 'utilisateur' définie par son id
      *
      * @param int $id l'id de l'entité
      * @param bool $hydrated

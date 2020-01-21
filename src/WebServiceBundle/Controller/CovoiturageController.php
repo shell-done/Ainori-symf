@@ -17,17 +17,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
+
 use Symfony\Component\Form\FormError;
+
+use WebServiceBundle\Utils\FormErrorsConverter;
 
 use BackOfficeBundle\Entity\Trajet;
 use BackOfficeBundle\Entity\Covoiturage;
 use BackOfficeBundle\Entity\TypeCovoit;
 use BackOfficeBundle\Entity\Co2;
-
-use WebServiceBundle\Utils\FormErrorsConverter;
 
 /**
  * Controller utilisé pour proposer les requêtes relatives à l'API de la table 'covoiturage'
@@ -35,7 +37,7 @@ use WebServiceBundle\Utils\FormErrorsConverter;
 class CovoiturageController extends Controller {
     /**
      * Récupère la liste des entités 'covoiturage' associés à un utilisateur
-     * Le type de covoit peut être spécifié dans l'url avec le paramère 'typeCovoit'
+     * Le type de covoit peut être spécifié dans l'url avec le paramètre 'typeCovoit'
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
      * @param int $id l'id de l'utilisateur
@@ -45,7 +47,7 @@ class CovoiturageController extends Controller {
     public function getCovoituragesOfUtilisateurAction(Request $request, $id) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Covoiturage");
 
-        // Si le typeCovoit est spécifié, alors on récupère sa valeur sinon on le défini à null
+        // Si le typeCovoit est spécifié, alors on récupère sa valeur sinon on le définie à null
         $typeCovoit = $request->query->get('typeCovoit') ? $request->query->get('typeCovoit') : null;
         $covoiturages = $repository->getCovoituragesOfUtilisateur($id, $typeCovoit, $hydrated = true);
 
@@ -53,7 +55,7 @@ class CovoiturageController extends Controller {
     }
 
     /**
-     * Récupère la liste des entités 'covoiturage' associés à un trajet
+     * Récupère la liste des entités 'covoiturage' associées à un trajet
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
      * @param int $id l'id du trajet
@@ -69,7 +71,7 @@ class CovoiturageController extends Controller {
     }
 
     /**
-     * Crée une entité 'covoiturage' associé à un utilisateur et à un trajet (obligatoirement un passager)
+     * Créée une entité 'covoiturage' associée à un utilisateur et à un trajet (obligatoirement un passager)
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
      * @param int $id_user l'id de l'utilisateur
@@ -78,13 +80,13 @@ class CovoiturageController extends Controller {
      * @return Response l'entité créée
      */
     public function registerToATrajetAction(Request $request, $id_user, $id_trajet) {
-        $erreur = FALSE;
+        $errors = FALSE;
 
         // Création d'une entité ainsi que d'un formulaire associé
         $covoiturage = new Covoiturage();
         $form = $this->createForm('WebServiceBundle\Form\CovoiturageType', $covoiturage);
         
-        // Récupérations des attributs de l'entités
+        // Récupération des attributs de l'entité
         $typeCovoitRepo = $this->getDoctrine()->getRepository(TypeCovoit::class);
         $passager = $typeCovoitRepo->findOneByType("Passager");
         $covoiturage->setTypeCovoit($passager);
@@ -100,7 +102,7 @@ class CovoiturageController extends Controller {
             // On vérifie qu'il reste de la place sur ce trajet
             if(count($covoiturages) >= $covoiturage->getTrajet()->getNbPlace() + 1) {
                 $form->get("trajet")->addError(new FormError("Toutes les places pour ce trajet sont déjà prises"));
-                $erreur = TRUE;
+                $errors = TRUE;
             }
             
             // Création d'une entité Co2 associée à l'économie de ce trajet
@@ -119,7 +121,7 @@ class CovoiturageController extends Controller {
             }
         }
         else {
-            $erreur = TRUE;
+            $errors = TRUE;
         }
         
         $encoders = [new JsonEncoder()];
@@ -128,8 +130,8 @@ class CovoiturageController extends Controller {
     
         $response = new Response();
         
-        if($erreur) {
-            // En cas d'erreur, on renvoit un code 400 avec la liste des erreurs générées
+        if($errors) {
+            // En cas d'erreur, on renvoie un code 400 avec la liste des erreurs générées
             $errors = (new FormErrorsConverter($form))->toStringArray(true);
 
             $response->setContent($errors);

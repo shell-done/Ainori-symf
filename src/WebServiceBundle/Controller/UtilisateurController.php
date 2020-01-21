@@ -15,12 +15,16 @@ namespace WebServiceBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
+
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
+use WebServiceBundle\Utils\FormErrorsConverter;
 
 use BackOfficeBundle\Entity\Utilisateur;
 
@@ -58,7 +62,7 @@ class UtilisateurController extends Controller {
      */
     public function deleteUtilisateurAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
-        $utilisateur = $repository->getUtilisateur($id, $hydrated = true);
+        $utilisateur = $em->getRepository("BackOfficeBundle:Utilisateur")->findOneById($id);
 
         // Si l'entité n'existe pas, on renvoie un code 404 (Not found)
         if(!$utilisateur) {
@@ -86,7 +90,7 @@ class UtilisateurController extends Controller {
      * @return Response l'entité créée
      */
     public function newUtilisateurAction(Request $request, UserPasswordEncoderInterface $encoder) {
-        $erreur = FALSE;
+        $errors = FALSE;
 
         // Création d'une entité ainsi que d'un formulaire associé
         $utilisateur = new Utilisateur();
@@ -106,7 +110,7 @@ class UtilisateurController extends Controller {
             $em->flush();
         }
         else {
-            $erreur = TRUE;
+            $errors = TRUE;
         }
         
         $encoders = [new JsonEncoder()];
@@ -115,8 +119,8 @@ class UtilisateurController extends Controller {
     
         $response = new Response();
         
-        if($erreur) {
-            // En cas d'erreur, on renvoit un code 400 avec la liste des erreurs générées
+        if($errors) {
+            // En cas d'erreur, on renvoie un code 400 avec la liste des erreurs générées
             $errors = (new FormErrorsConverter($form))->toStringArray(true);
 
             $response->setContent($errors);
@@ -144,13 +148,13 @@ class UtilisateurController extends Controller {
      * @return Response l'entité modifiée
      */
     public function editUtilisateurAction(Request $request, $id, UserPasswordEncoderInterface $encoder) {
-        $erreur = FALSE;
+        $errors = FALSE;
 
         // Récupération de l'entité à modifier
         $utilisateurRepo = $this->getDoctrine()->getRepository(Utilisateur::class);
         $utilisateur = $utilisateurRepo->findOneById($id);
 
-        // Si celle-ci n'existe pas, on renvoit un code 404
+        // Si celle-ci n'existe pas, on renvoie un code 404
         if(!$utilisateur) {
             return new Response('', 404);
         }
@@ -170,7 +174,7 @@ class UtilisateurController extends Controller {
             $em->flush();
         }
         else {
-            $erreur = TRUE;
+            $errors = TRUE;
         }
         
         $encoders = [new JsonEncoder()];
@@ -179,8 +183,8 @@ class UtilisateurController extends Controller {
 
         $response = new Response();
         
-        if($erreur) {
-            // En cas d'erreur, on renvoit un code 400 avec la liste des erreurs générées
+        if($errors) {
+            // En cas d'erreur, on renvoie un code 400 avec la liste des erreurs générées
             $errors = (new FormErrorsConverter($form))->toStringArray(true);
 
             $response->setContent($errors);

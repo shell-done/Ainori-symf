@@ -17,11 +17,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+
 use Symfony\Component\Form\FormError;
+
+use WebServiceBundle\Utils\FormErrorsConverter;
 
 use BackOfficeBundle\Entity\Trajet;
 use BackOfficeBundle\Entity\Ville;
 use BackOfficeBundle\Entity\TypeTrajet;
+use BackOfficeBundle\Entity\Covoiturage;
 
 /**
  * Controller utilisé pour proposer les requêtes relatives à l'API de la table 'trajet'
@@ -60,7 +68,7 @@ class TrajetController extends Controller {
         $trajet = new Trajet();
         
         // On récupère les paramètres passés dans l'URI
-        // Si un paramètre n'a pas la bonne forme, une exception est lancée et une erreur 400 Bad request est retournée
+        // Si un paramètre n'a pas la bonne forme, une exception est lancée et une erreur 400 Bad Request est retournée
         try {
             // Pour chaque paramètre, si celui-ci est spécifié alors on set l'attribut de $trajet à la valeur passée, sinon on le met à null
             $trajet->setHeureDepart($request->query->get('heureDepart') ? new \DateTime($request->query->get('heureDepart')) : null);
@@ -88,7 +96,7 @@ class TrajetController extends Controller {
      */
     public function deleteTrajetAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
-        $trajet = $repository->getTrajet($id);
+        $trajet = $em->getRepository("BackOfficeBundle:Trajet")->findOneById($id);
 
         // Si l'entité n'existe pas, on renvoie un code 404 (Not found)
         if(!$trajet) {
@@ -108,15 +116,15 @@ class TrajetController extends Controller {
     }
 
     /**
-     * Crée une entité 'Trajet' ainsi qu'une entité 'Covoiturage' pour le conducteur
+     * Créée une entité 'Trajet' ainsi qu'une entité 'Covoiturage' pour le conducteur
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
-     * @param int $id l'id de l'utilisateur qui crée le trajet
+     * @param int $id l'id de l'utilisateur qui créé le trajet
      * 
      * @return Response les entités créées
      */
     public function newTrajetAction(Request $request, $id) {
-        $erreur = FALSE;
+        $errors = FALSE;
 
         // Création d'une entité ainsi que d'un formulaire associé
         $trajet = new Trajet();
@@ -126,24 +134,24 @@ class TrajetController extends Controller {
         $form->submit($request->request->all());
 
         if ($form->isValid()) {
-            // S'il n'y a pas d'erreur, on créer le covoiturage correspondant à la
+            // S'il n'y a pas d'erreur, on créé le covoiturage correspondant à la
             // participation du conducteur au trajet en cours de création
             $covoiturage = new Covoiturage();
 
             // On définit le trajet, le type de covoit à 'Conducteur' ainsi que l'utilisateur
             $covoiturage->setTrajet($trajet);
-            $covoiturage->setTypeCovoit($this->getDoctrine()->getRepository(TypeCovoit::class)->findOneByType("Conducteur"));
+            $covoiturage->setTypeCovoit($this->getDoctrine()->getRepository("BackOfficeBundle:TypeCovoit")->findOneByType("Conducteur"));
             
             // On vérifie que l'utilisateur existe
-            $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findById($id);
+            $utilisateur = $this->getDoctrine()->getRepository("BackOfficeBundle:Utilisateur")->findOneById($id);
             if(!$utilisateur) {
                 $form->addError(new FormError("Cet utilisateur n'existe pas"));
-                $erreur = TRUE;
+                $errors = TRUE;
             } else {
-                $covoiturage->setUtilisateur();
+                $covoiturage->setUtilisateur($utilisateur);
             }
 
-            if(!$erreur) {
+            if(!$errors) {
                 //On sauvegarde les entités en base
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($trajet);
@@ -152,7 +160,7 @@ class TrajetController extends Controller {
             }
         }
         else {
-            $erreur = TRUE;
+            $errors = TRUE;
         }
         
         $encoders = [new JsonEncoder()];
@@ -161,8 +169,8 @@ class TrajetController extends Controller {
     
         $response = new Response();
         
-        if($erreur) {
-            // En cas d'erreur, on renvoit un code 400 avec la liste des erreurs générées
+        if($errors) {
+            // En cas d'erreur, on renvoie un code 400 avec la liste des erreurs générées
             $errors = (new FormErrorsConverter($form))->toStringArray(true);
             
             $response->setContent($errors);
@@ -189,7 +197,7 @@ class TrajetController extends Controller {
      * @return Response l'entité modifiée
      */
     public function editTrajetAction(Request $request, $id) {
-        $erreur = FALSE;
+        $errors = FALSE;
 
         // Récupération de l'entité à modifier
         $trajetRepo = $this->getDoctrine()->getRepository(Trajet::class);
@@ -211,7 +219,7 @@ class TrajetController extends Controller {
             $em->flush();
         }
         else {
-            $erreur = TRUE;
+            $errors = TRUE;
         }
         
         $encoders = [new JsonEncoder()];
@@ -220,8 +228,8 @@ class TrajetController extends Controller {
 
         $response = new Response();
         
-        if($erreur) {
-            // En cas d'erreur, on renvoit un code 400 avec la liste des erreurs générées
+        if($errors) {
+            // En cas d'erreur, on renvoie un code 400 avec la liste des erreurs générées
             $errors = (new FormErrorsConverter($form))->toStringArray(true);
             
             $response->setContent($errors);
