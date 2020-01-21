@@ -42,8 +42,7 @@ class PossedeType extends AbstractType {
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'BackOfficeBundle\Entity\Possede',
-            'csrf_protection' => false,
-            'cascade_validation' => false
+            'csrf_protection' => false
         ));
     }
 
