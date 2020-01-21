@@ -51,6 +51,7 @@ class UtilisateurController extends Controller
      * Affiche un formulaire pour créer un nouveau 'utilisateur'
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
+     * @param UserPasswordEncoderInterface $encoder l'objet qui sert à l'encodage des mots de passe utilisateurs
      * 
      * @return \Symfony\Component\HttpFoundation\Response la vue associée au formulaire
      */
@@ -104,6 +105,7 @@ class UtilisateurController extends Controller
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
      * @param Utilisateur $utilisateur l'objet utilisateur en question (passé automatiquement par Symfony)
+     * @param UserPasswordEncoderInterface $encoder l'objet qui sert à l'encodage des mots de passe utilisateurs
      * 
      * @return \Symfony\Component\HttpFoundation\Response la vue associée à au détail
      */

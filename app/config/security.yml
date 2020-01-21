@@ -40,6 +40,8 @@ security:
             # https://symfony.com/doc/current/security/form_login_setup.html
             #form_login: ~
     
+    # Les route de la page de login et d'API sont ouvertes mais l'accès à toutes les autres pages 
+    # nécessite d'être authentifié
     access_control:
     - { path: '^/login', roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: '^/api', roles: IS_AUTHENTICATED_ANONYMOUSLY }

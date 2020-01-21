@@ -81,10 +81,11 @@ class UtilisateurController extends Controller {
      * Crée une entité 'utilisateur'
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
+     * @param UserPasswordEncoderInterface $encoder l'objet qui sert à l'encodage des mots de passe utilisateurs
      * 
      * @return Response l'entité créée
      */
-    public function newUtilisateurAction(Request $request) {
+    public function newUtilisateurAction(Request $request, UserPasswordEncoderInterface $encoder) {
         $erreur = FALSE;
 
         // Création d'une entité ainsi que d'un formulaire associé
@@ -95,7 +96,11 @@ class UtilisateurController extends Controller {
         $form->submit($request->request->all());
 
         if ($form->isValid()) {
-            // S'il n'y a pas d'erreur, on sauvegarde l'entité en base
+            // S'il n'y a pas d'erreur, on hash le mot de passe
+            $password = $encoder->encodePassword($utilisateur, $utilisateur->getPlainPassword());
+            $utilisateur->setPassword($password);
+            
+            // Puis on sauvegarde l'entité en base
             $em = $this->getDoctrine()->getManager();
             $em->persist($utilisateur);
             $em->flush();
@@ -134,10 +139,11 @@ class UtilisateurController extends Controller {
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
      * @param int $id l'id de l'entité 'utilisateur' à modifier
+     * @param UserPasswordEncoderInterface $encoder l'objet qui sert à l'encodage des mots de passe utilisateurs
      * 
      * @return Response l'entité modifiée
      */
-    public function editUtilisateurAction(Request $request, $id) {
+    public function editUtilisateurAction(Request $request, $id, UserPasswordEncoderInterface $encoder) {
         $erreur = FALSE;
 
         // Récupération de l'entité à modifier
@@ -154,7 +160,11 @@ class UtilisateurController extends Controller {
         $form->submit($request->request->all());
 
         if ($form->isValid()) {
-            // S'il n'y a pas d'erreur, on sauvegarde l'entité en base
+            // S'il n'y a pas d'erreur, on hash le mot de passe
+            $password = $encoder->encodePassword($utilisateur, $utilisateur->getPlainPassword());
+            $utilisateur->setPassword($password);
+
+            // Puis on sauvegarde l'entité en base
             $em = $this->getDoctrine()->getManager();
             $em->persist($utilisateur);
             $em->flush();
