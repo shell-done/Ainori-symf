@@ -134,6 +134,11 @@ class TrajetController extends Controller {
         $form->submit($request->request->all());
 
         if ($form->isValid()) {
+            // On vérifie que l'utilisateur existe
+            $utilisateur = $this->getDoctrine()->getRepository("BackOfficeBundle:Utilisateur")->findOneById($id);
+            if(!$utilisateur)
+                return new JsonResponse(json_encode(["Cet utilisateur n'existe pas"]), 404);
+
             // S'il n'y a pas d'erreur, on créé le covoiturage correspondant à la
             // participation du conducteur au trajet en cours de création
             $covoiturage = new Covoiturage();
@@ -141,14 +146,21 @@ class TrajetController extends Controller {
             // On définit le trajet, le type de covoit à 'Conducteur' ainsi que l'utilisateur
             $covoiturage->setTrajet($trajet);
             $covoiturage->setTypeCovoit($this->getDoctrine()->getRepository("BackOfficeBundle:TypeCovoit")->findOneByType("Conducteur"));
-            
-            // On vérifie que l'utilisateur existe
-            $utilisateur = $this->getDoctrine()->getRepository("BackOfficeBundle:Utilisateur")->findOneById($id);
-            if(!$utilisateur) {
-                $form->addError(new FormError("Cet utilisateur n'existe pas"));
+            $covoiturage->setUtilisateur($utilisateur);
+
+            // On vérifie que le moment de départ du trajet ne se situe pas avant l'instant présent
+            $now = new \DateTime();
+            $trajetDatetime = new \DateTime($trajet->getDateDepart()->format("Y-m-d") . " " . $trajet->getHeureDepart()->format("H:i"));
+            if($now > $trajetDatetime) {
+                $form->get("dateDepart")->addError(new FormError("Le départ d'un futur trajet ne peut pas être dans le passé"));
+                $form->get("heureDepart")->addError(new FormError("Le départ d'un futur trajet ne peut pas être dans le passé"));
                 $errors = TRUE;
-            } else {
-                $covoiturage->setUtilisateur($utilisateur);
+            }
+
+            // On vérifie que la date du trajet n'est pas passée
+            if($trajet->getNbPlace() > $trajet->getPossede()->getNbPlace()) {
+                $form->get("nbPlace")->addError(new FormError("Le nombre de place pour le trajet est supérieur au nombre de place de la voiture"));
+                $errors = TRUE;
             }
 
             if(!$errors) {
