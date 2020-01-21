@@ -41,7 +41,7 @@ class TrajetType extends AbstractType {
     }
     
     /**
-     * Vérifie la validité des différents champs du formulaire
+     * Vérifie la validité des différents champs du formulaire sans vérifier le champ CSRF
      * 
      * @param OptionsResolver $resolver l'objet qui vérifie le formulaire
      */
