@@ -25,7 +25,7 @@ class TypeTrajetType extends AbstractType
     /**
      * Créer le formulaire pour l'entité
      * 
-     * @param FormBuilderInterface $builder le constructeur de formulaire
+     * @param FormBuilderInterface $builder le constructeur du formulaire
      * @param array $options les options passées au formulaire
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -50,11 +50,11 @@ class TypeTrajetType extends AbstractType
     /**
      * Retourne le préfixe du nom du formulaire.
      * 
-     * Ce préfixe est utilisée pour nommé le formulaire et est composé
-     * du nom du bundle suivit de celui de la vue
+     * Ce préfixe est utilisé pour nommer le formulaire et est composé
+     * du nom du bundle suivi de celui de la vue
      * Exemple : 'backofficebundle_categorie'
      * 
-     * @return string le prefix associé à la vue
+     * @return string le préfixe associé à la vue
      */
     public function getBlockPrefix()
     {
