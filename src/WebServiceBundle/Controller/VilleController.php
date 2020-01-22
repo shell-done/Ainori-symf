@@ -15,6 +15,7 @@ namespace WebServiceBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use BackOfficeBundle\Entity\Ville;
@@ -24,7 +25,7 @@ use BackOfficeBundle\Entity\Ville;
  */
 class VilleController extends Controller {
     /**
-     * Récupère la liste des entités 'ville'
+     * Renvoie un tableau Json représentants des entités 'ville' partielles (id et nom)
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
      * 
@@ -32,9 +33,33 @@ class VilleController extends Controller {
      */
     public function getVillesAction(Request $request) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Ville");
-        $villes = $repository->getVilles($hydrated = true);
+        $villes = $repository->getVilles();
         
-        return new JsonResponse($villes);
+        $response = new JsonResponse($villes);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
+    }
+
+    /**
+     * Renvoie un tableau Json représentants une entité 'ville'
+     *
+     * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
+     * @param int $id l'id de la ville
+     * 
+     * @return Response|JsonResponse l'entité demandée si elle existe
+     */
+    public function getVilleAction(Request $request, $id) {
+        $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Ville");
+        $ville = $repository->getVille($id);
+        
+        if(!$ville)
+            return new Response('', 404);
+
+        $response = new JsonResponse($ville);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
 
 }

@@ -15,24 +15,31 @@ namespace BackOfficeBundle\Repository;
  */
 class VilleRepository extends \Doctrine\ORM\EntityRepository {
     /**
-     * Récupère la liste des entités 'ville'
-     *
-     * @param bool $hydrated
-     *      si $hydrated = FALSE, le résultat est un tableau d'entités
-     *      si $hydrated = TRUE, le résultat est un tableau associatif représentant l'entité
+     * Récupère un tableau php représentant un résumé des entités 'ville' (id et nom)
      *
      * @return array la liste des entités
      */
-    public function getVilles($hydrated = false) {
+    public function getVilles() {
         $em = $this->createQueryBuilder("v")
+            ->select("v.id, v.ville")
             ->getQuery();
-        
-        // Retour sous la forme d'un tableau associatif
-        if($hydrated)
-            return $em->getArrayResult();
 
-        // Retour sous la forme d'un tableau d'entité
         return $em->getResult();
     }
     
+    /**
+     * Récupère un tableau php représentant une entité 'ville' complète
+     * 
+     * @param $id l'id de la ville à récupérer
+     *
+     * @return array l'entité sous forme de tableau associatif
+     */
+    public function getVille($id) {
+        $em = $this->createQueryBuilder("v")
+            ->where("v.id = :id")
+            ->setParameter("id", $id)
+            ->getQuery();
+
+        return $em->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+    }
 }

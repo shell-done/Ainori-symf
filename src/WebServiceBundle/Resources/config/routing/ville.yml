@@ -2,3 +2,10 @@ api_villes_list:
     path: /
     defaults: { _controller: WebServiceBundle:Ville:getVilles }
     methods: GET
+
+api_ville_show:
+    path: /{id}
+    defaults: { _controller: WebServiceBundle:Ville:getVille }
+    methods: GET
+    requirements:
+        id: '\d+'
