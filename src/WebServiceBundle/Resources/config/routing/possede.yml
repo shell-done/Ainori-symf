@@ -27,7 +27,7 @@ api_possede_edit:
 api_possede_delete:
     path: /{id}
     defaults: { _controller: WebServiceBundle:Possede:deletePossede }
-    methods: GET
+    methods: DELETE
     requirements:
         id_user: '\d+'
         id_voiture: '\d+'
