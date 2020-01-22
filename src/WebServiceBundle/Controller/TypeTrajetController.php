@@ -24,7 +24,7 @@ use BackOfficeBundle\Entity\TypeTrajet;
  */
 class TypeTrajetController extends Controller {
     /**
-     * Récupère la liste des entités 'typeTrajet'
+     * Renvoie un tableau Json représentants des entités 'typeTrajet'
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
      * 
@@ -32,9 +32,12 @@ class TypeTrajetController extends Controller {
      */
     public function getTypeTrajetsAction(Request $request) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:TypeTrajet");
-        $typetrajets = $repository->getTypeTrajets($hydrated = true);
+        $typetrajets = $repository->getTypeTrajets();
 
-        return new JsonResponse($typetrajets);
+        $response = new JsonResponse($typetrajets);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
 
 }
