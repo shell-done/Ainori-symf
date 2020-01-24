@@ -2,3 +2,5 @@ api_voiture_list:
     path: /{id}
     defaults: { _controller: WebServiceBundle:Voiture:getVoitures }
     methods: GET
+    requirements:
+        id: '\d+'
