@@ -20,13 +20,10 @@ class TrajetRepository extends \Doctrine\ORM\EntityRepository {
      * Récupère la liste des dernières entités 'trajet' créées
      *
      * @param int $nbOfTrajets le nombre de trajets souhaité
-     * @param bool $hydrated
-     *      si $hydrated = FALSE, le résultat est un tableau d'entités
-     *      si $hydrated = TRUE, le résultat est un tableau associatif représentant l'entité
      * 
-     * @return array|null la liste des entités ou null si le nombre de trajet demandé est inférieur à 1
+     * @return array|null la liste des entités ou null si le nombre de trajet demandés est inférieur à 1
      */
-    public function getLastTrajets($nbOfTrajets, $hydrated = false) {
+    public function getLastTrajets($nbOfTrajets) {
         if($nbOfTrajets < 1)
             return null;
 
@@ -35,11 +32,6 @@ class TrajetRepository extends \Doctrine\ORM\EntityRepository {
             ->setMaxResults($nbOfTrajets)
             ->getQuery();
         
-        // Retour sous la forme d'un tableau associatif
-        if($hydrated)
-            return $em->getArrayResult();
-
-        // Retour sous la forme d'un tableau d'entité
         return $em->getResult();
     }
 
@@ -57,14 +49,11 @@ class TrajetRepository extends \Doctrine\ORM\EntityRepository {
     }
 
     /**
-     * Récupère une entité 'trajet' définie par son id
+     * Récupère un tableau php représentant une entité 'trajet' complète
      *
-     * @param int $id l'id de l'entité
-     * @param bool $hydrated
-     *      si $hydrated = FALSE, le résultat est un tableau d'entités
-     *      si $hydrated = TRUE, le résultat est un tableau associatif représentant l'entité
-     *
-     * @return Trajet|null l'entité demandée ou null si celle-ci n'existe pas
+     * @param int $id l'id du trajet à récupérer
+     * 
+     * @return Trajet|null l'entité demandée sous forme de tableau ou null si celle-ci n'existe pas
      */
     public function getTrajet($id, $hydrated = false) {
         $em = $this->createQueryBuilder("t")
@@ -76,32 +65,41 @@ class TrajetRepository extends \Doctrine\ORM\EntityRepository {
             ->setParameter("id", $id)
             ->getQuery();
 
-        // Retour sous la forme d'un tableau associatif
-        if($hydrated)
-            return $em->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-        
-        // Retour sous la forme d'un tableau d'entité
-        return $em->getOneOrNullResult();
+        return $em->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
 
     /**
-     * Récupère la liste des entités 'trajet' filtrée avec certains paramètres
-     *
+     * Récupère un tableau php représentant un résumé des entités 'trajet' filtrée avec certains paramètres
+     * 
      * @param Trajet $trajet l'entité 'trajet' avec les choix de filtre
-     * @param bool $hydrated
-     *      si $hydrated = FALSE, le résultat est un tableau d'entités
-     *      si $hydrated = TRUE, le résultat est un tableau associatif représentant l'entité
      * 
      * @return array la liste des entités
      */
-    public function getTrajets($trajet, $hydrated = false) {
+    public function getTrajets($trajet) {
         // Création de la requête
         $em = $this->createQueryBuilder("t");
-        $em->select(["t", "villeD", "villeA", "typeT"]);
+        
+        // Récupération des attributs principaux d'un trajet
+        $em->select("t.id, villeD.ville AS villeDepart, villeA.ville as villeArrivee,
+                        t.dateDepart, t.heureDepart, t.nbPlace, t.duree, t.commentaire,
+                        t.nbKm, typeT.typeTrajet");
+        
+        // Récupération du nombre de place occupées
+        $em->addSelect("(SELECT COUNT(covoit.id) - 1 FROM BackOfficeBundle:Covoiturage covoit
+                        WHERE covoit.trajet = t) AS placeOccupee");
+
+        // Récupération du nom de la voiture
+        $em->addSelect("(SELECT CONCAT(m.marque, ' ', v.modele) FROM BackOfficeBundle:Voiture v, BackOfficeBundle:Marque m 
+                        WHERE possede.voiture = v AND v.marque = m) AS voiture");
+
+        // Récupération du nom de l'utilisateur
+        $em->addSelect("(SELECT CONCAT(u.prenom, ' ', u.nom) FROM BackOfficeBundle:Utilisateur u, BackOfficeBundle:Covoiturage c, BackOfficeBundle:TypeCovoit tc
+                        WHERE c.trajet = t AND c.typeCovoit = tc AND tc.type = 'Conducteur' AND c.utilisateur = u) AS utilisateur");
 
         // Ajout des jointures
         $em->innerJoin("t.villeDepart", "villeD");
         $em->innerJoin("t.villeArrivee", "villeA");
+        $em->innerJoin("t.possede", "possede");
         $em->innerJoin("t.typeTrajet", "typeT");
 
         // Ajout des conditions
@@ -124,12 +122,18 @@ class TrajetRepository extends \Doctrine\ORM\EntityRepository {
             $em->andWhere("typeT = :typeTrajet");
 
         // Ajout des paramètres
-        if($trajet->getHeureDepart())
+        if($trajet->getHeureDepart()) {
+            $before = clone $trajet->getHeureDepart();
+            $before->sub(new \DateInterval("PT2H"));
+            $after = clone $trajet->getHeureDepart();
+            $after->add(new \DateInterval("PT2H"));
+
             $em->setParameters([
                 // On récupère les trajets proposés entre 2h avant et 2h après l'heure demandée
-                "heureDepart_avant" => $trajet->getHeureDepart()->sub(new \DateInterval("PT2H")),
-                "heureDepart_apres" => $trajet->getHeureDepart()->add(new \DateInterval("PT2H"))
+                "heureDepart_avant" => $before,
+                "heureDepart_apres" => $after
             ]);
+        }
 
         if($trajet->getDateDepart())
             $em->setParameter("dateDepart", $trajet->getDateDepart());
@@ -143,12 +147,7 @@ class TrajetRepository extends \Doctrine\ORM\EntityRepository {
         if($trajet->getTypeTrajet())
             $em->setParameter("typeTrajet", $trajet->getTypeTrajet());
         
-        // Retour sous la forme d'un tableau associatif
-        if($hydrated)
-            return $em->getQuery()->getArrayResult();
-
-        // Retour sous la forme d'un tableau d'entité
-        return $em->getQuery()->getResult();
+        return $em->getQuery()->getArrayResult();
     }
 
 }

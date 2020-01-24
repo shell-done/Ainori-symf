@@ -53,8 +53,12 @@ class VilleController extends Controller {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Ville");
         $ville = $repository->getVille($id);
         
-        if(!$ville)
-            return new Response('', 404);
+        if(!$ville) {
+            $response = new Response('', 404);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            
+            return $response;
+        }
 
         $response = new JsonResponse($ville);
         $response->headers->set('Access-Control-Allow-Origin', '*');

@@ -36,27 +36,37 @@ use BackOfficeBundle\Entity\Covoiturage;
  */
 class TrajetController extends Controller {
      /**
-     * Récupère une entité 'trajet' définie par son id
+     * Renvoie un tableau Json représentants une entité 'trajet'
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
-     * @param int $id l'id de l'entité 'trajet'
+     * @param int $id l'id du trajet
      * 
      * @return Response|JsonResponse l'entité demandée si elle existe
      */
     public function getTrajetAction(Request $request, $id) { 
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Trajet");
-        $trajet = $repository->getTrajet($id, $hydrated = true);
+        $trajet = $repository->getTrajet($id);
 
         // Si l'entité n'existe pas, on renvoie un code 404 (Not found)
         if(!$trajet) {
-            return new Response('', 404);
+            $response = new Response('', 404);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            
+            return $response;
         }
 
-        return new JsonResponse($trajet);
+        $response = new JsonResponse($trajet);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        
+        return $response;
     }
 
      /**
-     * Récupère une liste filtrée des entités 'trajet'
+     * Renvoie un tableau Json représentants des entités 'trajet' partielles
+     * 
+     * Le résumé d'un trajet est constitué de son id, sa ville de départ et d'arrivée,
+     * sa date et son heure de départ ainsi que le nombre de place occupée et le nombre de
+     * place totale
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
      * 
@@ -77,13 +87,19 @@ class TrajetController extends Controller {
             $trajet->setVilleArrivee($request->query->get('villeArrivee') ? $em->getReference("BackOfficeBundle:Ville", $request->query->get('villeArrivee')) : null);
             $trajet->setTypeTrajet($request->query->get('typeTrajet') ? $em->getReference("BackOfficeBundle:TypeTrajet", $request->query->get('typeTrajet')) : null);
         } catch(\Exception $e) {
-            return new Response('', 400);
+            $response = new Response('', 400);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            
+            return $response;
         }
 
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Trajet");
-        $trajets = $repository->getTrajets($trajet, $hydrated = true);
+        $trajets = $repository->getTrajets($trajet);
 
-        return new JsonResponse($trajets);
+        $response = new JsonResponse($trajets);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        
+        return $response;
     }
 
     /**
@@ -100,7 +116,10 @@ class TrajetController extends Controller {
 
         // Si l'entité n'existe pas, on renvoie un code 404 (Not found)
         if(!$trajet) {
-            return new Response('', 404);
+            $response = new Response('', 404);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            
+            return $response;
         }
 
         $em->remove($trajet);
@@ -109,10 +128,16 @@ class TrajetController extends Controller {
         } catch (\Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException $e) {
             // Si l'entité existe mais qu'elle ne peut pas être supprimée car utilisée commme
             // foreign key dans la base, on renvoie un code 409 (Conflict)
-            return new Response('', 409);
+            $response = new Response('', 409);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            
+            return $response;
         }
 
-        return new Response();
+        $response = new Response();
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        
+        return $response;
     }
 
     /**

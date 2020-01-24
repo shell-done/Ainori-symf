@@ -15,8 +15,10 @@ namespace BackOfficeBundle\Repository;
  */
 class VilleRepository extends \Doctrine\ORM\EntityRepository {
     /**
-     * Récupère un tableau php représentant un résumé des entités 'ville' (id et nom)
+     * Récupère un tableau php représentant un résumé des entités 'ville'
      *
+     * Le résumé d'une ville est constitué de son id et de son nom
+     * 
      * @return array la liste des entités
      */
     public function getVilles() {
@@ -32,7 +34,7 @@ class VilleRepository extends \Doctrine\ORM\EntityRepository {
      * 
      * @param $id l'id de la ville à récupérer
      *
-     * @return array l'entité sous forme de tableau associatif
+     * @return array|null l'entité demandée sous forme de tableau ou null si celle-ci n'existe pas
      */
     public function getVille($id) {
         $em = $this->createQueryBuilder("v")
