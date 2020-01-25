@@ -66,6 +66,9 @@ class UtilisateurRepository extends \Doctrine\ORM\EntityRepository {
      */
     public function getUtilisateur($id, $hydrated = false) {
         $em = $this->createQueryBuilder("u")
+            ->select(["u", "v", "c"])
+            ->innerJoin("u.ville", "v")
+            ->innerJoin("u.categorie", "c")
             ->where("u.id = :id")
             ->setParameter("id", $id)
             ->getQuery();

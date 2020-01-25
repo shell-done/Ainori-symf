@@ -47,10 +47,16 @@ class PossedeController extends Controller {
 
         // Si l'entité n'existe pas, on renvoie un code 404 (Not found)
         if(!$possede) {
-            return new Response('', 404);
+            $response = new Response('', 404);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            
+            return $response;
         }
 
-        return new JsonResponse($possede);
+        $response = new JsonResponse($possede);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
 
     /**
@@ -65,7 +71,10 @@ class PossedeController extends Controller {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Possede");
         $possede = $repository->getPossedesUtilisateur($id, $hydrated = true);
 
-        return new JsonResponse($possede);
+        $response = new JsonResponse($possede);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
 
     /**
@@ -82,7 +91,10 @@ class PossedeController extends Controller {
 
         // Si l'entité n'existe pas, on renvoie un code 404 (Not found)
         if(!$possede) {
-            return new Response('', 404);
+            $response = new Response('', 404);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            
+            return $response;
         }
 
         $em->remove($possede);
@@ -91,10 +103,16 @@ class PossedeController extends Controller {
         } catch (\Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException $e) {
             // Si l'entité existe mais qu'elle ne peut pas être supprimée car utilisée commme
             // foreign key dans la base, on renvoie un code 409 (Conflict)
-            return new Response('', 409);
+            $response = new Response('', 409);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            
+            return $response;
         }
 
-        return new Response();
+        $response = new Response();
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
 
     /**
