@@ -55,7 +55,7 @@ class PossedeRepository extends \Doctrine\ORM\EntityRepository {
      */
     public function getPossedesUtilisateur($id, $hydrated = false) {
         $em = $this->createQueryBuilder("p")
-            ->select(["p", "v", "m"])
+            ->select(["p", "v", "m", "u"])
             ->innerJoin("p.voiture", "v")
             ->innerJoin("v.marque", "m")
             ->innerJoin("p.utilisateur", "u")

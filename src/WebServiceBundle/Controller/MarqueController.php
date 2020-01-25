@@ -35,7 +35,10 @@ class MarqueController extends Controller {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Marque");
         $marques = $repository->getMarques($hydrated = true);
 
-        return new JsonResponse($marques);
+        $response = new JsonResponse($marques);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
 
 }

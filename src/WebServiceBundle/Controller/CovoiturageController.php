@@ -51,7 +51,10 @@ class CovoiturageController extends Controller {
         $typeCovoit = $request->query->get('typeCovoit') ? $request->query->get('typeCovoit') : null;
         $covoiturages = $repository->getCovoituragesOfUtilisateur($id, $typeCovoit, $hydrated = true);
 
-        return new JsonResponse($covoiturages);
+        $response = new JsonResponse($covoiturages);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
 
     /**
@@ -67,7 +70,10 @@ class CovoiturageController extends Controller {
 
         $covoiturages = $repository->getCovoiturageOfTrajet($id, $hydrated = true);
 
-        return new JsonResponse($covoiturages);
+        $response = new JsonResponse($covoiturages);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
 
     /**

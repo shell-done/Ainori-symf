@@ -171,7 +171,10 @@ class UtilisateurController extends Controller {
 
         // Si celle-ci n'existe pas, on renvoie un code 404
         if(!$utilisateur) {
-            return new Response('', 404);
+            $response = new Response('', 404);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+
+            return $response;
         }
 
         // Création et validation du formulaire associé à l'entité
@@ -213,7 +216,7 @@ class UtilisateurController extends Controller {
         // Définition des headers, notamment pour autoriser le cross origin resource sharing (CORS)
         $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');
-        
+
         return $response;
     }
 

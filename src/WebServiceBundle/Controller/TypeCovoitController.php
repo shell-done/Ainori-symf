@@ -34,7 +34,10 @@ class TypeCovoitController extends Controller {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:TypeCovoit");
         $typecovoits = $repository->getTypeCovoits($hydrated = true);
 
-        return new JsonResponse($typecovoits);
+        $response = new JsonResponse($typecovoits);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
 
 }
