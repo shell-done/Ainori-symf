@@ -18,13 +18,10 @@ class VoitureRepository extends \Doctrine\ORM\EntityRepository {
      * Récupère la liste des entités 'voiture'
      *
      * @param int $id_marque l'id de la marque de la voiture
-     * @param bool $hydrated
-     *      si $hydrated = FALSE, le résultat est un tableau d'entités
-     *      si $hydrated = TRUE, le résultat est un tableau associatif représentant l'entité
      * 
      * @return array la liste des entités
      */
-    public function getVoitures($id_marque = null, $hydrated = false) {
+    public function getVoitures($id_marque = null) {
         $em = $this->createQueryBuilder("v")
             ->select(["v", "m"])
             ->innerJoin("v.marque", "m")
@@ -32,12 +29,7 @@ class VoitureRepository extends \Doctrine\ORM\EntityRepository {
             ->setParameter("id", $id_marque)
             ->getQuery();
         
-        // Retour sous la forme d'un tableau associatif
-        if($hydrated)
-            return $em->getArrayResult();
-
-        // Retour sous la forme d'un tableau d'entité
-        return $em->getResult();
+        return $em->getArrayResult();
     }
     
 }

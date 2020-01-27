@@ -32,7 +32,7 @@ class TypeCovoitController extends Controller {
      */
     public function getTypeCovoitsAction(Request $request) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:TypeCovoit");
-        $typecovoits = $repository->getTypeCovoits($hydrated = true);
+        $typecovoits = $repository->getTypeCovoits();
 
         $response = new JsonResponse($typecovoits);
         $response->headers->set('Access-Control-Allow-Origin', '*');

@@ -33,7 +33,7 @@ class VoitureController extends Controller {
      */
     public function getVoituresAction(Request $request, $id) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Voiture");
-        $voitures = $repository->getVoitures($id, $hydrated = true);
+        $voitures = $repository->getVoitures($id);
 
         $response = new JsonResponse($voitures);
         $response->headers->set('Access-Control-Allow-Origin', '*');

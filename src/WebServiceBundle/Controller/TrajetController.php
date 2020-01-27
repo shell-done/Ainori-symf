@@ -264,7 +264,10 @@ class TrajetController extends Controller {
         
         // Si celle-ci n'existe pas, on renvoit un code 404
         if(!$trajet) {
-            return new Response('', 404);
+            $response = new JsonResponse(json_encode(["Ce trajet n'existe pas"]), 404);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            
+            return $response;
         }
 
         // Création et validation du formulaire associé à l'entité

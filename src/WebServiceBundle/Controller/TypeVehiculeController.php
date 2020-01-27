@@ -32,7 +32,7 @@ class TypeVehiculeController extends Controller {
      */
     public function getTypeVehiculesAction(Request $request) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:TypeVehicule");
-        $typevehicules = $repository->getTypeVehicules($hydrated = true);
+        $typevehicules = $repository->getTypeVehicules();
 
         $response = new JsonResponse($typevehicules);
         $response->headers->set('Access-Control-Allow-Origin', '*');

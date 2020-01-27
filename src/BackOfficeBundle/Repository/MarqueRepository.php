@@ -16,23 +16,14 @@ namespace BackOfficeBundle\Repository;
 class MarqueRepository extends \Doctrine\ORM\EntityRepository {
     /**
      * Récupère la liste des entités 'marque'
-     *
-     * @param bool $hydrated
-     *      si $hydrated = FALSE, le résultat est un tableau d'entités
-     *      si $hydrated = TRUE, le résultat est un tableau associatif représentant l'entité
      * 
      * @return array la liste des entités
      */
-    public function getMarques($hydrated = false) {
+    public function getMarques() {
         $em = $this->createQueryBuilder("m")
             ->getQuery();
         
-        // Retour sous la forme d'un tableau associatif
-        if($hydrated)
-            return $em->getArrayResult();
-
-         // Retour sous la forme d'un tableau d'entité
-        return $em->getResult();
+        return $em->getArrayResult();
     }
     
 }

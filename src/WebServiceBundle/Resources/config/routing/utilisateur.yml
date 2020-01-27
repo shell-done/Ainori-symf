@@ -16,10 +16,3 @@ api_utilisateur_edit:
     methods: POST
     requirements:
         id: '\d+'
-
-api_utilisateur_delete:
-    path: /{id}
-    defaults: { _controller: WebServiceBundle:Utilisateur:deleteUtilisateur }
-    methods: DELETE
-    requirements:
-        id: '\d+'

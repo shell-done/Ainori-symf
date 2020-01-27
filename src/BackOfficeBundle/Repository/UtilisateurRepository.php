@@ -18,13 +18,10 @@ class UtilisateurRepository extends \Doctrine\ORM\EntityRepository {
      * Récupère la liste des dernières entités 'utilisateur' créées
      *
      * @param int $nbOfUtilisateurs le nombre d'utilisateurs souhaité
-     * @param bool $hydrated
-     *      si $hydrated = FALSE, le résultat est un tableau d'entités
-     *      si $hydrated = TRUE, le résultat est un tableau associatif représentant l'entité
      * 
      * @return array|null la liste des entités ou null si le nombre de trajet demandé est inférieur à 1
      */
-    public function getLastUtilisateurs($nbOfUtilisateurs, $hydrated = false) {
+    public function getLastUtilisateurs($nbOfUtilisateurs) {
         if($nbOfUtilisateurs < 1)
             return null;
 
@@ -33,12 +30,7 @@ class UtilisateurRepository extends \Doctrine\ORM\EntityRepository {
             ->setMaxResults($nbOfUtilisateurs)
             ->getQuery();
 
-        // Retour sous la forme d'un tableau associatif
-        if($hydrated)
-            return $em->getArrayResult();
-
-        // Retour sous la forme d'un tableau d'entité
-        return $em->getResult();
+        return $em->getArrayResult();
     }
 
     /**
@@ -58,13 +50,10 @@ class UtilisateurRepository extends \Doctrine\ORM\EntityRepository {
      * Récupère une entité 'utilisateur' définie par son id
      *
      * @param int $id l'id de l'entité
-     * @param bool $hydrated
-     *      si $hydrated = FALSE, le résultat est un tableau d'entités
-     *      si $hydrated = TRUE, le résultat est un tableau associatif représentant l'entité
      * 
      * @return Utilisateur|null l'entité demandée ou null si celle-ci n'existe pas
      */
-    public function getUtilisateur($id, $hydrated = false) {
+    public function getUtilisateur($id) {
         $em = $this->createQueryBuilder("u")
             ->select(["u", "v", "c"])
             ->innerJoin("u.ville", "v")
@@ -73,12 +62,7 @@ class UtilisateurRepository extends \Doctrine\ORM\EntityRepository {
             ->setParameter("id", $id)
             ->getQuery();
 
-        // Retour sous la forme d'un tableau associatif
-        if($hydrated)
-            return $em->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-
-        // Retour sous la forme d'un tableau d'entité
-        return $em->getOneOrNullResult();
+        return $em->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
     
 }

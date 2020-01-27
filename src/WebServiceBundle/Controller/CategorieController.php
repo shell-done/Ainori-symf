@@ -33,7 +33,7 @@ class CategorieController extends Controller {
      */
     public function getCategoriesAction(Request $request) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Categorie");
-        $categories = $repository->getCategories($hydrated = true);
+        $categories = $repository->getCategories();
 
         $response = new JsonResponse($categories);
         $response->headers->set('Access-Control-Allow-Origin', '*');
