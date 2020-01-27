@@ -4,7 +4,7 @@
  * Fichier du controller 'CovoiturageController' utilisé pour proposer les différentes requêtes
  * de l'API relatives à l'entité 'covoiturage'
  * Pour plus d'informations, veuillez consulter la documentation API associée au projet
- * 
+ *
  * @author Margaux DOUDET <margaux.doudet@isen-ouest.yncrea.fr>
  * @version 1.0.0
  * @package WebServiceBundle
@@ -40,17 +40,17 @@ class CovoiturageController extends Controller {
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
      * @param int $id l'id de la covoiturage
-     * 
+     *
      * @return Response|JsonResponse l'entité demandée si elle existe
      */
     public function getCovoiturageAction(Request $request, $id) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Covoiturage");
         $covoiturage = $repository->getCovoiturage($id);
-        
+
         if(!$covoiturage) {
             $response = new Response('', 404);
             $response->headers->set('Access-Control-Allow-Origin', '*');
-            
+
             return $response;
         }
 
@@ -65,7 +65,7 @@ class CovoiturageController extends Controller {
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
      * @param int $id l'id de l'utilisateur
-     * 
+     *
      * @return Response|JsonResponse la liste des entités
      */
     public function getCovoituragesOfUtilisateurAction(Request $request, $id) {
@@ -74,7 +74,7 @@ class CovoiturageController extends Controller {
 
         $response = new JsonResponse($covoiturages);
         $response->headers->set('Access-Control-Allow-Origin', '*');
-        
+
         return $response;
     }
 
@@ -84,7 +84,7 @@ class CovoiturageController extends Controller {
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
      * @param int $id_user l'id de l'utilisateur
      * @param int $id_trajet l'id du trajet
-     * 
+     *
      * @return Response l'entité créée
      */
     public function registerToATrajetAction(Request $request, $id_user, $id_trajet) {
@@ -93,7 +93,7 @@ class CovoiturageController extends Controller {
         // Création d'une entité ainsi que d'un formulaire associé
         $covoiturage = new Covoiturage();
         $form = $this->createForm('WebServiceBundle\Form\CovoiturageType', $covoiturage);
-        
+
         // Récupération des attributs de l'entité
         $typeCovoitRepo = $this->getDoctrine()->getRepository(TypeCovoit::class);
         $passager = $typeCovoitRepo->findOneByType("Passager");
@@ -106,20 +106,20 @@ class CovoiturageController extends Controller {
             // S'il n'y a pas d'erreur
             $repository = $this->getDoctrine()->getRepository(Covoiturage::class);
             $covoiturages = $repository->findById($covoiturage->getTrajet()->getId());
-            
+
             // On vérifie qu'il reste de la place sur ce trajet
             if(count($covoiturages) >= $covoiturage->getTrajet()->getNbPlace() + 1) {
                 $form->get("trajet")->addError(new FormError("Toutes les places pour ce trajet sont déjà prises"));
                 $errors = TRUE;
             }
-            
+
             // Création d'une entité Co2 associée à l'économie de ce trajet
             $co2 = new Co2();
             $co2->setActif(true);
             $valCo2 = 0.253 * $covoiturage->getTrajet()->getNbKm();
             $co2->setValCo2($valCo2);
             $covoiturage->setCo2($co2);
-            
+
             if(!$errors) {
                 // S'il n'y a aucune erreur, on sauvegarde les entités en base
                 $em = $this->getDoctrine()->getManager();
@@ -131,13 +131,13 @@ class CovoiturageController extends Controller {
         else {
             $errors = TRUE;
         }
-        
+
         $encoders = [new JsonEncoder()];
         $normalizers = [new ObjectNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
-    
+
         $response = new Response();
-        
+
         if($errors) {
             // En cas d'erreur, on renvoie un code 400 avec la liste des erreurs générées
             $errors = (new FormErrorsConverter($form))->toStringArray(true);
@@ -149,13 +149,12 @@ class CovoiturageController extends Controller {
             $response->setContent($serializer->serialize($covoiturage, 'json'));
             $response->setStatusCode(201);
         }
-    
+
         // Définition des headers, notamment pour autoriser le cross origin resource sharing (CORS)
         $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');
-        
+
         return $response;
     }
 
 }
-   

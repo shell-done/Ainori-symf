@@ -4,7 +4,7 @@
  * Fichier du controller 'PossedeController' utilisé pour proposer les différentes requêtes
  * de l'API relatives à l'entité 'possede'
  * Pour plus d'informations, veuillez consulter la documentation API associée au projet
- * 
+ *
  * @author Margaux DOUDET <margaux.doudet@isen-ouest.yncrea.fr>
  * @version 1.0.0
  * @package WebServiceBundle
@@ -38,7 +38,7 @@ class PossedeController extends Controller {
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
      * @param int $id l'id de l'entité 'possede' à récupérer
-     * 
+     *
      * @return Response|JsonResponse l'entité demandée si elle existe
      */
     public function getPossedeAction(Request $request, $id) {
@@ -64,7 +64,7 @@ class PossedeController extends Controller {
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
      * @param int $id l'id de l'utilisateur
-     * 
+     *
      * @return JsonResponse la liste des entités
      */
     public function getPossedesUtilisateurAction(Request $request, $id) {
@@ -82,7 +82,7 @@ class PossedeController extends Controller {
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
      * @param int $id l'id de l'entité 'possede' à supprimer
-     * 
+     *
      * @return Response une réponse vide avec un code HTTP indiquant la réussite ou l'échec de l'opération
      */
     public function deletePossedeAction(Request $request, $id) {
@@ -119,7 +119,7 @@ class PossedeController extends Controller {
      * Créée une entité 'possede'
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
-     * 
+     *
      * @return Response l'entité créée
      */
     public function newPossedeAction(Request $request) {
@@ -128,7 +128,7 @@ class PossedeController extends Controller {
         // Création d'une entité ainsi que d'un formulaire associé
         $possede = new Possede();
         $form = $this->createForm('WebServiceBundle\Form\PossedeType', $possede);
-        
+
         // Validation du formulaire avec le contenu de la requête POST
         $form->submit($request->request->all());
 
@@ -141,13 +141,13 @@ class PossedeController extends Controller {
         else {
             $errors = TRUE;
         }
-        
+
         $encoders = [new JsonEncoder()];
         $normalizers = [new ObjectNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
-    
+
         $response = new Response();
-        
+
         if($errors) {
             // En cas d'erreur, on renvoie un code 400 avec la liste des erreurs générées
             $errors = (new FormErrorsConverter($form))->toStringArray(true);
@@ -163,7 +163,7 @@ class PossedeController extends Controller {
         // Définition des headers, notamment pour autoriser le cross origin resource sharing (CORS)
         $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');
-        
+
         return $response;
     }
 
@@ -172,7 +172,7 @@ class PossedeController extends Controller {
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
      * @param int $id l'id de l'entité 'possede' à modifier
-     * 
+     *
      * @return Response l'entité modifiée
      */
      public function editPossedeAction(Request $request, $id) {
@@ -181,7 +181,7 @@ class PossedeController extends Controller {
         // Récupération de l'entité à modifier
         $possedeRepo = $this->getDoctrine()->getRepository(Possede::class);
         $possede = $possedeRepo->findOneById($id);
-        
+
         // Si celle-ci n'existe pas, on renvoit un code 404
         if(!$possede) {
             return new Response('', 404);
@@ -200,13 +200,13 @@ class PossedeController extends Controller {
         else {
             $errors = TRUE;
         }
-        
+
         $encoders = [new JsonEncoder()];
         $normalizers = [new ObjectNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
-    
+
         $response = new Response();
-        
+
         if($errors) {
             // En cas d'erreur, on renvoie un code 400 avec la liste des erreurs générées
             $errors = (new FormErrorsConverter($form))->toStringArray(true);
@@ -222,7 +222,7 @@ class PossedeController extends Controller {
         // Définition des headers, notamment pour autoriser le cross origin resource sharing (CORS)
         $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');
-        
+
         return $response;
      }
 

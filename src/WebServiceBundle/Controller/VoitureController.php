@@ -35,7 +35,10 @@ class VoitureController extends Controller {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Voiture");
         $voitures = $repository->getVoitures($id, $hydrated = true);
 
-        return new JsonResponse($voitures);
+        $response = new JsonResponse($voitures);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
 
 }

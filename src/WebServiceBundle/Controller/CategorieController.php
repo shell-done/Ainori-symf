@@ -35,7 +35,10 @@ class CategorieController extends Controller {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Categorie");
         $categories = $repository->getCategories($hydrated = true);
 
-        return new JsonResponse($categories);
+        $response = new JsonResponse($categories);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
 
 }

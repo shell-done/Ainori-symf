@@ -46,10 +46,16 @@ class UtilisateurController extends Controller {
 
         // Si l'entité n'existe pas, on renvoie un code 404 (Not found)
         if(!$utilisateur) {
-            return new Response('', 404);
+            $response = new Response('', 404);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            
+            return $response;
         }
 
-        return new JsonResponse($utilisateur);
+        $response = new JsonResponse($utilisateur);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
 
     /**
@@ -66,7 +72,10 @@ class UtilisateurController extends Controller {
 
         // Si l'entité n'existe pas, on renvoie un code 404 (Not found)
         if(!$utilisateur) {
-            return new Response('', 404);
+            $response = new Response('', 404);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            
+            return $response;
         }
 
         $em->remove($utilisateur);
@@ -75,14 +84,20 @@ class UtilisateurController extends Controller {
         } catch (\Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException $e) {
             // Si l'entité existe mais qu'elle ne peut pas être supprimée car utilisée commme
             // foreign key dans la base, on renvoie un code 409 (Conflict)
-            return new Response('', 409);
+            $response = new Response('', 409);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            
+            return $response;
         }
 
-        return new Response();
+        $response = new Response();
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
 
     /**
-     * Crée une entité 'utilisateur'
+     * Créée une entité 'utilisateur'
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
      * @param UserPasswordEncoderInterface $encoder l'objet qui sert à l'encodage des mots de passe utilisateurs
@@ -156,7 +171,10 @@ class UtilisateurController extends Controller {
 
         // Si celle-ci n'existe pas, on renvoie un code 404
         if(!$utilisateur) {
-            return new Response('', 404);
+            $response = new Response('', 404);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+
+            return $response;
         }
 
         // Création et validation du formulaire associé à l'entité
@@ -198,7 +216,7 @@ class UtilisateurController extends Controller {
         // Définition des headers, notamment pour autoriser le cross origin resource sharing (CORS)
         $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');
-        
+
         return $response;
     }
 
