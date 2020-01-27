@@ -55,7 +55,7 @@ class TrajetRepository extends \Doctrine\ORM\EntityRepository {
      * 
      * @return Trajet|null l'entité demandée sous forme de tableau ou null si celle-ci n'existe pas
      */
-    public function getTrajet($id, $hydrated = false) {
+    public function getTrajet($id) {
         $em = $this->createQueryBuilder("t")
             ->select(["t", "villeD", "villeA", "typeT"])
             ->innerJoin("t.villeDepart", "villeD")
@@ -150,4 +150,50 @@ class TrajetRepository extends \Doctrine\ORM\EntityRepository {
         return $em->getQuery()->getArrayResult();
     }
 
+    /**
+     * Récupère un tableau php représentant un résumé des entités 'trajet' d'un utilisateur (celles où il est conducteur)
+     * 
+     * @param int $id l'id de l'utilisateur
+     * 
+     * @return array la liste des entités
+     */
+    public function getTrajetsOfUtilisateur($id) {
+        // Création de la requête
+        $em = $this->createQueryBuilder("t");
+        
+        // Récupération des attributs principaux d'un trajet
+        $em->select("t.id, villeD.ville AS villeDepart, villeA.ville as villeArrivee,
+                        t.dateDepart, t.heureDepart, t.nbPlace, t.duree, t.commentaire,
+                        t.nbKm, typeT.typeTrajet");
+        
+        // Récupération du nombre de place occupées
+        $em->addSelect("(SELECT COUNT(c1.id) - 1 FROM BackOfficeBundle:Covoiturage c1
+                        WHERE c1.trajet = t) AS placeOccupee");
+
+        // Récupération du nom de la voiture
+        $em->addSelect("(SELECT CONCAT(m.marque, ' ', v.modele) FROM BackOfficeBundle:Voiture v, BackOfficeBundle:Marque m 
+                        WHERE possede.voiture = v AND v.marque = m) AS voiture");
+
+        // Récupération du nom de l'utilisateur
+        $em->addSelect("(SELECT CONCAT(u.prenom, ' ', u.nom) FROM BackOfficeBundle:Utilisateur u, BackOfficeBundle:Covoiturage c2, BackOfficeBundle:TypeCovoit tc
+                        WHERE c2.trajet = t AND c2.typeCovoit = tc AND tc.type = 'Conducteur' AND c2.utilisateur = u) AS utilisateur");
+
+        $em->from("BackOfficeBundle:Covoiturage", "covoit");
+
+        // Ajout des jointures
+        $em->innerJoin("t.villeDepart", "villeD");
+        $em->innerJoin("t.villeArrivee", "villeA");
+        $em->innerJoin("t.possede", "possede");
+        $em->innerJoin("t.typeTrajet", "typeT");
+        $em->innerJoin("covoit.typeCovoit", "typeCovoit");
+        $em->innerJoin("covoit.utilisateur", "util");
+
+        $em->where("covoit.trajet = t");
+        $em->andWhere("util.id = :id");
+        $em->andWhere("typeCovoit.type = 'Conducteur'");
+
+        $em->setParameter("id", $id);
+        
+        return $em->getQuery()->getArrayResult();
+    }
 }

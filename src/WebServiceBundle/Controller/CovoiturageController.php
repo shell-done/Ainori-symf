@@ -36,38 +36,46 @@ use BackOfficeBundle\Entity\Co2;
  */
 class CovoiturageController extends Controller {
     /**
-     * Récupère la liste des entités 'covoiturage' associés à un utilisateur
-     * Le type de covoit peut être spécifié dans l'url avec le paramètre 'typeCovoit'
+     * Renvoie un tableau Json représentants une entité 'covoiturage'
+     *
+     * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
+     * @param int $id l'id de la covoiturage
+     * 
+     * @return Response|JsonResponse l'entité demandée si elle existe
+     */
+    public function getCovoiturageAction(Request $request, $id) {
+        $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Covoiturage");
+        $covoiturage = $repository->getCovoiturage($id);
+        
+        if(!$covoiturage) {
+            $response = new Response('', 404);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            
+            return $response;
+        }
+
+        $response = new JsonResponse($covoiturage);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
+    }
+
+    /**
+     * Renvoie un tableau Json représentants les entités 'covoiturage' où l'utilisateur est passager
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
      * @param int $id l'id de l'utilisateur
      * 
-     * @return JsonResponse la liste des entités
+     * @return Response|JsonResponse la liste des entités
      */
     public function getCovoituragesOfUtilisateurAction(Request $request, $id) {
         $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Covoiturage");
+        $covoiturages = $repository->getCovoituragesOfUtilisateur($id);
 
-        // Si le typeCovoit est spécifié, alors on récupère sa valeur sinon on le définie à null
-        $typeCovoit = $request->query->get('typeCovoit') ? $request->query->get('typeCovoit') : null;
-        $covoiturages = $repository->getCovoituragesOfUtilisateur($id, $typeCovoit, $hydrated = true);
-
-        return new JsonResponse($covoiturages);
-    }
-
-    /**
-     * Récupère la liste des entités 'covoiturage' associées à un trajet
-     *
-     * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
-     * @param int $id l'id du trajet
-     * 
-     * @return JsonResponse la liste des entités
-     */
-    public function getCovoituragesOfTrajetAction(Request $request, $id) {
-        $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Covoiturage");
-
-        $covoiturages = $repository->getCovoiturageOfTrajet($id, $hydrated = true);
-
-        return new JsonResponse($covoiturages);
+        $response = new JsonResponse($covoiturages);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        
+        return $response;
     }
 
     /**
@@ -97,7 +105,7 @@ class CovoiturageController extends Controller {
         if ($form->isValid()) {
             // S'il n'y a pas d'erreur
             $repository = $this->getDoctrine()->getRepository(Covoiturage::class);
-            $covoiturages = $repository->getCovoiturageOfTrajet($covoiturage->getTrajet()->getId());
+            $covoiturages = $repository->findById($covoiturage->getTrajet()->getId());
             
             // On vérifie qu'il reste de la place sur ce trajet
             if(count($covoiturages) >= $covoiturage->getTrajet()->getNbPlace() + 1) {

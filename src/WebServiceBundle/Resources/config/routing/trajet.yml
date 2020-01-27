@@ -10,8 +10,15 @@ api_trajet_show:
     requirements:
         id: '\d+'
 
+api_trajet_utilisateur:
+    path: /utilisateur/{id}
+    defaults: { _controller: WebServiceBundle:Trajet:getTrajetsOfUtilisateur }
+    methods: GET
+    requirements:
+        id: '\d+'
+
 api_trajet_new:
-    path: /utilisateurs/{id}
+    path: /utilisateur/{id}
     defaults: { _controller: WebServiceBundle:Trajet:newTrajet }
     methods: POST
     requirements:

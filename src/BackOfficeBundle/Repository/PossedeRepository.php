@@ -20,13 +20,10 @@ class PossedeRepository extends \Doctrine\ORM\EntityRepository {
      * Récupère une entité 'possede' définie par son id
      *
      * @param int $id l'id de l'entité a récupérer
-     * @param bool $hydrated
-     *      si $hydrated = FALSE, le résultat est un tableau d'entités
-     *      si $hydrated = TRUE, le résultat est un tableau associatif représentant l'entité
      *  
      * @return Possede|null l'entité demandée ou null si celle-ci n'existe pas
      */
-    public function getPossede($id, $hydrated = false) {
+    public function getPossede($id) {
         $em = $this->createQueryBuilder("p")
             ->select(["p", "v", "m"])
             ->innerJoin("p.voiture", "v")
@@ -35,25 +32,17 @@ class PossedeRepository extends \Doctrine\ORM\EntityRepository {
             ->setParameter("id", $id)
             ->getQuery();
 
-        // Retour sous la forme d'un tableau associatif
-        if($hydrated)
-            return $em->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-        
-        // Retour sous la forme d'un tableau d'entité
-        return $em->getOneOrNullResult();
+        return $em->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
 
     /**
      * Récupère la liste des entités 'possede' d'un utilisateur
      *
      * @param int $id l'id de l'utilisateur
-     * @param bool $hydrated
-     *      si $hydrated = FALSE, le résultat est un tableau d'entités
-     *      si $hydrated = TRUE, le résultat est un tableau associatif représentant l'entité
      * 
      * @return array la liste des entités
      */
-    public function getPossedesUtilisateur($id, $hydrated = false) {
+    public function getPossedesUtilisateur($id) {
         $em = $this->createQueryBuilder("p")
             ->select(["p", "v", "m"])
             ->innerJoin("p.voiture", "v")
@@ -63,12 +52,7 @@ class PossedeRepository extends \Doctrine\ORM\EntityRepository {
             ->setParameter("id", $id)
             ->getQuery();
 
-        // Retour sous la forme d'un tableau associatif
-        if($hydrated)
-            return $em->getArrayResult();
-
-        // Retour sous la forme d'un tableau d'entité
-        return $em->getResult();
+        return $em->getArrayResult();
     }
     
 }

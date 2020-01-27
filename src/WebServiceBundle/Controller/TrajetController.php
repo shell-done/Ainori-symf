@@ -103,6 +103,24 @@ class TrajetController extends Controller {
     }
 
     /**
+     * Renvoie un tableau Json représentants les entités 'trajet' où l'utilisateur est le conducteur
+     *
+     * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
+     * @param int $id l'id de l'utilisateur
+     * 
+     * @return Response|JsonResponse la liste des entités
+     */
+    public function getTrajetsOfUtilisateurAction(Request $request, $id) {
+        $repository = $this->getDoctrine()->getRepository("BackOfficeBundle:Trajet");
+        $trajets = $repository->getTrajetsOfUtilisateur($id);
+
+        $response = new JsonResponse($trajets);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        
+        return $response;
+    }
+
+    /**
      * Supprime une entité 'trajet' définie par son id
      *
      * @param Request $request l'objet qui gère la requête HTTP (passé automatiquement par Symfony)
@@ -161,8 +179,12 @@ class TrajetController extends Controller {
         if ($form->isValid()) {
             // On vérifie que l'utilisateur existe
             $utilisateur = $this->getDoctrine()->getRepository("BackOfficeBundle:Utilisateur")->findOneById($id);
-            if(!$utilisateur)
-                return new JsonResponse(json_encode(["Cet utilisateur n'existe pas"]), 404);
+            if(!$utilisateur) {
+                $response = new JsonResponse(json_encode(["Cet utilisateur n'existe pas"]), 404);
+                $response->headers->set('Access-Control-Allow-Origin', '*');
+                
+                return $response;
+            }
 
             // S'il n'y a pas d'erreur, on créé le covoiturage correspondant à la
             // participation du conducteur au trajet en cours de création

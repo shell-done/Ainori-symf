@@ -69,69 +69,64 @@ class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
     }
 
     /**
-     * Récupère la liste des entités 'covoiturage' associées à un trajet
-     *
-     * @param int $trajet l'id du trajet des covoiturages
-     * @param bool $hydrated
-     *      si $hydrated = FALSE, le résultat est un tableau d'entités
-     *      si $hydrated = TRUE, le résultat est un tableau associatif représentant l'entité
+     * Récupère un tableau php représentant une entité 'covoiturage' complète
      * 
-     * @return array la liste des entités
+     * @param $id l'id de la covoiturage à récupérer
+     *
+     * @return array|null l'entité demandée sous forme de tableau ou null si celle-ci n'existe pas
      */
-    public function getCovoiturageOfTrajet($id, $hydrated = false) {
-        $em = $this->createQueryBuilder("covoit")
-            ->select(["covoit", "trajet"])
-            ->innerJoin("covoit.trajet", "trajet")
-            ->where("trajet.id = :trajet")
-            ->setParameter("trajet", $id)
+    public function getCovoiturage($id) {
+        $em = $this->createQueryBuilder("c")
+            ->where("c.id = :id")
+            ->setParameter("id", $id)
             ->getQuery();
-        
-        // Retour sous la forme d'un tableau associatif
-        if($hydrated)
-            return $em->getArrayResult();
 
-        // Retour sous la forme d'un tableau d'entité
-        return $em->getResult();
+        return $em->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
 
     /**
-     * Récupère la liste des entités 'covoiturage' qu'un utilisateur a créé
-     *
+     * Récupère un tableau php représentant un résumé des entités 'covoiturage' d'un utilisateur (celles où il est passager)
+     * 
      * @param int $id l'id de l'utilisateur
-     * @param string|null $typeCovoit
-     *      si $typeCovoit = null, tous les covoiturages sont récupérés
-     *      sinon, seuls ceux dont le typeCovoit est celui passé en paramètre (comme 'Conducteur' ou 'Passager')
-     *      sont récupérés
-     * @param bool $hydrated
-     *      si $hydrated = FALSE, le résultat est un tableau d'entités
-     *      si $hydrated = TRUE, le résultat est un tableau associatif représentant l'entité
      * 
      * @return array la liste des entités
      */
-    public function getCovoituragesOfUtilisateur($id, $typeCovoit = null, $hydrated = false) {
-        $em = $this->createQueryBuilder("c")
-            ->select(["c", "t", "villeD", "villeA", "typeT", "typeC"])
-            ->innerJoin("c.trajet", "t")
-            ->innerJoin("t.villeDepart", "villeD")
-            ->innerJoin("t.villeArrivee", "villeA")
-            ->innerJoin("t.typeTrajet", "typeT")
-            ->innerJoin("c.typeCovoit", "typeC")
-            ->innerJoin("c.utilisateur", "u")
-            ->where("u.id = :id");
+    public function getCovoituragesOfUtilisateur($id) {
+        // Création de la requête
+        $em = $this->createQueryBuilder("covoit");
+        
+        // Récupération des attributs principaux d'un trajet
+        $em->select("covoit.id, villeD.ville AS villeDepart, villeA.ville as villeArrivee,
+                        t.dateDepart, t.heureDepart, t.nbPlace, t.duree, t.commentaire,
+                        t.nbKm, typeT.typeTrajet");
+        
+        // Récupération du nombre de place occupées
+        $em->addSelect("(SELECT COUNT(c1.id) - 1 FROM BackOfficeBundle:Covoiturage c1
+                        WHERE c1.trajet = t) AS placeOccupee");
 
-        if($typeCovoit) {
-            $em->andWhere("typeC.type = :typeTrajet");
-            $em->setParameter("typeTrajet", ucwords($typeCovoit));
-        }
+        // Récupération du nom de la voiture
+        $em->addSelect("(SELECT CONCAT(m.marque, ' ', v.modele) FROM BackOfficeBundle:Voiture v, BackOfficeBundle:Marque m 
+                        WHERE possede.voiture = v AND v.marque = m) AS voiture");
+
+        // Récupération du nom de l'utilisateur
+        $em->addSelect("(SELECT CONCAT(u.prenom, ' ', u.nom) FROM BackOfficeBundle:Utilisateur u, BackOfficeBundle:Covoiturage c2, BackOfficeBundle:TypeCovoit tc
+                        WHERE c2.trajet = t AND c2.typeCovoit = tc AND tc.type = 'Conducteur' AND c2.utilisateur = u) AS utilisateur");
+
+        // Ajout des jointures
+        $em->innerJoin("covoit.trajet", "t");
+        $em->innerJoin("t.villeDepart", "villeD");
+        $em->innerJoin("t.villeArrivee", "villeA");
+        $em->innerJoin("t.possede", "possede");
+        $em->innerJoin("t.typeTrajet", "typeT");
+        $em->innerJoin("covoit.typeCovoit", "typeCovoit");
+        $em->innerJoin("covoit.utilisateur", "util");
+
+        $em->where("util.id = :id");
+        $em->andWhere("typeCovoit.type = 'Passager'");
 
         $em->setParameter("id", $id);
-
-        // Retour sous la forme d'un tableau associatif
-        if($hydrated)
-            return $em->getQuery()->getArrayResult();
         
-        // Retour sous la forme d'un tableau d'entité
-        return $em->getQuery()->getResult();
+        return $em->getQuery()->getArrayResult();
     }
 
 }

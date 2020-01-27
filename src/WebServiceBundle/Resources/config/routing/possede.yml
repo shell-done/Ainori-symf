@@ -1,5 +1,5 @@
 api_possede_utilisateur_list:
-    path: /utilisateurs/{id}
+    path: /utilisateur/{id}
     defaults: { _controller: WebServiceBundle:Possede:getPossedesUtilisateur }
     methods: GET
     requirements:
