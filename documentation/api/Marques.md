@@ -1,47 +1,62 @@
-# TypeTrajets
+# Marques
 
 ## Informations générales
 #### Description
-Un typeTrajet indique si le trajet est régulier ou ponctuel.
+Une marque représente la marque de la voiture associée à un trajet.
 
-#### Attributs complets d'un TypeTrajet
+#### Attributs complets de Marque
 | Variable        | Type                  | Nullable | Description                            |
 | --------------- | --------------------- | -------- | -------------------------------------- |
 | id              | Number (int)          | NON      | Identifiant unique                     |
-| typeTrajet      | String                | NON      | Type de trajet                         |
+| marque          | String                | NON      | Marque de la voiture                   |
 
 #### Résumé des requêtes
 | Méthode                            | Requête                                      |
 | ---------------------------------- | ---------------------------------------------|
-| <span class="get">GET</span>       | foang.cir3-frm-smf-ang-xx/api/typetrajets    |
+| <span class="get">GET</span>       | foang.cir3-frm-smf-ang-xx/api/marques        |
 
 <br>
 <div class="page-break"></div>
 
 ## Requêtes
-#### <span class="get">GET</span> TypeTrajets
+#### <span class="get">GET</span> Marques
 
-Retourne une liste de typeTrajets.
+Retourne une liste de marques.
 
-`GET foang.cir3-frm-smf-ang-xx/api/typetrajets`
+`GET foang.cir3-frm-smf-ang-xx/api/marques`
 
 ##### Réponse
 | Statut          | Signification                                                             |
 | --------------- | ------------------------------------------------------------------------- |
 | 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. |
-|                 | Retourne 'Attributs complets de TypeTrajets'                              |
+|                 | Retourne 'Attributs complets de Marque'                                   |
 
-'Attributs complets de TypeTrajets' (exemple) :
+'Attributs complets de Marque' (exemple) :
 
 ```json
 [
     {
-        "typeTrajet": "Régulier",
+        "marque": "Peugeot",
         "id": 1
     },
     {
-        "typeTrajet": "Ponctuel",
+        "marque": "Renault",
         "id": 2
+    },
+    {
+        "marque": "Opel",
+        "id": 3
+    },
+    {
+        "marque": "Citroën",
+        "id": 4
+    },
+    {
+        "marque": "Volkswagen",
+        "id": 5
+    },
+    {
+        //...
     }
 ]
 ```

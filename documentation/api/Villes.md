@@ -5,7 +5,7 @@
 Une ville indique le point de départ et le point d'arrivée d'un trajet. Un utilisateur est également obligatoirement associé
 à une ville.
 
-#### Attributs d'un Trajet
+#### Attributs complets d'une Ville
 | Variable        | Type                  | Nullable | Description                            |
 | --------------- | --------------------- | -------- | -------------------------------------- |
 | id              | Number (int)          | NON      | Identifiant unique                     |
@@ -13,6 +13,12 @@ Une ville indique le point de départ et le point d'arrivée d'un trajet. Un uti
 | ville           | String                | NON      | Nom de la ville                        |
 | codePostal      | Number (int)          | NON      | Code postal de la ville                |
 | dep             | Number (int)          | NON      | Numéro du département de la ville      |
+
+#### Attributs résumés d'une Ville
+| Variable        | Type                  | Nullable | Description                            |
+| --------------- | --------------------- | -------- | -------------------------------------- |
+| id              | Number (int)          | NON      | Identifiant unique                     |
+| ville           | String                | NON      | Nom de la ville                        |
 
 #### Résumé des requêtes
 | Méthode                            | Requête                                    |
@@ -26,7 +32,7 @@ Une ville indique le point de départ et le point d'arrivée d'un trajet. Un uti
 ## Requêtes
 #### <span class="get">GET</span> Ville
 
-Retourne une ville spécifique
+Retourne une ville spécifique.
 
 `GET foang.cir3-frm-smf-ang-xx/api/villes/:id`
 
@@ -35,8 +41,15 @@ Retourne une ville spécifique
 | --------------- | --------------------- | --------- | -------------------------------------- |
 | id              | Number (int)          | NON       | Identifiant de la ville à récupérer    |
 
-##### Réponse (exemple)
-200 OK
+##### Réponse
+| Statut          | Signification                                                             |
+| --------------- | ------------------------------------------------------------------------- |
+| 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. |
+|                 | Retourne 'Attributs complets de Ville'                                    |
+| 404 Not Found   | Le serveur n'a pas trouvé la ressource demandée. L'id fournit n'est       |
+|                 | probablement associé à aucune ville.                                      |
+
+'Attributs complets de Ville' (exemple) :
 
 ```json
 {
@@ -57,8 +70,13 @@ Retourne une liste de villes.
 
 `GET foang.cir3-frm-smf-ang-xx/api/villes`
 
-##### Réponse (exemple)
-200 OK
+##### Réponse
+| Statut          | Signification                                                             |
+| --------------- | ------------------------------------------------------------------------- |
+| 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. |
+|                 | Retourne 'Attributs résumés de Ville'                                     |
+
+'Attributs résumés de Ville' (exemple) :
 
 ```json
 [

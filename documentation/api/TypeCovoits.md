@@ -1,46 +1,46 @@
-# TypeTrajets
+# TypeCovoits
 
 ## Informations générales
 #### Description
-Un typeTrajet indique si le trajet est régulier ou ponctuel.
+Un typeCovoit indique si un utilisateur a réservé un covoiturage en tant que conducteur ou passager.
 
-#### Attributs complets d'un TypeTrajet
+#### Attributs complets d'un TypeCovoit
 | Variable        | Type                  | Nullable | Description                            |
 | --------------- | --------------------- | -------- | -------------------------------------- |
 | id              | Number (int)          | NON      | Identifiant unique                     |
-| typeTrajet      | String                | NON      | Type de trajet                         |
+| type            | String                | NON      | Type de covoiturage                    |
 
 #### Résumé des requêtes
 | Méthode                            | Requête                                      |
 | ---------------------------------- | ---------------------------------------------|
-| <span class="get">GET</span>       | foang.cir3-frm-smf-ang-xx/api/typetrajets    |
+| <span class="get">GET</span>       | foang.cir3-frm-smf-ang-xx/api/typecovoits    |
 
 <br>
 <div class="page-break"></div>
 
 ## Requêtes
-#### <span class="get">GET</span> TypeTrajets
+#### <span class="get">GET</span> TypeCovoits
 
-Retourne une liste de typeTrajets.
+Retourne une liste de typeCovoits.
 
-`GET foang.cir3-frm-smf-ang-xx/api/typetrajets`
+`GET foang.cir3-frm-smf-ang-xx/api/typecovoits`
 
 ##### Réponse
 | Statut          | Signification                                                             |
 | --------------- | ------------------------------------------------------------------------- |
 | 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. |
-|                 | Retourne 'Attributs complets de TypeTrajets'                              |
+|                 | Retourne 'Attributs complets de TypeCovoit'                               |
 
-'Attributs complets de TypeTrajets' (exemple) :
+'Attributs complets de TypeCovoit' (exemple) :
 
 ```json
 [
     {
-        "typeTrajet": "Régulier",
+        "type": "Conducteur",
         "id": 1
     },
     {
-        "typeTrajet": "Ponctuel",
+        "type": "Passager",
         "id": 2
     }
 ]

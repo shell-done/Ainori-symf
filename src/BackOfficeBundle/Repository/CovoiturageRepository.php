@@ -77,6 +77,11 @@ class CovoiturageRepository extends \Doctrine\ORM\EntityRepository {
      */
     public function getCovoiturage($id) {
         $em = $this->createQueryBuilder("c")
+            ->select("c", "co2", "t", "tc", "u")
+            ->innerJoin("c.co2", "co2")
+            ->innerJoin("c.trajet", "t")
+            ->innerJoin("c.typeCovoit", "tc")
+            ->innerJoin("c.utilisateur", "u")
             ->where("c.id = :id")
             ->setParameter("id", $id)
             ->getQuery();

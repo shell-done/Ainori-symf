@@ -45,7 +45,7 @@ En fonction de la requête, le code de réponse HTTP peut varier :
 | ---------------------------------- | ---------------------------------------------------------------------------------------- |
 | <span class="get">200</span>       | Réponse traitée avec succès                                                              |
 | <span class="get">201</span>       | Réponse traitée avec succès et création d'une ressource                                  |
-| <span class="delete">400</span>    | La syntaxe de la requête est érronée                                                     |
+| <span class="delete">400</span>    | La syntaxe de la requête est erronée                                                     |
 | <span class="delete">404</span>    | La ressource demandée n'existe pas                                                       |
 | <span class="delete">409</span>    | La ressource existe mais ne peut pas être supprimée car utilisée par d'autres ressources |
 
