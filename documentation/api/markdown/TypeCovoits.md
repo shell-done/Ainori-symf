@@ -28,8 +28,7 @@ Retourne une liste de typeCovoits.
 ##### Réponse
 | Statut          | Signification                                                             |
 | --------------- | ------------------------------------------------------------------------- |
-| 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. |
-|                 | Retourne 'Attributs complets de TypeCovoit'                               |
+| 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. Retourne 'Attributs complets de TypeCovoit' |
 
 'Attributs complets de TypeCovoit' (exemple) :
 

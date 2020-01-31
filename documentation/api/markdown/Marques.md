@@ -1,55 +1,61 @@
-# Categories
+# Marques
 
 ## Informations générales
 #### Description
-Une catégorie indique le statut de l'utilisateur.
+Une marque représente la marque de la voiture associée à un trajet.
 
-#### Attributs complets de Categorie
+#### Attributs complets de Marque
 | Variable        | Type                  | Nullable | Description                            |
 | --------------- | --------------------- | -------- | -------------------------------------- |
 | id              | Number (int)          | NON      | Identifiant unique                     |
-| categorie       | String                | NON      | Catégorie de l'utilisateur             |
+| marque          | String                | NON      | Marque de la voiture                   |
 
 #### Résumé des requêtes
 | Méthode                            | Requête                                      |
 | ---------------------------------- | ---------------------------------------------|
-| <span class="get">GET</span>       | foang.cir3-frm-smf-ang-xx/api/categories     |
+| <span class="get">GET</span>       | foang.cir3-frm-smf-ang-xx/api/marques        |
 
 <br>
 <div class="page-break"></div>
 
 ## Requêtes
-#### <span class="get">GET</span> Categories
+#### <span class="get">GET</span> Marques
 
-Retourne une liste de categories.
+Retourne une liste de marques.
 
-`GET foang.cir3-frm-smf-ang-xx/api/categories`
+`GET foang.cir3-frm-smf-ang-xx/api/marques`
 
 ##### Réponse
 | Statut          | Signification                                                             |
 | --------------- | ------------------------------------------------------------------------- |
-| 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. |
-|                 | Retourne 'Attributs complets de Categorie'                                |
+| 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. Retourne 'Attributs complets de Marque' |
 
-'Attributs complets de Categorie' (exemple) :
+'Attributs complets de Marque' (exemple) :
 
 ```json
 [
     {
-        "categorie": "Étudiant",
+        "marque": "Peugeot",
         "id": 1
     },
     {
-        "categorie": "Enseignant",
+        "marque": "Renault",
         "id": 2
     },
     {
-        "categorie": "Intervenant extérieur",
+        "marque": "Opel",
         "id": 3
     },
     {
-        "categorie": "Autre",
+        "marque": "Citroën",
         "id": 4
+    },
+    {
+        "marque": "Volkswagen",
+        "id": 5
+    },
+    {
+        //...
     }
 ]
 ```

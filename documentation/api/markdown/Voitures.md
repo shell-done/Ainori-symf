@@ -34,8 +34,7 @@ Retourne une liste de voitures spécifiques par rapport à la marque.
 ##### Réponse
 | Statut          | Signification                                                             |
 | --------------- | ------------------------------------------------------------------------- |
-| 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. |
-|                 | Retourne 'Attributs complets de Voiture'                                  |
+| 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. Retourne 'Attributs complets de Voiture' |
 
 'Attributs complets de Voiture' (exemple) :
 

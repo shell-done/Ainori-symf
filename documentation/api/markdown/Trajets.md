@@ -61,10 +61,8 @@ Retourne un trajet spécifique.
 ##### Réponse
 | Statut          | Signification                                                             |
 | --------------- | ------------------------------------------------------------------------- |
-| 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. |
-|                 | Retourne 'Attributs complets de Trajet'                                   |
-| 404 Not Found   | Le serveur n'a pas trouvé la ressource demandée. L'id fournit n'est       |
-|                 | probablement associé à aucun trajet.                                      |
+| 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. Retourne 'Attributs complets de Trajet' |
+| 404 Not Found   | Le serveur n'a pas trouvé la ressource demandée. L'id fournit n'est probablement associé à aucun trajet. |
 
 'Attributs complets de Trajet' (exemple) :
 
@@ -128,10 +126,8 @@ Retourne une liste de trajets correspondant aux critères passés. Les trajets d
 ##### Réponse
 | Statut          | Signification                                                             |
 | --------------- | ------------------------------------------------------------------------- |
-| 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. |
-|                 | Retourne 'Attributs résumés de Trajet'                                    |
-| 400 Bad Request | Le serveur n'a pas compris la requête à cause d'une syntaxe invalide.     |
-|                 | Les paramètres fournis ne sont probablement pas valides.                  |
+| 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. Retourne 'Attributs résumés de Trajet' |
+| 400 Bad Request | Le serveur n'a pas compris la requête à cause d'une syntaxe invalide. Les paramètres fournis ne sont probablement pas valides. |
 
 'Attributs résumés de Trajet' (exemple) :
 
@@ -183,8 +179,7 @@ Retourne une liste de trajets corrrespondant à un utilisateur spécifique.
 ##### Réponse
 | Statut          | Signification                                                             |
 | --------------- | ------------------------------------------------------------------------- |
-| 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. |
-|                 | Retourne 'Attributs résumés de Trajet'                                    |
+| 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. Retourne 'Attributs résumés de Trajet' |
 
 'Attributs résumés de Trajet' (exemple) :
 
@@ -237,10 +232,8 @@ Supprime un trajet. Impossible si ce trajet est utilisé dans un covoiturage
 | Statut          | Signification                                                             |
 | --------------- | ------------------------------------------------------------------------- |
 | 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. |
-| 404 Not Found   | Le serveur n'a pas trouvé la ressource demandée. L'id fournit n'est       |
-|                 | probablement associé à aucun trajet                                       |
-| 409 Conflict    | La requête rentre en conflit avec l'état actuel du serveur.               |
-|                 | La suppression de l'élément n'est pas autorisée.                          |
+| 404 Not Found   | Le serveur n'a pas trouvé la ressource demandée. L'id fournit n'est probablement associé à aucun trajet |
+| 409 Conflict    | La requête rentre en conflit avec l'état actuel du serveur. La suppression de l'élément n'est pas autorisée. |
 
 <br>
 <div class="page-break"></div>
@@ -254,10 +247,8 @@ Ajoute un trajet.
 ##### Réponse
 | Statut          | Signification                                                             |
 | --------------- | ------------------------------------------------------------------------- |
-| 201 Created     | La requête a réussi et un nouveau trajet a été créé en guise              |
-|                 | de résultat.                                                              |
-| 400 Bad Request | Le serveur n'a pas compris la requête à cause d'une syntaxe invalide.     |
-|                 | Les paramètres fournis ne sont probablement pas valides.                  |
+| 201 Created     | La requête a réussi et un nouveau trajet a été créé en guise de résultat. |
+| 400 Bad Request | Le serveur n'a pas compris la requête à cause d'une syntaxe invalide. Les paramètres fournis ne sont probablement pas valides. |
 
 <br>
 <div class="page-break"></div>
@@ -277,5 +268,4 @@ Modifie un trajet.
 | Statut          | Signification                                                             |
 | --------------- | ------------------------------------------------------------------------- |
 | 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. |
-| 400 Bad Request | Le serveur n'a pas compris la requête à cause d'une syntaxe invalide.     |
-|                 | Les paramètres fournis ne sont probablement pas valides.                  |
+| 400 Bad Request | Le serveur n'a pas compris la requête à cause d'une syntaxe invalide. Les paramètres fournis ne sont probablement pas valides. |

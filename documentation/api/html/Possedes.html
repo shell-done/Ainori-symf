@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Possedes</title>
+    
+    <link rel="stylesheet" href="css/markdown.css">
+    <link rel="stylesheet" href="css/highlight.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+</head>
+
+<body class="vscode-light">
+    <h1 id="possedes">Possedes</h1>
+    <h2 id="informations-g%c3%a9n%c3%a9rales">Informations générales</h2>
+    <h4 id="description">Description</h4>
+    <p>Un possede représente une voiture appartenant à un utilisateur.</p>
+    <h4 id="attributs-complets-de-possede">Attributs complets de Possede</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Variable</th>
+                <th>Type</th>
+                <th>Nullable</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>id</td>
+                <td>Number (int)</td>
+                <td>NON</td>
+                <td>Identifiant unique</td>
+            </tr>
+            <tr>
+                <td>immatriculation</td>
+                <td>String</td>
+                <td>NON</td>
+                <td>Immatriculation du véhicule</td>
+            </tr>
+            <tr>
+                <td>nbPlace</td>
+                <td>Number (int)</td>
+                <td>NON</td>
+                <td>Nombre de place dans le véhicule</td>
+            </tr>
+            <tr>
+                <td>utilisateur</td>
+                <td>Object (Utilisateur)</td>
+                <td>NON</td>
+                <td>Utilisateur possédant le véhicule</td>
+            </tr>
+            <tr>
+                <td>voiture</td>
+                <td>Object (Voiture)</td>
+                <td>NON</td>
+                <td>Voiture associée</td>
+            </tr>
+        </tbody>
+    </table>
+    <h4 id="attributs-r%c3%a9sum%c3%a9s-de-possede">Attributs résumés de Possede</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Variable</th>
+                <th>Type</th>
+                <th>Nullable</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>id</td>
+                <td>Number (int)</td>
+                <td>NON</td>
+                <td>Identifiant unique</td>
+            </tr>
+            <tr>
+                <td>immatriculation</td>
+                <td>String</td>
+                <td>NON</td>
+                <td>Immatriculation du véhicule</td>
+            </tr>
+            <tr>
+                <td>nbPlace</td>
+                <td>Number (int)</td>
+                <td>NON</td>
+                <td>Nombre de place dans le véhicule</td>
+            </tr>
+            <tr>
+                <td>voiture</td>
+                <td>Object (Voiture)</td>
+                <td>NON</td>
+                <td>Voiture associée</td>
+            </tr>
+        </tbody>
+    </table>
+    <h4 id="r%c3%a9sum%c3%a9-des-requ%c3%aates">Résumé des requêtes</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Méthode</th>
+                <th>Requête</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="get">GET</span></td>
+                <td>foang.cir3-frm-smf-ang-xx/api/possedes/utilisateur/:id</td>
+            </tr>
+            <tr>
+                <td><span class="get">GET</span></td>
+                <td>foang.cir3-frm-smf-ang-xx/api/possedes/:id</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <div class="page-break"></div>
+    <h2 id="requ%c3%aates">Requêtes</h2>
+    <h4 id="span-class%22get%22getspan-possedesofutilisateur"><span class="get">GET</span> PossedesOfUtilisateur</h4>
+    <p>Retourne une liste de possedes appartenant à un utilisateur.</p>
+    <p><code>GET foang.cir3-frm-smf-ang-xx/api/possedes/utilisateur/:id</code></p>
+    <h5 id="param%c3%a8tres">Paramètres</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Variable</th>
+                <th>Type</th>
+                <th>Optionnel</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>id</td>
+                <td>Number (int)</td>
+                <td>NON</td>
+                <td>Identifiant de l'utilisateur à récupérer</td>
+            </tr>
+        </tbody>
+    </table>
+    <h5 id="r%c3%a9ponse">Réponse</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Statut</th>
+                <th>Signification</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>200 OK</td>
+                <td>La ressource a été récupérée et est retransmise dans le corps du message. Retourne 'Attributs
+                    complets de Possede'</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>'Attributs complets de Possede' (exemple) :</p>
+    <pre><code class="language-json"><div>[
+    {
+        <span class="hljs-attr">"immatriculation"</span>: <span class="hljs-string">"BE-256-AB"</span>,
+        <span class="hljs-attr">"nbPlace"</span>: <span class="hljs-number">5</span>,
+        <span class="hljs-attr">"id"</span>: <span class="hljs-number">11</span>,
+        <span class="hljs-attr">"voiture"</span>: {
+            <span class="hljs-attr">"modele"</span>: <span class="hljs-string">"Hilux"</span>,
+            <span class="hljs-attr">"id"</span>: <span class="hljs-number">20</span>,
+            <span class="hljs-attr">"marque"</span>: {
+                <span class="hljs-attr">"marque"</span>: <span class="hljs-string">"Toyota"</span>,
+                <span class="hljs-attr">"id"</span>: <span class="hljs-number">11</span>
+            }
+        },
+        <span class="hljs-attr">"utilisateur"</span>: {
+            <span class="hljs-attr">"mail"</span>: <span class="hljs-string">"mhanson265@nosnahwehttam.net"</span>,
+            <span class="hljs-attr">"nom"</span>: <span class="hljs-string">"Hanson"</span>,
+            <span class="hljs-attr">"prenom"</span>: <span class="hljs-string">"Matthew"</span>,
+            <span class="hljs-attr">"password"</span>: <span class="hljs-string">"$2y$13$aCUTquhA159Dmt1Hu0rMI.Lil0UbphmVMWx8ZYNjG/KkJQfpKXlk2"</span>,
+            <span class="hljs-attr">"telephone"</span>: <span class="hljs-string">"2785185676"</span>,
+            <span class="hljs-attr">"adresse"</span>: <span class="hljs-string">"750 Melon Terrace"</span>,
+            <span class="hljs-attr">"id"</span>: <span class="hljs-number">9</span>
+        }
+    },
+    {
+        //...
+    }
+]
+</div></code></pre>
+    <br>
+    <div class="page-break"></div>
+    <h4 id="span-class%22get%22getspan-possede"><span class="get">GET</span> Possede</h4>
+    <p>Retourne un possede spécifique.</p>
+    <p><code>GET foang.cir3-frm-smf-ang-xx/api/possedes/:id</code></p>
+    <h5 id="param%c3%a8tres-1">Paramètres</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Variable</th>
+                <th>Type</th>
+                <th>Optionnel</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>id</td>
+                <td>Number (int)</td>
+                <td>NON</td>
+                <td>Identifiant de possede à récupérer</td>
+            </tr>
+        </tbody>
+    </table>
+    <h5 id="r%c3%a9ponse-1">Réponse</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Statut</th>
+                <th>Signification</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>200 OK</td>
+                <td>La ressource a été récupérée et est retransmise dans le corps du message. Retourne 'Attributs
+                    résumés de Possede'</td>
+            </tr>
+            <tr>
+                <td>404 Not Found</td>
+                <td>Le serveur n'a pas trouvé la ressource demandée. L'id fournit n'est probablement associé à aucun
+                    possede.</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>'Attributs résumés de Possede' (exemple) :</p>
+    <pre><code class="language-json"><div>{
+    <span class="hljs-attr">"immatriculation"</span>: <span class="hljs-string">"XU-358-CE"</span>,
+    <span class="hljs-attr">"nbPlace"</span>: <span class="hljs-number">5</span>,
+    <span class="hljs-attr">"id"</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-attr">"voiture"</span>: {
+        <span class="hljs-attr">"modele"</span>: <span class="hljs-string">"2008"</span>,
+        <span class="hljs-attr">"id"</span>: <span class="hljs-number">6</span>,
+        <span class="hljs-attr">"marque"</span>: {
+            <span class="hljs-attr">"marque"</span>: <span class="hljs-string">"Peugeot"</span>,
+            <span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span>
+        }
+    }
+}
+</div></code></pre>
+
+</body>
+
+</html>

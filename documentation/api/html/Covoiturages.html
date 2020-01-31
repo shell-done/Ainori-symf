@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Covoiturages</title>
+    
+    <link rel="stylesheet" href="css/markdown.css">
+    <link rel="stylesheet" href="css/highlight.css">
+</head>
+
+<body class="vscode-light">
+    <h1 id="covoiturages">Covoiturages</h1>
+    <h2 id="informations-g%c3%a9n%c3%a9rales">Informations générales</h2>
+    <h4 id="description">Description</h4>
+    <p>Un covoiturage représente une inscription à un trajet.</p>
+    <h4 id="attributs-1-de-covoiturage">Attributs 1 de Covoiturage</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Variable</th>
+                <th>Type</th>
+                <th>Nullable</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>id</td>
+                <td>Number (int)</td>
+                <td>NON</td>
+                <td>Identifiant unique</td>
+            </tr>
+            <tr>
+                <td>created</td>
+                <td>String</td>
+                <td>NON</td>
+                <td>Date de départ</td>
+            </tr>
+            <tr>
+                <td>updated</td>
+                <td>Number (int)</td>
+                <td>NON</td>
+                <td>Nombre de place dans le véhicule</td>
+            </tr>
+            <tr>
+                <td>co2</td>
+                <td>Object (Co2)</td>
+                <td>OUI</td>
+                <td>Commentaire</td>
+            </tr>
+            <tr>
+                <td>trajet</td>
+                <td>Object (Utilisateur)</td>
+                <td>NON</td>
+                <td>Trajet associé</td>
+            </tr>
+            <tr>
+                <td>typeCovoit</td>
+                <td>Object (TypeCovoit)</td>
+                <td>NON</td>
+                <td>Type de covoiturage</td>
+            </tr>
+            <tr>
+                <td>utilisateur</td>
+                <td>Object (Utilisateur)</td>
+                <td>NON</td>
+                <td>Utilisateur possédant le véhicule</td>
+            </tr>
+        </tbody>
+    </table>
+    <h4 id="attributs-2-de-covoiturage">Attributs 2 de Covoiturage</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Variable</th>
+                <th>Type</th>
+                <th>Nullable</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>id</td>
+                <td>Number (int)</td>
+                <td>NON</td>
+                <td>Identifiant unique</td>
+            </tr>
+            <tr>
+                <td>villeDepart</td>
+                <td>String (Ville)</td>
+                <td>NON</td>
+                <td>Ville de départ</td>
+            </tr>
+            <tr>
+                <td>villeArrivee</td>
+                <td>String (Ville)</td>
+                <td>NON</td>
+                <td>Ville d'arrivée</td>
+            </tr>
+            <tr>
+                <td>dateDepart</td>
+                <td>Object (Datetime)</td>
+                <td>NON</td>
+                <td>Date de départ</td>
+            </tr>
+            <tr>
+                <td>heureDepart</td>
+                <td>Object (Datetime)</td>
+                <td>NON</td>
+                <td>Heure de départ</td>
+            </tr>
+            <tr>
+                <td>nbPlace</td>
+                <td>Number (int)</td>
+                <td>NON</td>
+                <td>Nombre de places initiales disponibles</td>
+            </tr>
+            <tr>
+                <td>duree</td>
+                <td>Number (float)</td>
+                <td>OUI</td>
+                <td>Durée du trajet</td>
+            </tr>
+            <tr>
+                <td>commentaire</td>
+                <td>String</td>
+                <td>OUI</td>
+                <td>Commentaire</td>
+            </tr>
+            <tr>
+                <td>nbKm</td>
+                <td>Number (float)</td>
+                <td>NON</td>
+                <td>Distance du trajet associé</td>
+            </tr>
+            <tr>
+                <td>typeTrajet</td>
+                <td>Object (TypeCovoit)</td>
+                <td>NON</td>
+                <td>Type de covoiturage</td>
+            </tr>
+            <tr>
+                <td>placeOccupee</td>
+                <td>String</td>
+                <td>NON</td>
+                <td>Nombre de places déjà occupées</td>
+            </tr>
+            <tr>
+                <td>voiture</td>
+                <td>String (Voiture)</td>
+                <td>NON</td>
+                <td>Voiture associé au covoiturage</td>
+            </tr>
+            <tr>
+                <td>utilisateur</td>
+                <td>String (Utilisateur)</td>
+                <td>NON</td>
+                <td>Utilisateur possédant le véhicule</td>
+            </tr>
+        </tbody>
+    </table>
+    <h4 id="r%c3%a9sum%c3%a9-des-requ%c3%aates">Résumé des requêtes</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Méthode</th>
+                <th>Requête</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="get">GET</span></td>
+                <td>foang.cir3-frm-smf-ang-xx/api/covoiturages/utilisateur/:id</td>
+            </tr>
+            <tr>
+                <td><span class="get">GET</span></td>
+                <td>foang.cir3-frm-smf-ang-xx/api/covoiturages/:id</td>
+            </tr>
+            <tr>
+                <td><span class="post">POST</span></td>
+                <td>foang.cir3-frm-smf-ang-xx/api/covoiturages/trajets/:id1/utilisateurs/:id2</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <div class="page-break"></div>
+    <h2 id="requ%c3%aates">Requêtes</h2>
+    <h4 id="span-class%22get%22getspan-covoituragesofutilisateur"><span class="get">GET</span> CovoituragesOfUtilisateur
+    </h4>
+    <p>Retourne une liste de covoiturages appartenant à un utilisateur.</p>
+    <p><code>GET foang.cir3-frm-smf-ang-xx/api/covoiturages/utilisateur/:id</code></p>
+    <h5 id="param%c3%a8tres">Paramètres</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Variable</th>
+                <th>Type</th>
+                <th>Optionnel</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>id</td>
+                <td>Number (int)</td>
+                <td>NON</td>
+                <td>Identifiant de l'utilisateur à récupérer</td>
+            </tr>
+        </tbody>
+    </table>
+    <h5 id="r%c3%a9ponse">Réponse</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Statut</th>
+                <th>Signification</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>200 OK</td>
+                <td>La ressource a été récupérée et est retransmise dans le corps du message. Retourne 'Attributs 2 de
+                    Covoiturage'</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>'Attributs 2 de Covoiturage' (exemple) :</p>
+    <pre><code class="language-json"><div>[
+    {
+        <span class="hljs-attr">"id"</span>: <span class="hljs-number">3</span>,
+        <span class="hljs-attr">"villeDepart"</span>: <span class="hljs-string">"Rennes"</span>,
+        <span class="hljs-attr">"villeArrivee"</span>: <span class="hljs-string">"Brest"</span>,
+        <span class="hljs-attr">"dateDepart"</span>: {
+            <span class="hljs-attr">"date"</span>: <span class="hljs-string">"2020-01-05 00:00:00.000000"</span>,
+            <span class="hljs-attr">"timezone_type"</span>: <span class="hljs-number">3</span>,
+            <span class="hljs-attr">"timezone"</span>: <span class="hljs-string">"Europe/Berlin"</span>
+        },
+        <span class="hljs-attr">"heureDepart"</span>: {
+            <span class="hljs-attr">"date"</span>: <span class="hljs-string">"1970-01-01 17:20:00.000000"</span>,
+            <span class="hljs-attr">"timezone_type"</span>: <span class="hljs-number">3</span>,
+            <span class="hljs-attr">"timezone"</span>: <span class="hljs-string">"Europe/Berlin"</span>
+        },
+        <span class="hljs-attr">"nbPlace"</span>: <span class="hljs-number">2</span>,
+        <span class="hljs-attr">"duree"</span>: <span class="hljs-number">2.46</span>,
+        <span class="hljs-attr">"commentaire"</span>: <span class="hljs-string">"Covoiturage de Rennes à Brest avant la reprise des cours"</span>,
+        <span class="hljs-attr">"nbKm"</span>: <span class="hljs-number">244</span>,
+        <span class="hljs-attr">"typeTrajet"</span>: <span class="hljs-string">"Ponctuel"</span>,
+        <span class="hljs-attr">"placeOccupee"</span>: <span class="hljs-string">"2"</span>,
+        <span class="hljs-attr">"voiture"</span>: <span class="hljs-string">"Renault Twingo"</span>,
+        <span class="hljs-attr">"utilisateur"</span>: <span class="hljs-string">"Jimmy Craig"</span>
+    }
+]
+</div></code></pre>
+    <br>
+    <div class="page-break"></div>
+    <h4 id="span-class%22get%22getspan-covoiturage"><span class="get">GET</span> Covoiturage</h4>
+    <p>Retourne un covoiturage spécifique.</p>
+    <p><code>GET foang.cir3-frm-smf-ang-xx/api/covoiturages/:id</code></p>
+    <h5 id="param%c3%a8tres-1">Paramètres</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Variable</th>
+                <th>Type</th>
+                <th>Optionnel</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>id</td>
+                <td>Number (int)</td>
+                <td>NON</td>
+                <td>Identifiant de covoiturage à récupérer</td>
+            </tr>
+        </tbody>
+    </table>
+    <h5 id="r%c3%a9ponse-1">Réponse</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Statut</th>
+                <th>Signification</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>200 OK</td>
+                <td>La ressource a été récupérée et est retransmise dans le corps du message. Retourne 'Attributs 1 de
+                    Covoiturage'</td>
+            </tr>
+            <tr>
+                <td>404 Not Found</td>
+                <td>Le serveur n'a pas trouvé la ressource demandée. L'id fournit n'est associé à aucun covoiturage</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>'Attributs 1 de Covoiturage' (exemple) :</p>
+    <pre><code class="language-json"><div>{
+    <span class="hljs-attr">"created"</span>: {
+        <span class="hljs-attr">"date"</span>: <span class="hljs-string">"2019-12-30 00:04:17.000000"</span>,
+        <span class="hljs-attr">"timezone_type"</span>: <span class="hljs-number">3</span>,
+        <span class="hljs-attr">"timezone"</span>: <span class="hljs-string">"Europe/Berlin"</span>
+    },
+    <span class="hljs-attr">"updated"</span>: {
+        <span class="hljs-attr">"date"</span>: <span class="hljs-string">"2019-12-30 00:04:17.000000"</span>,
+        <span class="hljs-attr">"timezone_type"</span>: <span class="hljs-number">3</span>,
+        <span class="hljs-attr">"timezone"</span>: <span class="hljs-string">"Europe/Berlin"</span>
+    },
+    <span class="hljs-attr">"id"</span>: <span class="hljs-number">5</span>,
+    <span class="hljs-attr">"co2"</span>: {
+        <span class="hljs-attr">"valCo2"</span>: <span class="hljs-number">80.4</span>,
+        <span class="hljs-attr">"actif"</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">"id"</span>: <span class="hljs-number">3</span>
+    },
+    <span class="hljs-attr">"trajet"</span>: {
+        <span class="hljs-attr">"dateDepart"</span>: {
+            <span class="hljs-attr">"date"</span>: <span class="hljs-string">"2020-02-05 00:00:00.000000"</span>,
+            <span class="hljs-attr">"timezone_type"</span>: <span class="hljs-number">3</span>,
+            <span class="hljs-attr">"timezone"</span>: <span class="hljs-string">"Europe/Berlin"</span>
+        },
+        <span class="hljs-attr">"heureDepart"</span>: {
+            <span class="hljs-attr">"date"</span>: <span class="hljs-string">"1970-01-01 20:20:00.000000"</span>,
+            <span class="hljs-attr">"timezone_type"</span>: <span class="hljs-number">3</span>,
+            <span class="hljs-attr">"timezone"</span>: <span class="hljs-string">"Europe/Berlin"</span>
+        },
+        <span class="hljs-attr">"nbPlace"</span>: <span class="hljs-number">3</span>,
+        <span class="hljs-attr">"duree"</span>: <span class="hljs-number">3</span>,
+        <span class="hljs-attr">"commentaire"</span>: <span class="hljs-literal">null</span>,
+        <span class="hljs-attr">"nbKm"</span>: <span class="hljs-number">318</span>,
+        <span class="hljs-attr">"id"</span>: <span class="hljs-number">3</span>
+    },
+    <span class="hljs-attr">"typeCovoit"</span>: {
+        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Passager"</span>,
+        <span class="hljs-attr">"id"</span>: <span class="hljs-number">2</span>
+    },
+    <span class="hljs-attr">"utilisateur"</span>: {
+        <span class="hljs-attr">"mail"</span>: <span class="hljs-string">"kbuchanan662@nanahcubitsirk.biz"</span>,
+        <span class="hljs-attr">"nom"</span>: <span class="hljs-string">"Buchanan"</span>,
+        <span class="hljs-attr">"prenom"</span>: <span class="hljs-string">"Kristi"</span>,
+        <span class="hljs-attr">"password"</span>: <span class="hljs-string">"$2y$13$ki43amBxqGTFavJBWTXO..pmpNBu7r7WdpKVxBDeosAIU.RAnaxgm"</span>,
+        <span class="hljs-attr">"telephone"</span>: <span class="hljs-string">"2689778544"</span>,
+        <span class="hljs-attr">"adresse"</span>: <span class="hljs-string">"942 Harding Road"</span>,
+        <span class="hljs-attr">"id"</span>: <span class="hljs-number">7</span>
+    }
+}
+</div></code></pre>
+    <br>
+    <div class="page-break"></div>
+    <h4 id="span-class%22post%22postspan-registertoatrajet"><span class="post">POST</span> registerToATrajet</h4>
+    <p>Ajoute un covoiturage à un trajet.</p>
+    <p><code>POST foang.cir3-frm-smf-ang-xx/api/covoiturages/trajets/:id1/utilisateurs/:id2</code></p>
+    <h5 id="param%c3%a8tres-2">Paramètres</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Variable</th>
+                <th>Type</th>
+                <th>Optionnel</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>id1</td>
+                <td>Number (int)</td>
+                <td>NON</td>
+                <td>Identifiant du trajet</td>
+            </tr>
+            <tr>
+                <td>id2</td>
+                <td>Number (int)</td>
+                <td>NON</td>
+                <td>Identifiant de l'utilisateur</td>
+            </tr>
+        </tbody>
+    </table>
+    <h5 id="r%c3%a9ponse-2">Réponse</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Statut</th>
+                <th>Signification</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>201 Created</td>
+                <td>La requête a réussi et un nouveau covoiturage a été créé en guise de résultat.</td>
+            </tr>
+            <tr>
+                <td>400 Bad Request</td>
+                <td>Le serveur n'a pas compris la requête à cause d'une syntaxe invalide.</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+
+</html>

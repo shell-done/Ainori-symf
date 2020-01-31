@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>TypeCovoits</title>
+
+    <link rel="stylesheet" href="css/markdown.css">
+    <link rel="stylesheet" href="css/highlight.css">
+</head>
+
+<body class="vscode-light">
+    <h1 id="typecovoits">TypeCovoits</h1>
+    <h2 id="informations-g%c3%a9n%c3%a9rales">Informations générales</h2>
+    <h4 id="description">Description</h4>
+    <p>Un typeCovoit indique si un utilisateur a réservé un covoiturage en tant que conducteur ou passager.</p>
+    <h4 id="attributs-complets-dun-typecovoit">Attributs complets d'un TypeCovoit</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Variable</th>
+                <th>Type</th>
+                <th>Nullable</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>id</td>
+                <td>Number (int)</td>
+                <td>NON</td>
+                <td>Identifiant unique</td>
+            </tr>
+            <tr>
+                <td>type</td>
+                <td>String</td>
+                <td>NON</td>
+                <td>Type de covoiturage</td>
+            </tr>
+        </tbody>
+    </table>
+    <h4 id="r%c3%a9sum%c3%a9-des-requ%c3%aates">Résumé des requêtes</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Méthode</th>
+                <th>Requête</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="get">GET</span></td>
+                <td>foang.cir3-frm-smf-ang-xx/api/typecovoits</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <div class="page-break"></div>
+    <h2 id="requ%c3%aates">Requêtes</h2>
+    <h4 id="span-class%22get%22getspan-typecovoits"><span class="get">GET</span> TypeCovoits</h4>
+    <p>Retourne une liste de typeCovoits.</p>
+    <p><code>GET foang.cir3-frm-smf-ang-xx/api/typecovoits</code></p>
+    <h5 id="r%c3%a9ponse">Réponse</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Statut</th>
+                <th>Signification</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>200 OK</td>
+                <td>La ressource a été récupérée et est retransmise dans le corps du message. Retourne 'Attributs
+                    complets de TypeCovoit'</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>'Attributs complets de TypeCovoit' (exemple) :</p>
+    <pre><code class="language-json"><div>[
+    {
+        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Conducteur"</span>,
+        <span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span>
+    },
+    {
+        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Passager"</span>,
+        <span class="hljs-attr">"id"</span>: <span class="hljs-number">2</span>
+    }
+]
+</div></code></pre>
+
+</body>
+
+</html>

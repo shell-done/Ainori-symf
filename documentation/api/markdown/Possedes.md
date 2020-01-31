@@ -45,8 +45,7 @@ Retourne une liste de possedes appartenant à un utilisateur.
 ##### Réponse
 | Statut          | Signification                                                             |
 | --------------- | ------------------------------------------------------------------------- |
-| 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. |
-|                 | Retourne 'Attributs complets de Possede'                                  |
+| 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. Retourne 'Attributs complets de Possede' |
 
 'Attributs complets de Possede' (exemple) :
 
@@ -97,10 +96,8 @@ Retourne un possede spécifique.
 ##### Réponse
 | Statut          | Signification                                                             |
 | --------------- | ------------------------------------------------------------------------- |
-| 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. |
-|                 | Retourne 'Attributs résumés de Possede'                                   |
-| 404 Not Found   | Le serveur n'a pas trouvé la ressource demandée. L'id fournit n'est       |
-|                 | probablement associé à aucun possede.                                     |
+| 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. Retourne 'Attributs résumés de Possede' |
+| 404 Not Found   | Le serveur n'a pas trouvé la ressource demandée. L'id fournit n'est probablement associé à aucun possede. |
 
 'Attributs résumés de Possede' (exemple) :
 

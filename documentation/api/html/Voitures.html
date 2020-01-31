@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Voitures</title>
+
+    <link rel="stylesheet" href="css/markdown.css">
+    <link rel="stylesheet" href="css/highlight.css">
+
+</head>
+
+<body class="vscode-light">
+    <h1 id="voitures">Voitures</h1>
+    <h2 id="informations-g%c3%a9n%c3%a9rales">Informations générales</h2>
+    <h4 id="description">Description</h4>
+    <p>Une voiture représente la voiture utilisée pour un trajet.</p>
+    <h4 id="attributs-complets-de-voiture">Attributs complets de Voiture</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Variable</th>
+                <th>Type</th>
+                <th>Nullable</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>id</td>
+                <td>Number (int)</td>
+                <td>NON</td>
+                <td>Identifiant unique</td>
+            </tr>
+            <tr>
+                <td>modele</td>
+                <td>String</td>
+                <td>NON</td>
+                <td>Modèle de la voiture</td>
+            </tr>
+            <tr>
+                <td>marque</td>
+                <td>Object (Marque)</td>
+                <td>NON</td>
+                <td>Marque de la voiture</td>
+            </tr>
+        </tbody>
+    </table>
+    <h4 id="r%c3%a9sum%c3%a9-des-requ%c3%aates">Résumé des requêtes</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Méthode</th>
+                <th>Requête</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="get">GET</span></td>
+                <td>foang.cir3-frm-smf-ang-xx/api/voitures/:id</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <div class="page-break"></div>
+    <h2 id="requ%c3%aates">Requêtes</h2>
+    <h4 id="span-class%22get%22getspan-voitures"><span class="get">GET</span> Voitures</h4>
+    <p>Retourne une liste de voitures spécifiques par rapport à la marque.</p>
+    <p><code>GET foang.cir3-frm-smf-ang-xx/api/voitures/:id</code></p>
+    <h5 id="param%c3%a8tres">Paramètres</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Variable</th>
+                <th>Type</th>
+                <th>Optionnel</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>id</td>
+                <td>Number (int)</td>
+                <td>NON</td>
+                <td>Identifiant de la marque à récupérer</td>
+            </tr>
+        </tbody>
+    </table>
+    <h5 id="r%c3%a9ponse">Réponse</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Statut</th>
+                <th>Signification</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>200 OK</td>
+                <td>La ressource a été récupérée et est retransmise dans le corps du message. Retourne 'Attributs
+                    complets de Voiture'</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>'Attributs complets de Voiture' (exemple) :</p>
+    <pre><code class="language-json"><div>[
+    {
+        <span class="hljs-attr">"modele"</span>: <span class="hljs-string">"C3"</span>,
+        <span class="hljs-attr">"id"</span>: <span class="hljs-number">3</span>,
+        <span class="hljs-attr">"marque"</span>: {
+            <span class="hljs-attr">"marque"</span>: <span class="hljs-string">"Citroën"</span>,
+            <span class="hljs-attr">"id"</span>: <span class="hljs-number">4</span>
+        }
+    }
+]
+</div></code></pre>
+
+</body>
+
+</html>

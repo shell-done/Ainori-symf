@@ -57,8 +57,7 @@ Retourne une liste de covoiturages appartenant à un utilisateur.
 ##### Réponse
 | Statut          | Signification                                                             |
 | --------------- | ------------------------------------------------------------------------- |
-| 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. |
-|                 | Retourne 'Attributs 2 de Covoiturage'                                     |
+| 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. Retourne 'Attributs 2 de Covoiturage' |
 
 'Attributs 2 de Covoiturage' (exemple) :
 
@@ -107,10 +106,8 @@ Retourne un covoiturage spécifique.
 ##### Réponse
 | Statut          | Signification                                                             |
 | --------------- | ------------------------------------------------------------------------- |
-| 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. |
-|                 | Retourne 'Attributs 1 de Covoiturage'                                     |
-| 404 Not Found   | Le serveur n'a pas trouvé la ressource demandée. L'id fournit n'est       |
-|                 | probablement associé à aucun covoiturage                                  |
+| 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. Retourne 'Attributs 1 de Covoiturage' |
+| 404 Not Found   | Le serveur n'a pas trouvé la ressource demandée. L'id fournit n'est associé à aucun covoiturage |
 
 'Attributs 1 de Covoiturage' (exemple) :
 
@@ -165,6 +162,9 @@ Retourne un covoiturage spécifique.
 }
 ```
 
+<br>
+<div class="page-break"></div>
+
 #### <span class="post">POST</span> registerToATrajet
 
 Ajoute un covoiturage à un trajet.
@@ -180,7 +180,5 @@ Ajoute un covoiturage à un trajet.
 ##### Réponse
 | Statut          | Signification                                                             |
 | --------------- | ------------------------------------------------------------------------- |
-| 201 Created     | La requête a réussi et un nouveau covoiturage a été créé en guise         |
-|                 | de résultat.                                                              |
-| 400 Bad Request | Le serveur n'a pas compris la requête à cause d'une syntaxe invalide.     |
-|                 | Les paramètres fournis ne sont probablement pas valides.                  |
+| 201 Created     | La requête a réussi et un nouveau covoiturage a été créé en guise de résultat. |
+| 400 Bad Request | Le serveur n'a pas compris la requête à cause d'une syntaxe invalide. |

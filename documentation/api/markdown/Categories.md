@@ -1,62 +1,54 @@
-# TypeVehicules
+# Categories
 
 ## Informations générales
 #### Description
-Un typeVehicule indique le type du véhicule.
+Une catégorie indique le statut de l'utilisateur.
 
-#### Attributs complets de TypeVehicule
+#### Attributs complets de Categorie
 | Variable        | Type                  | Nullable | Description                            |
 | --------------- | --------------------- | -------- | -------------------------------------- |
 | id              | Number (int)          | NON      | Identifiant unique                     |
-| type            | String                | NON      | Type du véhicule                       |
+| categorie       | String                | NON      | Catégorie de l'utilisateur             |
 
 #### Résumé des requêtes
 | Méthode                            | Requête                                      |
 | ---------------------------------- | ---------------------------------------------|
-| <span class="get">GET</span>       | foang.cir3-frm-smf-ang-xx/api/typevehicules  |
+| <span class="get">GET</span>       | foang.cir3-frm-smf-ang-xx/api/categories     |
 
 <br>
 <div class="page-break"></div>
 
 ## Requêtes
-#### <span class="get">GET</span> TypeVehicules
+#### <span class="get">GET</span> Categories
 
-Retourne une liste de typeVehicule.
+Retourne une liste de categories.
 
-`GET foang.cir3-frm-smf-ang-xx/api/typevehicules`
+`GET foang.cir3-frm-smf-ang-xx/api/categories`
 
 ##### Réponse
 | Statut          | Signification                                                             |
 | --------------- | ------------------------------------------------------------------------- |
-| 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. |
-|                 | Retourne 'Attributs complets de TypeVehicule'                             |
+| 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. Retourne 'Attributs complets de Categorie' |
 
-'Attributs complets de TypeVehicule' (exemple) :
+'Attributs complets de Categorie' (exemple) :
 
 ```json
 [
     {
-        "type": "Berline",
+        "categorie": "Étudiant",
         "id": 1
     },
     {
-        "type": "Break",
+        "categorie": "Enseignant",
         "id": 2
     },
     {
-        "type": "Monospace",
+        "categorie": "Intervenant extérieur",
         "id": 3
     },
     {
-        "type": "Cabriolet",
+        "categorie": "Autre",
         "id": 4
-    },
-    {
-        "type": "Coupé",
-        "id": 5
-    },
-    {
-        //...
     }
 ]
 ```

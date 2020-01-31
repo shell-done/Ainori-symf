@@ -44,10 +44,8 @@ Retourne une ville spécifique.
 ##### Réponse
 | Statut          | Signification                                                             |
 | --------------- | ------------------------------------------------------------------------- |
-| 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. |
-|                 | Retourne 'Attributs complets de Ville'                                    |
-| 404 Not Found   | Le serveur n'a pas trouvé la ressource demandée. L'id fournit n'est       |
-|                 | probablement associé à aucune ville.                                      |
+| 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. Retourne 'Attributs complets de Ville' |
+| 404 Not Found   | Le serveur n'a pas trouvé la ressource demandée. L'id fournit n'est probablement associé à aucune ville. |
 
 'Attributs complets de Ville' (exemple) :
 
@@ -73,8 +71,7 @@ Retourne une liste de villes.
 ##### Réponse
 | Statut          | Signification                                                             |
 | --------------- | ------------------------------------------------------------------------- |
-| 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. |
-|                 | Retourne 'Attributs résumés de Ville'                                     |
+| 200 OK          | La ressource a été récupérée et est retransmise dans le corps du message. Retourne 'Attributs résumés de Ville' |
 
 'Attributs résumés de Ville' (exemple) :
 

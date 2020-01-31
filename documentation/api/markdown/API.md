@@ -52,11 +52,3 @@ En fonction de la requête, le code de réponse HTTP peut varier :
 #### Objets
 Les ressources renvoyées sont des objets ou des tableaus d'objets JSON. Le format de chacun
 des objets associés aux requêtes sont définis dans la documentation des requêtes.
-
-Certaines requêtes renvoient aussi des objets DateTime possédant cex attributs :
-
-| Variable        | Type                  | Nullable | Description                                  |
-| --------------- | --------------------- | -------- | -------------------------------------------- |
-| date            | String                | NON      | Date au format YYYY-MM-DD HH:MM:SS.ms        |
-| timezone_type   | Number (int)          | NON      | Type de fuseau horaire                       |
-| timezone        | String                | NON      | Fuseau horaire au format Continent/Capitale  |
