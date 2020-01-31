@@ -9,6 +9,39 @@
 {% block body %}
     <div>
         <h1>Documentation de l'API</h1>
-        <p></p>
+        <div class="row doc">
+            <div class="col-3 list">
+                <h4>Fichiers disponibles</h4>
+                <ul>
+                    <li data="{{ asset("doc/Documentation de l'API.pdf") }}">Fonctionnement de l'API</li>
+                    <li data="{{ asset("doc/Categories.pdf") }}">Categories</li>
+                    <li data="{{ asset("doc/Covoiturages.pdf") }}">Covoiturages</li>
+                    <li data="{{ asset("doc/Marques.pdf") }}">Marques</li>
+                    <li data="{{ asset("doc/Possedes.pdf") }}">Possedes</li>
+                    <li data="{{ asset("doc/Trajets.pdf") }}">Trajets</li>
+                    <li data="{{ asset("doc/TypeCovoits.pdf") }}">TypeCovoits</li>
+                    <li data="{{ asset("doc/TypeTrajets.pdf") }}">TypeTrajets</li>
+                    <li data="{{ asset("doc/TypeVehicules.pdf") }}">TypeVehicules</li>
+                    <li data="{{ asset("doc/Utilisateurs.pdf") }}">Utilisateurs</li>
+                    <li data="{{ asset("doc/Villes.pdf") }}">Villes</li>
+                    <li data="{{ asset("doc/Voitures.pdf") }}">Voitures</li>
+                </ul>
+            </div>
+            <div class="col-9">
+                <object data="{{ asset("doc/Documentation de l'API.pdf") }}" type="application/pdf" width="100%" height="1000px">
+                    Votre navigateur ne supporte pas les PDF
+                </object>
+            </div>
+        </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    $(document).ready(function() {
+        $("li").click(function() {
+            $("object").attr("data", $(this).attr("data"));
+        });
+    });
+</script>
 {% endblock %}

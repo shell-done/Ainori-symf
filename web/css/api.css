@@ -1,0 +1,36 @@
+h1 {
+    margin-bottom: 30px;
+}
+
+.doc {
+    background: #CCCCCC;
+    border: 2px solid #ACACAC;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.doc .col-9 {
+    padding: 0!important;
+    height: 1000px;
+}
+
+.list {
+    padding: 20px;
+}
+
+.list h4 {
+    margin-bottom: 25px;
+}
+
+.list ul {
+    margin-top: 10px;
+    padding-left: 10px;
+}
+
+.list ul li {
+    cursor: pointer;
+    color: #A73137;
+    text-decoration: underline;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
