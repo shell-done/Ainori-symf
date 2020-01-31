@@ -30,7 +30,7 @@ class UtilisateurRepository extends \Doctrine\ORM\EntityRepository {
             ->setMaxResults($nbOfUtilisateurs)
             ->getQuery();
 
-        return $em->getArrayResult();
+        return $em->getResult();
     }
 
     /**
