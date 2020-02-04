@@ -12,10 +12,11 @@ La mise en place du projet nécessite les services :
 La mise en place du front office et du back office nécessite de configurer 2 virtualhosts.
 On considère que les deux parties sont placée respectivement dans :
  - Front office : `/var/www/ainori_frontoffice`
- - Back office : `/var/www/ainori_frontoffice`
+ - Back office : `/var/www/ainori_backoffice`
 
 Pour qu'apache puisse accéder à ces dossiers, il est important de donner les droits des dossiers
 ainori_frontoffice et ainori_frontoffice (et leurs sous-dossiers) à l'utilisateur www-data.
+Pour cela, éxécuter `chown -R www-data .` dans le dossier `/var/www`.
 
 Fichier de virtualhost, à placer dans `/etc/apache2/sites-available/` :
 ```apacheconf 
